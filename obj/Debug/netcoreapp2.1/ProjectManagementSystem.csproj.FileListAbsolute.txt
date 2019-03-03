@@ -1,0 +1,14 @@
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\bin\Debug\netcoreapp2.1\ProjectManagementSystem.deps.json
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\bin\Debug\netcoreapp2.1\ProjectManagementSystem.runtimeconfig.json
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\bin\Debug\netcoreapp2.1\ProjectManagementSystem.runtimeconfig.dev.json
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\bin\Debug\netcoreapp2.1\ProjectManagementSystem.dll
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\obj\Debug\netcoreapp2.1\ProjectManagementSystem.csprojAssemblyReference.cache
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\obj\Debug\netcoreapp2.1\ProjectManagementSystem.csproj.CoreCompileInputs.cache
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\obj\Debug\netcoreapp2.1\ProjectManagementSystem.RazorAssemblyInfo.cache
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\obj\Debug\netcoreapp2.1\ProjectManagementSystem.RazorAssemblyInfo.cs
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\obj\Debug\netcoreapp2.1\ProjectManagementSystem.AssemblyInfoInputs.cache
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\obj\Debug\netcoreapp2.1\ProjectManagementSystem.AssemblyInfo.cs
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\obj\Debug\netcoreapp2.1\ProjectManagementSystem.RazorTargetAssemblyInfo.cache
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\bin\Debug\netcoreapp2.1\ProjectManagementSystem.pdb
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\obj\Debug\netcoreapp2.1\ProjectManagementSystem.dll
+C:\1Data D\Bakalářská práce\New Version with Material\ProjectManagementSystem\ProjectManagementSystem\obj\Debug\netcoreapp2.1\ProjectManagementSystem.pdb

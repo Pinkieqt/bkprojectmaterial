@@ -1,0 +1,32 @@
+.fill-space {
+  flex: 1 1 auto;
+}
+
+.myBtn{
+  width: 100%; 
+  min-height: 120%;
+  text-align: left;
+  padding-left: 10%;
+}
+
+.myHorizontalDivider{
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
+}
+
+.material-icons{
+  font-size: 22px;
+}
+
+/* Sidenav styles */
+.mySidenav {
+  width: 12vw;
+  border: 0px;
+}
+
+/* Checkbox - archiv */
+.checkBoxStyle{
+  position: absolute;
+  bottom: 15px;
+  padding-left: 10%;
+}
