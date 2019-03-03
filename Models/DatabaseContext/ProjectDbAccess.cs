@@ -2,12 +2,11 @@
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
-using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
-using System.Text;
 using System.Linq;
 using System;
 using PrjctManagementSystem.Controllers;
+using ProjectManagementSystem;
 
 namespace PrjctManagementSystem.Models
 {

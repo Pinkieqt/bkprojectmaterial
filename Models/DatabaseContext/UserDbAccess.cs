@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using PrjctManagementSystem.Controllers;
+using ProjectManagementSystem;
 
 namespace PrjctManagementSystem.Models
 {
