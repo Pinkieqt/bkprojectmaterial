@@ -1,9 +1,7 @@
-import { Injectable, Inject } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { JwtHelper } from 'angular2-jwt';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+//import { JwtHelperService } from '@auth0/angular-jwt';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthorizationService {
@@ -11,17 +9,20 @@ export class AuthorizationService {
   myUrl: string;
 
   constructor(
-    private Jwthelper: JwtHelper,
-    private http: Http,
-    @Inject('BASE_URL') baseUrl: string
+    //private Jwthelper: JwtHelperService,
+    private http: HttpClient
   ){
-    this.myUrl = baseUrl;
+    this.myUrl = location.origin;
   }
   
   loginUser(loginmodel)
   {
-    return this.http.post(this.myUrl + 'api/User/Login', loginmodel)
-      .map((response: Response) => response.json())
+    return this.http.post(this.myUrl + '/api/User/Login', loginmodel)
+      .pipe(map(data => 
+        {
+          if(data)
+            return data;
+      }))
   }
 
   public isLoggedIn(): boolean {
@@ -30,7 +31,8 @@ export class AuthorizationService {
     {
       return false;
     }
-    return !this.Jwthelper.isTokenExpired(token);
+    return true;
+    //return !this.Jwthelper.isTokenExpired(token);
   }
 
   logout() {

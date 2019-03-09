@@ -7,14 +7,14 @@ export class UserService {
 
   myUrl: string;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.myUrl = baseUrl;
+  constructor(private http: HttpClient) {
+    this.myUrl = location.origin;
   }
 
   //Fetching user
   getUsers() {
     const token = localStorage.getItem("jwt");
-    return this.http.get(this.myUrl + 'api/User/Fetch', { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.get(this.myUrl + '/api/User/Fetch', { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -22,14 +22,14 @@ export class UserService {
   //Getting user by login
   getUserByLogin(login) {
     const token = localStorage.getItem("jwt");
-    return this.http.get(this.myUrl + 'api/User/FetchByLogin/' + login, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.get(this.myUrl + '/api/User/FetchByLogin/' + login, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
   //Deleting user
   deleteUser(login) {
     const token = localStorage.getItem("jwt");
-    return this.http.delete(this.myUrl + 'api/User/Delete/' + login, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.delete(this.myUrl + '/api/User/Delete/' + login, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -37,7 +37,7 @@ export class UserService {
   //Adding user
   saveUser(user) {
       const token = localStorage.getItem("jwt");
-      return this.http.post(this.myUrl + 'api/User/Create', user, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+      return this.http.post(this.myUrl + '/api/User/Create', user, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -45,7 +45,7 @@ export class UserService {
   //Editing user
   editUserx(user) {
     const token = localStorage.getItem("jwt");
-    return this.http.put(this.myUrl + 'api/User/Edit', user, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.put(this.myUrl + '/api/User/Edit', user, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 }

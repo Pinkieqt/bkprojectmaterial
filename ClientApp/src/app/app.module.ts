@@ -1,6 +1,9 @@
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, InjectionToken } from '@angular/core';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule, MatTable} from '@angular/material/table';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { MatDividerModule } from '@angular/material/divider';
@@ -17,18 +20,30 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+
 import { HomeComponent } from './_components/home/home.component';
 import { SidenavComponent } from './_components/layout/sidenav/sidenav.component';
+import { LoginComponent } from './_components/login/login.component';
+import { UsersComponent } from './_components/users/users.component';
+
+import { UserService } from './_services/user.service';
+import { CommentService } from './_services/comment.service';
+import { AuthorizationService } from './_services/auth.service';
+import { ProjectService } from './_services/project.service';
+import { AuthenticationGuard } from './_guards/authentication.guard';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    SidenavComponent
+    SidenavComponent,
+    LoginComponent,
+    UsersComponent
   ],
   imports: [
     FlexLayoutModule,
+    MatTableModule,
     MatIconModule,
     MatGridListModule,
     MatDividerModule,
@@ -46,11 +61,15 @@ import { SidenavComponent } from './_components/layout/sidenav/sidenav.component
     MatSidenavModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' }, //Login
+      { path: '', component: HomeComponent, canActivate: [AuthenticationGuard], pathMatch: 'full' }, //Login
+      { path: 'login', component: LoginComponent },
+      { path: 'users', component: UsersComponent, canActivate: [AuthenticationGuard] },
     ])
   ],
-  providers: [],
+  providers: [UserService, AuthorizationService, ProjectService, AuthenticationGuard, CommentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

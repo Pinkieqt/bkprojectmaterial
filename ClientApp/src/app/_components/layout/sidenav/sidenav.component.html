@@ -1,90 +1,78 @@
-<div [class.alternative]="otherTheme">
-
-<!-- Horní toolbar a jeho tlačítka -->
-<mat-toolbar color="primary" style="position: sticky; top: 0; z-index: 10; height: 5vh;">
-  <!-- Levá strana -->
-    <button type="button" mat-button (click)="drawer.toggle()"><mat-icon><i class="material-icons">menu</i></mat-icon> Menu</button>
-      <span class="myHorizontalDivider">|</span>
-    <button type="button" mat-button (click)="drawer.toggle()"><mat-icon><i class="material-icons">face</i></mat-icon> Uživatelé</button>
-      <span class="myHorizontalDivider">|</span>
-    <button type="button" mat-button (click)="drawer.toggle()"><mat-icon><i class="material-icons">settings</i></mat-icon> Nastavení</button>
-      
-    <!-- Přidání space na levý / pravy -->
-    <span class="fill-space"></span>
-
-  <!-- Pravá strana -->
-    <span>
-      <button type="button" mat-icon-button (click)="changeTheme()"><mat-icon><i class="material-icons">opacity</i></mat-icon></button>
-      <span>|</span>
-      <button type="button" mat-button (click)="drawer.toggle()"><mat-icon><i class="material-icons">power_settings_new</i></mat-icon> Odhlásit se</button>
-    </span>
-</mat-toolbar>
-<mat-sidenav-container fullscreen>
-    <mat-sidenav #drawer mode="side" opened class="mySidenav">
-      <mat-toolbar color="primary" style="z-index: 0; height: 5vh;">
-      </mat-toolbar>
-      <div style="overflow-y: auto;">
-        <!-- Boční menu tady -->
-
-        <!-- 
-dashboard - home
---
-novy projekt
----
-projekty -> menu
----
-uživatelé - asi dám nahoru
-
-         -->
-         <!-- Button na dashboard -->
-        <button type="button" mat-button (click)="drawer.toggle()" class="myBtn">
-          <mat-icon><i class="material-icons">home</i></mat-icon> Dashboard
-        </button>
-  
-         <!-- Button na nový projekt -->
-        <button type="button" mat-button (click)="drawer.toggle()" class="myBtn">
-            <mat-icon><i class="material-icons">add</i></mat-icon> Nový projekt
-        </button>
-
-        <mat-divider></mat-divider>
-
-        <!-- Rendering a fetching projektů -->
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Projekt 1
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p><mat-icon><i class="material-icons">add</i></mat-icon>První možnost</p>
-            <p><mat-icon><i class="material-icons">add</i></mat-icon>Druhá možnost</p>
-          </mat-expansion-panel>
+<div *ngIf="isLoggedIn">
+  <div [class.alternative]="otherTheme">
+    <!-- Horní toolbar a jeho tlačítka -->
+    <mat-toolbar color="primary" style="position: sticky; top: 0; z-index: 10; height: 5vh;">
+      <!-- Levá strana -->
+        <button type="button" mat-button (click)="drawer.toggle()"><mat-icon><i class="material-icons">menu</i></mat-icon> Menu</button>
+          <span class="myHorizontalDivider">|</span>
+        <button type="button" mat-button [routerLink]='["/users"]'><mat-icon><i class="material-icons">face</i></mat-icon> Uživatelé</button>
+          <span class="myHorizontalDivider">|</span>
+        <button type="button" mat-button (click)="drawer.toggle()"><mat-icon><i class="material-icons">settings</i></mat-icon> Nastavení</button>
           
-          <mat-expansion-panel>
+        <!-- Přidání space na levý / pravy -->
+        <span class="fill-space"></span>
+
+      <!-- Pravá strana -->
+        <span>
+          <button type="button" mat-icon-button (click)="changeTheme()"><mat-icon><i class="material-icons">opacity</i></mat-icon></button>
+          <span>|</span>
+          <button type="button" mat-button (click)="logout()"><mat-icon><i class="material-icons">power_settings_new</i></mat-icon> Odhlásit se</button>
+        </span>
+    </mat-toolbar>
+    <mat-sidenav-container fullscreen>
+      <mat-sidenav #drawer mode="side" opened class="mySidenav">
+        <mat-toolbar color="primary" style="z-index: 0; height: 5vh;">
+        </mat-toolbar>
+
+        <!-- Boční menu tady -->
+        <div style="overflow-y: auto;">
+          <!-- Button na dashboard -->
+          <button type="button" mat-button (click)="drawer.toggle()" class="myBtn">
+            <mat-icon><i class="material-icons">home</i></mat-icon> Dashboard
+          </button>
+    
+          <!-- Button na nový projekt -->
+          <button type="button" mat-button (click)="drawer.toggle()" class="myBtn">
+              <mat-icon><i class="material-icons">add</i></mat-icon> Nový projekt
+          </button>
+
+          <mat-divider></mat-divider>
+
+          <!-- Rendering a fetching projektů -->
+          <mat-accordion>
+            <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  Projekt 2
+                  Projekt 1
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <p><mat-icon><i class="material-icons">add</i></mat-icon>První možnost</p>
               <p><mat-icon><i class="material-icons">add</i></mat-icon>Druhá možnost</p>
-              <p><mat-icon><i class="material-icons">add</i></mat-icon>Třetí možnost</p>
-              <p><mat-icon><i class="material-icons">add</i></mat-icon>Čtvrtá možnost</p>
-              <p><mat-icon><i class="material-icons">add</i></mat-icon>Pátá možnost</p>
             </mat-expansion-panel>
-        </mat-accordion>
-
-
-
-      </div>
-      <mat-checkbox class="checkBoxStyle">Zahrnout archív</mat-checkbox>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <mat-toolbar color="primary" style="z-index: 0; height:5vh;">
-      </mat-toolbar>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-
-
+            
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Projekt 2
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p><mat-icon><i class="material-icons">add</i></mat-icon>První možnost</p>
+                <p><mat-icon><i class="material-icons">add</i></mat-icon>Druhá možnost</p>
+                <p><mat-icon><i class="material-icons">add</i></mat-icon>Třetí možnost</p>
+                <p><mat-icon><i class="material-icons">add</i></mat-icon>Čtvrtá možnost</p>
+                <p><mat-icon><i class="material-icons">add</i></mat-icon>Pátá možnost</p>
+              </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <mat-checkbox class="checkBoxStyle">Zahrnout archív</mat-checkbox>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <mat-toolbar color="primary" style="z-index: 0; height:5vh;">
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
 </div>
+
+<div *ngIf="!isLoggedIn"><app-login></app-login></div>

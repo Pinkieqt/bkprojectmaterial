@@ -1,0 +1,29 @@
+<table mat-table *ngIf="userList">
+    <thead>
+            <tr mat-header-row>
+                <th mat-header-cell>Id</th>
+                <th mat-header-cell>Login</th>
+                <th mat-header-cell>Křestní jméno</th>
+                <th mat-header-cell>Příjmení</th>
+                <th mat-header-cell>Email</th>
+                <th mat-header-cell>Role</th>
+                <th colspan="2" mat-header-cell>Akce</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr mat-row *ngFor="let tmp of userList">
+                <td mat-cell>{{ tmp.id }}</td>
+                <td mat-cell>{{ tmp.login }}</td>
+                <td mat-cell>{{ tmp.first_name }}</td>
+                <td mat-cell>{{ tmp.last_name }}</td>
+                <td mat-cell>{{ tmp.email }}</td>
+                <td mat-cell>{{ tmp.role }}</td>
+                <td mat-cell>
+                <a [routerLink]="['/edit_user', tmp.login]">Editovat</a>
+                </td>
+                <td mat-cell>
+                <a [routerLink]="" (click)="deleteUser(tmp.login, tmp.role)">Smazat</a>
+                </td>
+            </tr>
+            </tbody>
+  </table>

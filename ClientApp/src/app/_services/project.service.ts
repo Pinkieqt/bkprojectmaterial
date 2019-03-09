@@ -7,14 +7,14 @@ export class ProjectService {
 
   myUrl: string;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.myUrl = baseUrl;
+  constructor(private http: HttpClient) {
+    this.myUrl = location.origin;
   }
 
   //Adding project
   saveProject(prjct) {
     const token = localStorage.getItem("jwt");
-    return this.http.post(this.myUrl + 'api/Project/Create', prjct, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.post(this.myUrl + '/api/Project/Create', prjct, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -22,7 +22,7 @@ export class ProjectService {
   getProjectsByUserId(userId)
   {
     const token = localStorage.getItem("jwt");
-    return this.http.get(this.myUrl + 'api/Project/Fetch/' + userId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.get(this.myUrl + '/api/Project/Fetch/' + userId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -30,7 +30,7 @@ export class ProjectService {
   getProjectsByParticipantUserId(userId)
   {
     const token = localStorage.getItem("jwt");
-    return this.http.get(this.myUrl + 'api/Project/FetchByParticipant/' + userId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.get(this.myUrl + '/api/Project/FetchByParticipant/' + userId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -38,7 +38,7 @@ export class ProjectService {
   getProjectByItsId(projectId)
   {
     const token = localStorage.getItem("jwt");
-    return this.http.get(this.myUrl + 'api/Project/FetchByProjectId/' + projectId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.get(this.myUrl + '/api/Project/FetchByProjectId/' + projectId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -46,7 +46,7 @@ export class ProjectService {
   deleteProject(projectId)
   {
     const token = localStorage.getItem("jwt");
-    return this.http.delete(this.myUrl + 'api/Project/Delete/' + projectId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.delete(this.myUrl + '/api/Project/Delete/' + projectId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -56,7 +56,7 @@ export class ProjectService {
   saveTask(tsk)
   {
     const token = localStorage.getItem("jwt");
-    return this.http.post(this.myUrl + 'api/Task/Create', tsk, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.post(this.myUrl + '/api/Task/Create', tsk, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -65,7 +65,7 @@ export class ProjectService {
   {
     const token = localStorage.getItem("jwt");
     tsk.Id = id;
-    return this.http.put(this.myUrl + 'api/Task/Edit', tsk, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.put(this.myUrl + '/api/Task/Edit', tsk, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -74,7 +74,7 @@ export class ProjectService {
   {
     const token = localStorage.getItem("jwt");
     var data = {status: status, id: id};
-    return this.http.put(this.myUrl + 'api/Task/EditStatus/', data, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.put(this.myUrl + '/api/Task/EditStatus/', data, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
   
@@ -82,7 +82,7 @@ export class ProjectService {
   deleteTask(id) 
   {
     const token = localStorage.getItem("jwt");
-    return this.http.delete(this.myUrl + 'api/Task/Delete/' + id, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.delete(this.myUrl + '/api/Task/Delete/' + id, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -90,7 +90,7 @@ export class ProjectService {
   archiveTask(id)
   {
     const token = localStorage.getItem("jwt");
-    return this.http.post(this.myUrl + 'api/Task/Archive/' + id, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.post(this.myUrl + '/api/Task/Archive/' + id, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -98,7 +98,7 @@ export class ProjectService {
   getAllTasksByProjectId(prjctId)
   {
     const token = localStorage.getItem("jwt");
-    return this.http.get(this.myUrl + 'api/Task/FetchAll/' + prjctId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.get(this.myUrl + '/api/Task/FetchAll/' + prjctId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -106,7 +106,7 @@ export class ProjectService {
   getTasksByProjectId(prjctId)
   {
     const token = localStorage.getItem("jwt");
-    return this.http.get(this.myUrl + 'api/Task/Fetch/' + prjctId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.get(this.myUrl + '/api/Task/Fetch/' + prjctId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
@@ -114,7 +114,7 @@ export class ProjectService {
   getArchivedTasksByProjectId(prjctId)
   {
     const token = localStorage.getItem("jwt");
-    return this.http.get(this.myUrl + 'api/Task/FetchArchived/' + prjctId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.get(this.myUrl + '/api/Task/FetchArchived/' + prjctId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 }
