@@ -1,29 +1,59 @@
-<table mat-table *ngIf="userList">
-    <thead>
-            <tr mat-header-row>
-                <th mat-header-cell>Id</th>
-                <th mat-header-cell>Login</th>
-                <th mat-header-cell>Křestní jméno</th>
-                <th mat-header-cell>Příjmení</th>
-                <th mat-header-cell>Email</th>
-                <th mat-header-cell>Role</th>
-                <th colspan="2" mat-header-cell>Akce</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr mat-row *ngFor="let tmp of userList">
-                <td mat-cell>{{ tmp.id }}</td>
-                <td mat-cell>{{ tmp.login }}</td>
-                <td mat-cell>{{ tmp.first_name }}</td>
-                <td mat-cell>{{ tmp.last_name }}</td>
-                <td mat-cell>{{ tmp.email }}</td>
-                <td mat-cell>{{ tmp.role }}</td>
-                <td mat-cell>
-                <a [routerLink]="['/edit_user', tmp.login]">Editovat</a>
-                </td>
-                <td mat-cell>
-                <a [routerLink]="" (click)="deleteUser(tmp.login, tmp.role)">Smazat</a>
-                </td>
-            </tr>
-            </tbody>
-  </table>
+<mat-grid-list cols="1" rowHeight="95%">
+    <mat-grid-tile>
+        <mat-card class="myCardStyle">
+            <mat-card-header>
+                <!-- Levá strana -->
+                <mat-card-title class="myHeaderStyle">Seznam uživatelů</mat-card-title>
+                <!-- Vyplnění středu -->
+                <span class="fill-space"></span>
+                <!-- Pravá strana -->
+                <button type="button" mat-button color="primary" (click)="openAddUserDialog()">
+                    <mat-icon><i class="material-icons">person_add</i></mat-icon> Registrace nového uživatele 
+                </button>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="myContainer">
+                    <table mat-table [dataSource]="userList" class="mat-elevation-z8">
+                        <ng-container matColumnDef="id">
+                            <th mat-header-cell *matHeaderCellDef> Id </th>
+                            <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="login">
+                            <th mat-header-cell *matHeaderCellDef> Login </th>
+                            <td mat-cell *matCellDef="let user"> {{user.login}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="fname">
+                            <th mat-header-cell *matHeaderCellDef> First name </th>
+                            <td mat-cell *matCellDef="let user"> {{user.first_name}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="lname">
+                            <th mat-header-cell *matHeaderCellDef> Last name </th>
+                            <td mat-cell *matCellDef="let user"> {{user.last_name}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="email">
+                            <th mat-header-cell *matHeaderCellDef> Email </th>
+                            <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="role">
+                            <th mat-header-cell *matHeaderCellDef> Role </th>
+                            <td mat-cell *matCellDef="let user"> {{user.role}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="akce">
+                                <th mat-header-cell *matHeaderCellDef> Akce </th>
+                                <td mat-cell *matCellDef="let user">
+                                    <button type="button" mat-icon-button matTooltip="Smazat uživatele" (click)="deleteUser(user.login, user.role)">
+                                        <mat-icon><i class="material-icons">delete</i></mat-icon>
+                                    </button>
+                                    <button type="button" mat-icon-button matTooltip="Editovat uživatele" (click)="openEditDialog(user.first_name, user.last_name, user.email, user.login)">
+                                        <mat-icon><i class="material-icons">edit</i></mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

@@ -14,7 +14,7 @@
 
       <!-- Pravá strana -->
         <span>
-          <button type="button" mat-icon-button (click)="changeTheme()"><mat-icon><i class="material-icons">opacity</i></mat-icon></button>
+          <button type="button" mat-icon-button matTooltip="Změnit barvy" (click)="changeTheme()"><mat-icon><i class="material-icons">opacity</i></mat-icon></button>
           <span>|</span>
           <button type="button" mat-button (click)="logout()"><mat-icon><i class="material-icons">power_settings_new</i></mat-icon> Odhlásit se</button>
         </span>
@@ -27,7 +27,7 @@
         <!-- Boční menu tady -->
         <div style="overflow-y: auto;">
           <!-- Button na dashboard -->
-          <button type="button" mat-button (click)="drawer.toggle()" class="myBtn">
+          <button type="button" mat-button [routerLink]='[""]' class="myBtn">
             <mat-icon><i class="material-icons">home</i></mat-icon> Dashboard
           </button>
     

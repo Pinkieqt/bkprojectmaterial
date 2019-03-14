@@ -3,7 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, InjectionToken } from '@angular/core';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule, MatTable} from '@angular/material/table';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { MatDividerModule } from '@angular/material/divider';
@@ -25,6 +29,8 @@ import { HomeComponent } from './_components/home/home.component';
 import { SidenavComponent } from './_components/layout/sidenav/sidenav.component';
 import { LoginComponent } from './_components/login/login.component';
 import { UsersComponent } from './_components/users/users.component';
+import { DialogEditDialog } from './_components/users/users.component';
+import { DialogAddUser } from './_components/users/users.component';
 
 import { UserService } from './_services/user.service';
 import { CommentService } from './_services/comment.service';
@@ -39,10 +45,17 @@ import { AuthenticationGuard } from './_guards/authentication.guard';
     HomeComponent,
     SidenavComponent,
     LoginComponent,
-    UsersComponent
+    UsersComponent,
+    DialogEditDialog,
+    DialogAddUser
   ],
+  entryComponents: [DialogEditDialog, DialogAddUser],
   imports: [
     FlexLayoutModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatDialogModule,
     MatTableModule,
     MatIconModule,
     MatGridListModule,

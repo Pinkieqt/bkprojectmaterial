@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>Registrace uživatele</h1>
+<div mat-dialog-content>
+    <form [formGroup]="userForm" #formDir="ngForm">
+        <mat-form-field>
+            <input type="text" matInput placeholder="Přihlašovací jméno" formControlName="login">
+            <mat-error *ngIf="userForm.controls['login'].hasError('required')">{{getErrorMessage("login")}}</mat-error>
+            <mat-error *ngIf="userForm.controls['login'].hasError('minlength')">{{getErrorMessage("login")}}</mat-error>
+            <mat-error *ngIf="userForm.controls['login'].hasError('maxlength')">{{getErrorMessage("login")}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="password" matInput placeholder="Heslo" formControlName="password">
+            <mat-error *ngIf="userForm.controls['password'].hasError('required')">{{getErrorMessage("password")}}</mat-error>
+            <mat-error *ngIf="userForm.controls['password'].hasError('minlength')">{{getErrorMessage("password")}}</mat-error>
+            <mat-error *ngIf="userForm.controls['password'].hasError('maxlength')">{{getErrorMessage("password")}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Křestní jméno" formControlName="first_name">
+            <mat-error *ngIf="userForm.controls['first_name'].hasError('required')">{{getErrorMessage("first_name")}}</mat-error>
+            <mat-error *ngIf="userForm.controls['first_name'].hasError('maxlength')">{{getErrorMessage("first_name")}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="text" matInput placeholder="Příjmení" formControlName="last_name">
+            <mat-error *ngIf="userForm.controls['last_name'].hasError('required')">{{getErrorMessage("last_name")}}</mat-error>
+            <mat-error *ngIf="userForm.controls['last_name'].hasError('maxlength')">{{getErrorMessage("last_name")}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input type="email" matInput placeholder="Email" formControlName="email">
+            <mat-error *ngIf="userForm.controls['email'].hasError('required')">{{getErrorMessage("email")}}</mat-error>
+            <mat-error *ngIf="userForm.controls['email'].hasError('email')">{{getErrorMessage("email")}}</mat-error>
+            <mat-error *ngIf="userForm.controls['email'].hasError('maxlength')">{{getErrorMessage("email")}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Role" formControlName="role">
+                <mat-option value="1">Administrátor</mat-option>
+                <mat-option value="2">Uživatel umožňující změny</mat-option>
+                <mat-option value="3">Uživatel pouze pro čtení</mat-option>
+            </mat-select>
+            <mat-error *ngIf="userForm.controls['role'].hasError('required')">{{getErrorMessage("role")}}</mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()"> Storno </button>
+    <button mat-button (click)="onOkClick()" cdkFocusInitial>
+       Registrovat uživatele 
+    </button>
+</div>

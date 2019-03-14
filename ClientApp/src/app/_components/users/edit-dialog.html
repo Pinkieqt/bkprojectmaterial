@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Editace uživatele</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <input type="text" matInput [(ngModel)]="data.fname" placeholder="Křestní jméno" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input type="text" matInput [(ngModel)]="data.lname" placeholder="Příjmení" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input type="text" matInput [(ngModel)]="data.email" placeholder="Email" required>
+    </mat-form-field>
+    <!-- <mat-form-field>
+        <mat-select placeholder="Role" [(ngModel)]="data.role" required>
+            <mat-option value="3">Uživatel pouze pro čtení</mat-option>
+            <mat-option value="2">Uživatel umožňující změny</mat-option>
+        </mat-select>
+    </mat-form-field> -->
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()"> Storno </button>
+  <button mat-button (click)="onOkClick(data.fname, data.lname, data.email, data.login)" cdkFocusInitial> Editovat </button>
+</div>
