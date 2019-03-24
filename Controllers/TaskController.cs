@@ -15,6 +15,9 @@ namespace PrjctManagementSystem.Controllers
         [Route("api/Task/Create")]
         public int? Create([FromBody] TaskModel tsk)
         {
+            TaskModel x = tsk;
+            
+
             return tskObject.AddTask(tsk);
         }
 
@@ -46,22 +49,22 @@ namespace PrjctManagementSystem.Controllers
             return tskObject.ArchiveTask(id);
         }
 
+        //Getting one task by its id
+        [HttpGet]
+        [Authorize(Roles="admin, editableUser, readOnlyUser")]
+        [Route("api/Task/Fetch/{id}")]
+        public IEnumerable<TaskModel> Fetch(int id)
+        {
+            return tskObject.GetTask(id);
+        }
+
         //Getting all tasks by project Id
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/Task/FetchAll/{id}")]
         public IEnumerable<TaskModel> FetchAll(int id)
         {
-            return tskObject.GetTasks(id);
-        }
-
-        //Getting tasks by project Id
-        [HttpGet]
-        [Authorize(Roles="admin, editableUser, readOnlyUser")]
-        [Route("api/Task/Fetch/{id}")]
-        public IEnumerable<TaskModel> Fetch(int id)
-        {
-            return tskObject.GetTasks(id);
+            return tskObject.GetAllTasks(id);
         }
 
         //Getting archived tasks by project Id

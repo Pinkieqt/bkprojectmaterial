@@ -32,7 +32,7 @@
           </button>
     
           <!-- Button na nový projekt -->
-          <button type="button" mat-button (click)="drawer.toggle()" class="myBtn">
+          <button type="button" mat-button [routerLink]='["/projectCreate"]' class="myBtn">
               <mat-icon><i class="material-icons">add</i></mat-icon> Nový projekt
           </button>
 
@@ -40,27 +40,34 @@
 
           <!-- Rendering a fetching projektů -->
           <mat-accordion>
-            <mat-expansion-panel>
+            <!-- Fetching primary projektů -->
+            <mat-expansion-panel *ngFor="let project of projectList">
               <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Projekt 1
+                <mat-panel-title class="myPanelTitleStyle">
+                  {{ project.name }}
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <p><mat-icon><i class="material-icons">add</i></mat-icon>První možnost</p>
-              <p><mat-icon><i class="material-icons">add</i></mat-icon>Druhá možnost</p>
+                <button type="button" mat-button [routerLink]='["/project/", project.id]' class="myBtn">
+                    <mat-icon><i class="material-icons">assignment</i></mat-icon> Úkoly
+                </button>
+                <button type="button" mat-button [routerLink]='["/projectCreate"]' class="myBtn">
+                    <mat-icon><i class="material-icons">bug_report</i></mat-icon> Bugy
+                </button>
             </mat-expansion-panel>
             
-            <mat-expansion-panel>
+            <!-- Fetching shared projektů -->
+            <mat-expansion-panel *ngFor="let sharedProject of sharedProjectList">
                 <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Projekt 2
+                  <mat-panel-title class="myPanelTitleStyle">
+                    {{ sharedProject.name }}
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <p><mat-icon><i class="material-icons">add</i></mat-icon>První možnost</p>
-                <p><mat-icon><i class="material-icons">add</i></mat-icon>Druhá možnost</p>
-                <p><mat-icon><i class="material-icons">add</i></mat-icon>Třetí možnost</p>
-                <p><mat-icon><i class="material-icons">add</i></mat-icon>Čtvrtá možnost</p>
-                <p><mat-icon><i class="material-icons">add</i></mat-icon>Pátá možnost</p>
+                  <button type="button" mat-button [routerLink]='["/projectCreate"]' class="myBtn">
+                      <mat-icon><i class="material-icons">assignment</i></mat-icon> Úkoly
+                  </button>
+                  <button type="button" mat-button [routerLink]='["/projectCreate"]' class="myBtn">
+                      <mat-icon><i class="material-icons">bug_report</i></mat-icon> Bugy
+                  </button>
               </mat-expansion-panel>
           </mat-accordion>
         </div>

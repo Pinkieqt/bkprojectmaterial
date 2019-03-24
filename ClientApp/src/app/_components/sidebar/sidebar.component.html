@@ -1,0 +1,9 @@
+<div class="container">
+    <div *ngFor="let task of taskList" class="card" >
+        <button mat-button class="myButtonStyle" (click)="navigateToTask(task.id)">
+            <mat-card class="myCardStyle">{{ task.name }}</mat-card>
+        </button>
+    </div> 
+    
+    <mat-checkbox class="checkBoxStyle" (change)="checkValue($event)" >Zahrnout archív</mat-checkbox>                                                                                                                                                                                                                                       
+</div>

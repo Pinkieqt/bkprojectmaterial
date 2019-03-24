@@ -66,7 +66,6 @@ namespace PrjctManagementSystem.Models
                 return result;
             }
         }
-
         //Archiving task
         public int? ArchiveTask(int id)
         {
@@ -85,11 +84,11 @@ namespace PrjctManagementSystem.Models
         }
         
         //Fetching record of task by its id of project
-        public IEnumerable<TaskModel> GetTasks(int projectId)
+        public IEnumerable<TaskModel> GetTask(int taskId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                return db.GetList<TaskModel>(new { Fk_Project_Id = projectId });
+                return db.GetList<TaskModel>(new { id = taskId });
             }
         }
         

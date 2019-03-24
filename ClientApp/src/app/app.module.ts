@@ -1,9 +1,9 @@
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, InjectionToken } from '@angular/core';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTableModule, MatTable} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -31,6 +31,10 @@ import { LoginComponent } from './_components/login/login.component';
 import { UsersComponent } from './_components/users/users.component';
 import { DialogEditDialog } from './_components/users/users.component';
 import { DialogAddUser } from './_components/users/users.component';
+import { ProjectCreateComponent } from './_components/projectCreate/projectCreate.component';
+import { ProjectComponent, DialogAddTask, DialogEditTask } from './_components/project/project.component';
+import { SidebarComponent } from './_components/sidebar/sidebar.component';
+import { BugComponent } from './_components/bug/bug.component';
 
 import { UserService } from './_services/user.service';
 import { CommentService } from './_services/comment.service';
@@ -46,12 +50,19 @@ import { AuthenticationGuard } from './_guards/authentication.guard';
     SidenavComponent,
     LoginComponent,
     UsersComponent,
+    ProjectCreateComponent,
     DialogEditDialog,
-    DialogAddUser
+    DialogAddUser,
+    BugComponent,
+    ProjectComponent,
+    SidebarComponent,
+    DialogAddTask,
+    DialogEditTask
   ],
-  entryComponents: [DialogEditDialog, DialogAddUser],
+  entryComponents: [DialogEditDialog, DialogAddUser, DialogAddTask, DialogEditTask],
   imports: [
     FlexLayoutModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
     MatTooltipModule,
     MatSnackBarModule,
@@ -80,6 +91,10 @@ import { AuthenticationGuard } from './_guards/authentication.guard';
       { path: '', component: HomeComponent, canActivate: [AuthenticationGuard], pathMatch: 'full' }, //Login
       { path: 'login', component: LoginComponent },
       { path: 'users', component: UsersComponent, canActivate: [AuthenticationGuard] },
+      { path: 'projectCreate', component: ProjectCreateComponent, canActivate: [AuthenticationGuard] },
+      { path: 'project/:id', component: ProjectComponent, canActivate: [AuthenticationGuard] },
+      { path: 'project/:id/:taskId', component: ProjectComponent, canActivate: [AuthenticationGuard] },
+      { path: 'bug/:id', component: BugComponent, canActivate: [AuthenticationGuard] },
     ])
   ],
   providers: [UserService, AuthorizationService, ProjectService, AuthenticationGuard, CommentService],

@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,11 +15,13 @@ export class LoginComponent implements OnInit{
     private loginForm: FormGroup;
 
     private authorizedLogin: boolean = true;
+    public isLoggingIn: boolean = false;
 
     constructor(
       private formBuilder: FormBuilder,
       private authService: AuthorizationService,
       private router: Router,
+      private snackBar: MatSnackBar
     ) {}
   
     ngOnInit() {
@@ -35,8 +38,11 @@ export class LoginComponent implements OnInit{
     {
         if (!this.loginForm.valid) 
         {
+            this.isLoggingIn = false;
+            this.snackBar.open("Pole pro přihlášení nesmí být prázdná.", null, {duration: 2000});
             return;
         }
+        this.isLoggingIn = true;
         this.authService.loginUser(this.loginForm.value)
         .subscribe(response => {
             let token = (<any>response).token;
@@ -45,10 +51,9 @@ export class LoginComponent implements OnInit{
             this.authorizedLogin = true;
             this.router.navigate([""]);
         }, error => {
-            
-        console.log(error);
+            this.isLoggingIn = false;
+            this.snackBar.open("Kombinace přihlašovacího jména a hesla je nesprávná. Zkuste to prosím znovu.", null, {duration: 2000});
             this.authorizedLogin = false;
-            //alert("Invalid username or password.");
         })
     }
 

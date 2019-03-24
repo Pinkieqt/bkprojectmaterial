@@ -1,25 +1,27 @@
-<div class="mybg">
-    <mat-grid-list cols="1" rowHeight="2:1">
-        <form [formGroup]="loginForm" (ngSubmit)="login()" #formDir="ngForm">
-            <mat-grid-tile>
-                <mat-card class="myCardStyle">
-                    <mat-card-header>
-                        <mat-card-title class="myHeaderStyle">Přihlášení</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <mat-form-field class="myInputStyle">
-                            <input type="text" matInput placeholder="Přihlašovací jméno" formControlName="Login" required>
-                        </mat-form-field>
-                        <br>
-                        <mat-form-field class="myInputStyle">
-                            <input type="password" matInput placeholder="Heslo" formControlName="Password" required>
-                        </mat-form-field>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <button mat-button type="submit" class="myBtnStyle">Přihlásit</button>
-                    </mat-card-actions>
-                </mat-card>
-            </mat-grid-tile>
-        </form>
-    </mat-grid-list>
-</div>
+<div class="topBackground"></div>
+<div class="bottomBackground"></div>
+<mat-grid-list cols="1" rowHeight="2:1">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" #formDir="ngForm">
+        <mat-grid-tile>
+            <mat-card class="myCardStyle">
+                <div class="cardBg"></div>
+                <mat-card-header>
+                    <mat-card-title class="myHeaderStyle"><h3>Přihlášení</h3></mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-form-field class="myInputStyle">
+                        <input type="text" matInput placeholder="Přihlašovací jméno" formControlName="Login" required>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="myInputStyle">
+                        <input type="password" matInput placeholder="Heslo" formControlName="Password" required>
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-spinner *ngIf="isLoggingIn" [diameter]="20" class="mySpinner"></mat-spinner>
+                <br>
+                <br *ngIf="!isLoggingIn">
+                <button mat-button type="submit" class="myBtnStyle">Přihlásit</button>
+            </mat-card>
+        </mat-grid-tile>
+    </form>
+</mat-grid-list>

@@ -1,0 +1,34 @@
+.container{
+    position: absolute;
+    top: 0.5vh;
+    left: 5px;
+    right: 5px;
+    bottom: 0.5vh;
+    height: 89vh;
+    width: calc(100% - 10px);
+}
+
+/* Karty */
+.card{
+    height: 9vh;
+}
+
+.myButtonStyle{
+    height: 8vh;
+    width: 100%;
+    border-radius: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.myCardStyle{
+}
+
+
+/* Checkbox - archiv */
+.checkBoxStyle{
+    position: absolute;
+    bottom: 3px;
+    font-size: 12px;
+    left: 5px;
+  }

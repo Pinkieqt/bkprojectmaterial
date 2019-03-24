@@ -1,0 +1,85 @@
+<mat-grid-list cols="1" rowHeight="5vh">
+  <mat-grid-tile [colspan]="1" [rowspan]="1" class="myTileStyle">
+    <!-- Levá strana -->
+    <h4 *ngIf="tmpProject" class="title">Detail úkolu pro projekt "{{ tmpProject.name }}"</h4>
+    <!-- Přidání space na levý / pravy -->
+    <span class="fill-space"></span>
+    <!-- Pravá strana -->
+    <button type="button" mat-icon-button color="primary" (click)="openAddTaskDialog()">
+        <mat-icon><i class="material-icons">add</i></mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="5" rowHeight="90vh">
+  <mat-grid-tile [colspan]="1" [rowspan]="1" class="sidebar">
+    <app-sidebar></app-sidebar>
+  </mat-grid-tile>
+
+  <!-- Main content -->
+  <mat-grid-tile [colspan]="4" [rowspan]="1">
+    <div class="topBar">
+      <!-- Levá strana -->
+      <h4 *ngIf="tmpTask" style="float:left" class="title">{{ tmpTask.name }}</h4>
+
+      <!-- Pravá strana -->
+      <div *ngIf="tmpTask">
+        <button type="button" mat-icon-button style="float:right" (click)="deleteTask()">
+            <mat-icon><i class="material-icons">delete</i></mat-icon>
+        </button>
+        <button type="button" mat-icon-button style="float:right" (click)="archiveTask()">
+            <mat-icon><i class="material-icons">archive</i></mat-icon>
+        </button>
+        <button type="button" mat-icon-button style="float:right" (click)="openEditTaskDialog(tmpTask.id, tmpTask.name, tmpTask.description, tmpTask.priority, tmpTask.labels)">
+            <mat-icon><i class="material-icons">edit</i></mat-icon>
+        </button>
+        <mat-select (selectionChange)="onChangeTask($event.value)" [(value)]="tmpTask.status" placeholder="Status" style="float:right; width: 10%; height: 100%; margin-top: 10px;">
+          <mat-option value="Nezapočatý">Nezapočatý</mat-option>
+          <mat-option value="Započatý">Započatý</mat-option>
+          <mat-option value="Další2">Další2</mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="rowItem">
+          <mat-card class="myCardStyle">
+            <mat-card-header>
+                <mat-card-title><h3>Popis</h3></mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="descriptionContent">
+              <p *ngIf="tmpTask" class="white-space-prewrap contentFont">{{ tmpTask.description }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="rowItem">
+          <mat-card class="myCardStyle">
+            <mat-card-header>
+                <mat-card-title><h3>Vlastnosti</h3></mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="contentFont descriptionContent">
+              <table class="myTableStyle">
+                <tr>
+                  <td><b>Priorita</b></td>
+                  <td *ngIf="tmpTask">{{ tmpTask.priority }}</td>
+                </tr>
+                <tr>
+                  <td><b>Status</b></td>
+                  <td *ngIf="tmpTask">{{ tmpTask.status }}</td>
+                </tr>
+                <tr>
+                  <td><b>Štítky</b></td>
+                  <td *ngIf="tmpTask">{{ tmpTask.labels }}</td>
+                </tr>
+                <tr>
+                  <td><b>Přiřazeno</b></td>
+                  <td *ngIf="tmpTask">zatím nic :)</td>
+                </tr>
+              </table>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

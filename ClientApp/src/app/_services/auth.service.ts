@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 //import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthorizationService {
 
   myUrl: string;
+  public helper = new JwtHelperService();
 
   constructor(
     //private Jwthelper: JwtHelperService,
@@ -31,8 +33,7 @@ export class AuthorizationService {
     {
       return false;
     }
-    return true;
-    //return !this.Jwthelper.isTokenExpired(token);
+    return !this.helper.isTokenExpired(token);
   }
 
   logout() {

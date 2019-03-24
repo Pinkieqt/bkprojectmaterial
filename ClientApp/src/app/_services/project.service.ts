@@ -14,6 +14,7 @@ export class ProjectService {
   //Adding project
   saveProject(prjct) {
     const token = localStorage.getItem("jwt");
+    console.log(prjct);
     return this.http.post(this.myUrl + '/api/Project/Create', prjct, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
@@ -94,19 +95,19 @@ export class ProjectService {
       .pipe(map(res => res));
   }
 
+  //Fetching one task by its id
+  getTask(taskId)
+  {
+    const token = localStorage.getItem("jwt");
+    return this.http.get(this.myUrl + '/api/Task/Fetch/' + taskId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+      .pipe(map(res => res));
+  }
+
   //Fetching tasks based on projectid
   getAllTasksByProjectId(prjctId)
   {
     const token = localStorage.getItem("jwt");
     return this.http.get(this.myUrl + '/api/Task/FetchAll/' + prjctId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
-      .pipe(map(res => res));
-  }
-
-  //Fetching tasks based on projectid
-  getTasksByProjectId(prjctId)
-  {
-    const token = localStorage.getItem("jwt");
-    return this.http.get(this.myUrl + '/api/Task/Fetch/' + prjctId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 

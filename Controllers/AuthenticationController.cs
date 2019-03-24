@@ -66,7 +66,7 @@ namespace PrjctManagementSystem.Controllers
                     issuer: "http://localhost:5000",
                     audience: "http://localhost:5000",
                     claims: claims,                    
-                    expires: DateTime.Now.AddMinutes(60),
+                    expires: DateTime.Now.AddMinutes(15),
                     signingCredentials: signinCredentials
                 );
 

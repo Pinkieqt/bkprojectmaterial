@@ -1,0 +1,86 @@
+.fill-space {
+    flex: 1 1 auto;
+}
+
+.mainContent{
+}
+
+.title{
+    margin-left: 15px;
+}
+
+.myTileStyle{
+    border-bottom: solid 1px #aaaaaa;
+}
+
+
+/* Dialog styly */
+mat-form-field{
+    width: 100%;
+    font-size: 16px;
+}
+
+/* Projekt content styles */
+.topBar{
+    width: 100%;
+    height: 5vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.container{
+    position: absolute;
+    left: 0;
+    top: 5vh;
+    width: 100%;
+    height: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.row{
+    width: 100%;
+    height: 40%;
+    text-align: center;
+    padding: 10px 10px 0px 10px;
+}
+
+.rowItem{
+    display: inline-flex;
+    width: 45%;
+    margin: 3px;
+    height: 95%;
+}
+
+.myCardStyle{
+    width: 90%;
+    height: 80%;
+    margin-top: -5px;
+}
+
+.white-space-prewrap {
+    white-space: pre-wrap;
+}
+
+/* Projekt content styles */
+.contentFont{
+    text-align: left;
+    font-size: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.descriptionContent{
+    overflow: auto;
+}
+
+/* Vlastnosti - table */
+.myTableStyle{
+    width: 100%;   
+    height: 100%;
+}
+
+.myTableStyle td{
+    width: 50%;
+}
