@@ -41,6 +41,7 @@
       </div>
     </div>
     <div class="container">
+      <!-- První řádek -->
       <div class="row">
         <div class="rowItem">
           <mat-card class="myCardStyle">
@@ -79,6 +80,44 @@
             </mat-card-content>
           </mat-card>
         </div>
+      </div>
+      <!-- Druhý řádek -->
+      <div class="row">
+        <div class="rowItem">
+          <mat-card class="myCardStyle">
+            <mat-card-header>
+                <mat-card-title><h3>Komentáře</h3></mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="descriptionContent">
+                <table class="myTableStyle">
+                    <tr *ngFor="let tmp of tmpCommentsList" >
+                      <td>
+                        <p class="commentContent">{{ tmp.content }}</p>
+                      </td>
+                      <td>
+                        <p class="commentContent">({{ tmp.timeChanged | date:'MMM-dd-yyyy'}})</p>
+                      </td>
+                    </tr>
+                  </table>
+                  <form [formGroup]="_commentForm" #formDir="ngForm" class="myCommentFormStyle">
+                      <input matInput placeholder="Komentář" formControlName="Content">
+                      <button mat-icon-button>
+                        <mat-icon aria-label="Přidat komentář" (click)="addComment()">comment</mat-icon>
+                      </button>
+                  </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="rowItem">
+            <mat-card class="myCardStyle">
+              <mat-card-header>
+                  <mat-card-title><h3>Popis</h3></mat-card-title>
+              </mat-card-header>
+              <mat-card-content class="descriptionContent">
+                <p *ngIf="tmpTask" class="white-space-prewrap contentFont">{{ tmpTask.description }}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
       </div>
     </div>
   </mat-grid-tile>

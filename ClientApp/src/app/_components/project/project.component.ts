@@ -3,6 +3,7 @@ import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/
 import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { ProjectService } from './../../_services/project.service';
 import { Component, Inject } from '@angular/core';
+import { CommentService } from 'src/app/_services/comment.service';
 
 @Component({
   selector: 'app-project',
@@ -17,15 +18,26 @@ export class ProjectComponent
   private loggedUserId: number = parseInt(localStorage.getItem("userId"));
   public tmpProject: any;
   public tmpTask: any;
+  public tmpCommentsList: any;
+  private _commentForm: FormGroup;
 
   constructor( 
     private prjctService: ProjectService,
+    private commentService: CommentService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
     )
   {
+    this._commentForm = this.formBuilder.group
+    ({
+      Content: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      TimeChanged: [''],
+      Fk_Owner_Id: [''],
+      Fk_Task_Id: ['']
+    })
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) 
       {
@@ -38,6 +50,9 @@ export class ProjectComponent
   
           //Ziskani daného úkolu z projektu
           this.getTask(this.taskId);
+
+          //Ziskani komentářů k danému úkolu
+          this.getComments(this.taskId);
         })
       }
     })
@@ -119,6 +134,35 @@ export class ProjectComponent
       //Ziskani daného úkolu z projektu
       this.getTask(this.taskId);
     });
+  }
+
+  //comment adding
+  addComment()
+  {
+    if (!this._commentForm.valid)
+    {
+      alert("Pro přidání komentáře je potřeba zadat nějaký text.");
+      return;
+    }
+    this._commentForm.controls['TimeChanged'].setValue(Date.now);
+    this._commentForm.controls['Fk_Owner_Id'].setValue(this.loggedUserId);
+    this._commentForm.controls['Fk_Task_Id'].setValue(this.taskId);
+    this.commentService.saveComment(this._commentForm.value).subscribe((data) => 
+    {
+      this.getComments(this.taskId);
+    }, error => 
+    { 
+      console.log(error);
+    })
+  }
+
+  //ziskani komentařů k danému ukolu
+  getComments(taskID: number)
+  {
+    this.commentService.getComments(taskID).subscribe((data) => 
+    {
+      this.tmpCommentsList = data;
+    })
   }
 }
 

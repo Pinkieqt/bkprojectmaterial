@@ -35,13 +35,15 @@ namespace PrjctManagementSystem.Models
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 
-                string query = @"update tbTask SET name = @name, description = @description where Id = @tskid";
+                string query = @"update tbTask SET name = @name, description = @description, priority = @priority, labels = @labels where Id = @tskid";
 
                 var result = db.Execute(query, new
                 {
                     name = tsk.Name,
                     description = tsk.Description,
                     status = tsk.Status,
+                    priority = tsk.Priority,
+                    labels = tsk.Labels,
                     tskid = tsk.Id
                 });
 

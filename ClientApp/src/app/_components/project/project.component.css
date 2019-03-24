@@ -84,3 +84,9 @@ mat-form-field{
 .myTableStyle td{
     width: 50%;
 }
+
+/* Komentáře */
+.myCommentFormStyle{
+    height: 100px;
+    width: 100%;
+}
