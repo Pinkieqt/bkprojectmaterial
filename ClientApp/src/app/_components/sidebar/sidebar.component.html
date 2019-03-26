@@ -1,5 +1,18 @@
-<div class="container">
+<!-- <div class="container">
     <div *ngFor="let task of taskList" class="card" >
+        <button mat-button class="myButtonStyle" (click)="navigateToTask(task.id)">
+            <mat-card>
+                <div class="title"><b>{{ task.name }}</b></div>
+                <div class="description">{{ task.description }}</div>
+                <div class="participients">-</div>
+
+                <div class="status"></div>
+                <div class="labels" *ngIf="task.labels == 'Administrace'"></div>
+
+            </mat-card>
+        </button>
+    </div> 
+    <div *ngFor="let task of archivedTaskList" class="card" >
         <button mat-button class="myButtonStyle" (click)="navigateToTask(task.id)">
             <mat-card class="myCardStyle">{{ task.name }}</mat-card>
         </button>
@@ -7,3 +20,39 @@
     
     <mat-checkbox class="checkBoxStyle" (change)="checkValue($event)" >Zahrnout archív</mat-checkbox>                                                                                                                                                                                                                                       
 </div>
+ -->
+
+<div class="container">
+    <table>
+        <tr *ngFor="let task of taskList">
+            <td>
+
+            </td>
+        </tr>
+    </table>
+
+
+
+        <div *ngFor="let task of taskList" class="card" >
+            <button mat-button class="myButtonStyle" (click)="navigateToTask(task.id)">
+                <mat-card>
+                    <div class="title"><b>{{ task.name }}</b></div>
+                    <div class="description">{{ task.description }}</div>
+                    <div class="participients">-</div>
+    
+                    <!-- štítky -->
+                    <div class="status"></div>
+                    <div class="labels" *ngIf="task.labels == 'Administrace'"></div>
+    
+                </mat-card>
+            </button>
+        </div> 
+        <div *ngFor="let task of archivedTaskList" class="card" >
+            <button mat-button class="myButtonStyle" (click)="navigateToTask(task.id)">
+                <mat-card class="myCardStyle">{{ task.name }}</mat-card>
+            </button>
+        </div> 
+        
+        <mat-checkbox class="checkBoxStyle" (change)="checkValue($event)" >Zahrnout archív</mat-checkbox>                                                                                                                                                                                                                                       
+    </div>
+    

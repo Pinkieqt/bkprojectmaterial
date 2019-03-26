@@ -8,6 +8,47 @@
     width: calc(100% - 10px);
 }
 
+/* Styl */
+.title{
+    position: absolute;
+    left: 5px;
+    top: 0px;
+    text-align: left;
+    width: 80%;
+    overflow: hidden;
+
+}
+
+.labels{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 5px;
+    height: 5px;
+    border-radius: 1000px;
+    background-color: red;
+}
+
+.description{
+    margin-top: 5px;
+    width: 80%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+    color: #aaaaaa;
+}
+
+.participients{
+    position: absolute;
+    text-align: left;
+    left: 5px;
+    top: 0px;
+    margin-top: 40px;
+    margin-left: 5px;
+}
+
+
 /* Karty */
 .card{
     height: 9vh;
@@ -20,10 +61,6 @@
     padding-left: 0px;
     padding-right: 0px;
 }
-
-.myCardStyle{
-}
-
 
 /* Checkbox - archiv */
 .checkBoxStyle{

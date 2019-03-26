@@ -103,6 +103,14 @@ export class ProjectService {
       .pipe(map(res => res));
   }
 
+  //Fetching archived tasks based on project id
+  getArchivedTask(taskId)
+  {
+    const token = localStorage.getItem("jwt");
+    return this.http.get(this.myUrl + '/api/Task/FetchArchivedTask/' + taskId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+      .pipe(map(res => res));
+  }
+
   //Fetching tasks based on projectid
   getAllTasksByProjectId(prjctId)
   {

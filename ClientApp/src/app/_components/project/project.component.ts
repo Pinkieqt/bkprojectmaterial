@@ -50,6 +50,7 @@ export class ProjectComponent
   
           //Ziskani daného úkolu z projektu
           this.getTask(this.taskId);
+          //this.getArchivedTask(this.taskId);
 
           //Ziskani komentářů k danému úkolu
           this.getComments(this.taskId);
@@ -70,6 +71,18 @@ export class ProjectComponent
   getTask(taskId: number)
   {
     this.prjctService.getTask(taskId).subscribe(data => {
+      if(data)
+      {
+        this.tmpTask = data[0];
+      }
+    }, error => {
+      this.tmpTask = "error";
+    })
+  }
+
+  getArchivedTask(taskId: number)
+  {
+    this.prjctService.getArchivedTask(taskId).subscribe(data => {
       if(data)
       {
         this.tmpTask = data[0];
@@ -112,7 +125,9 @@ export class ProjectComponent
 
   //Status change
   onChangeTask(value){
-    this.prjctService.editTaskStatus(value, this.tmpTask.id);
+    this.prjctService.editTaskStatus(value, this.tmpTask.id).subscribe(result => {
+      
+    });
   }
   
   //Metoda pro zobrazení dialogu pro přidání úkolu
@@ -154,6 +169,24 @@ export class ProjectComponent
     { 
       console.log(error);
     })
+  }
+
+  //comment adding
+  deleteComment(commentId: number)
+  {
+    if(confirm("Jste si jistí, že chcete smazat tento komentář?"))
+    {
+      this.commentService.deleteComment(commentId).subscribe(result => {
+        if (result == 1)
+        {
+          this.snackBar.open("Komentář byl smazán.", null, {duration: 2000});
+          this.getComments(this.taskId);
+        }
+      }, error => {
+        alert("Problém se smazáním komentáře");
+      })
+    }
+    
   }
 
   //ziskani komentařů k danému ukolu

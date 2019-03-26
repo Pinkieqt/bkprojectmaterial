@@ -70,6 +70,15 @@ namespace PrjctManagementSystem.Controllers
         //Getting archived tasks by project Id
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
+        [Route("api/Task/FetchArchivedTask/{id}")]
+        public IEnumerable<ArchivedTaskModel> FetchArchivedTask(int id)
+        {
+            return tskObject.GetArchivedTask(id);
+        }
+
+        //Getting archived tasks by project Id
+        [HttpGet]
+        [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/Task/FetchArchived/{id}")]
         public IEnumerable<ArchivedTaskModel> FetchArchived(int id)
         {

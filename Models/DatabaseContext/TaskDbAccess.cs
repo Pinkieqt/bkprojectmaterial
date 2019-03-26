@@ -93,6 +93,15 @@ namespace PrjctManagementSystem.Models
                 return db.GetList<TaskModel>(new { id = taskId });
             }
         }
+
+        //Fetching record of archived task by its id of project
+        public IEnumerable<ArchivedTaskModel> GetArchivedTask(int taskId)
+        {
+            using (IDbConnection db = new SqlConnection(ConnectionString))
+            {
+                return db.GetList<ArchivedTaskModel>(new { id = taskId });
+            }
+        }
         
         //Fetching all records of tasks by its id of project
         public IEnumerable<TaskModel> GetAllTasks(int projectId)

@@ -14,6 +14,7 @@ export class SidenavComponent
 {
   public projectList: any;
   public sharedProjectList: any;
+  public userName: string;
 
   public otherTheme: boolean = true;
   public isLoggedIn: boolean = false;
@@ -61,6 +62,7 @@ export class SidenavComponent
         {
           if (entry.login == this.currentLogin)
           {
+            this.userName = entry.first_name + " " + entry.last_name;
             localStorage.setItem("userId", entry.id);
             this.currentId = entry.id;
 

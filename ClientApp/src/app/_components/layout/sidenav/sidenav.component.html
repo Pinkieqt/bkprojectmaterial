@@ -16,6 +16,7 @@
         <span>
           <button type="button" mat-icon-button matTooltip="Změnit barvy" (click)="changeTheme()"><mat-icon><i class="material-icons">opacity</i></mat-icon></button>
           <span>|</span>
+          <span style="font-size: 13px" *ngIf="userName"> {{ userName }} </span>
           <button type="button" mat-button (click)="logout()"><mat-icon><i class="material-icons">power_settings_new</i></mat-icon> Odhlásit se</button>
         </span>
     </mat-toolbar>
@@ -71,7 +72,7 @@
               </mat-expansion-panel>
           </mat-accordion>
         </div>
-        <mat-checkbox class="checkBoxStyle">Zahrnout archív</mat-checkbox>
+        <!-- <mat-checkbox class="checkBoxStyle">Zahrnout archív</mat-checkbox> -->
       </mat-sidenav>
       <mat-sidenav-content>
         <mat-toolbar color="primary" style="z-index: 0; height:5vh;">

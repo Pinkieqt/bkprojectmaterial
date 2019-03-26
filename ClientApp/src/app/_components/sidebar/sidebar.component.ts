@@ -35,6 +35,12 @@ export class SidebarComponent
     this.prjctService.getAllTasksByProjectId(this.projectId).subscribe(data => this.taskList = data);
   }
 
+  //Not archived tasks
+  getArchivedTasks()
+  {
+    this.prjctService.getArchivedTasksByProjectId(this.projectId).subscribe(data => this.taskList = data);
+  }
+
   //Přepnout na task
   navigateToTask(id: number)
   {
@@ -47,7 +53,10 @@ export class SidebarComponent
   {
     if(event.checked)
     {
-      this.prjctService.getArchivedTasksByProjectId(this.projectId).subscribe(data => this.archivedTaskList = data);
+      this.prjctService.getArchivedTasksByProjectId(this.projectId).subscribe(data => {
+        this.archivedTaskList = data;
+        console.log(this.archivedTaskList);
+      });
     }
     else
     {
