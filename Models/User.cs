@@ -19,5 +19,6 @@ namespace PrjctManagementSystem.Models
         public string Last_name { get; set; }
         public string Email { get; set; }
         public int Role { get; set; }
+        public Boolean getEmails { get; set; }
     }
 }

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from '@angular
 import { ProjectService } from './../../_services/project.service';
 import { Component, Inject } from '@angular/core';
 import { CommentService } from 'src/app/_services/comment.service';
+import { DialogAddTask } from './dialogaddtask.component';
+import { DialogEditTask } from './dialogedittask.component';
 
 @Component({
   selector: 'app-project',
@@ -15,6 +17,7 @@ export class ProjectComponent
   private projectId: number;
   private taskId: number;
   private isOwner: boolean;
+  private isArchiveActived: boolean = false;
   private loggedUserId: number = parseInt(localStorage.getItem("userId"));
   public tmpProject: any;
   public tmpTask: any;
@@ -28,7 +31,7 @@ export class ProjectComponent
     private router: Router,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog,
+    public dialog: MatDialog
     )
   {
     this._commentForm = this.formBuilder.group
@@ -41,7 +44,6 @@ export class ProjectComponent
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) 
       {
-
         this.activatedRoute.params.subscribe(params => {
           this.projectId = params['id'];
           this.taskId = params['taskId'];
@@ -49,8 +51,10 @@ export class ProjectComponent
           this.getProjectInfo();
   
           //Ziskani daného úkolu z projektu
-          this.getTask(this.taskId);
-          //this.getArchivedTask(this.taskId);
+          if(!this.isArchiveActived)
+            this.getTask(this.taskId);
+          else
+            this.getArchivedTask(this.taskId);
 
           //Ziskani komentářů k danému úkolu
           this.getComments(this.taskId);
@@ -68,6 +72,29 @@ export class ProjectComponent
       });
   }
 
+  deleteProject(prjctId: number)
+  {
+    this.prjctService.deleteProject(prjctId).subscribe(data => {
+      confirm
+    })
+    var confirmAnswer = confirm("Jste si jistí, že chcete daný projekt a přiřazené úkoly a bugy smazat?");
+    if (confirmAnswer) 
+    {
+      this.prjctService.deleteProject(prjctId).subscribe((data) => 
+      {
+        this.router.navigate(["/"]);
+        this.snackBar.open("Projekt byl úspěšně smazán z databáze.", null, {duration: 2000});
+      },
+      error => {
+
+      })
+    } 
+  }
+
+  changeArchiveStatus(bit: boolean){
+    this.isArchiveActived = bit;
+  }
+
   getTask(taskId: number)
   {
     this.prjctService.getTask(taskId).subscribe(data => {
@@ -76,7 +103,7 @@ export class ProjectComponent
         this.tmpTask = data[0];
       }
     }, error => {
-      this.tmpTask = "error";
+      this.tmpTask = [];
     })
   }
 
@@ -88,7 +115,7 @@ export class ProjectComponent
         this.tmpTask = data[0];
       }
     }, error => {
-      this.tmpTask = "error";
+      this.tmpTask = [];
     })
   }
 
@@ -126,7 +153,6 @@ export class ProjectComponent
   //Status change
   onChangeTask(value){
     this.prjctService.editTaskStatus(value, this.tmpTask.id).subscribe(result => {
-      
     });
   }
   
@@ -199,133 +225,4 @@ export class ProjectComponent
   }
 }
 
-
-/*
-  Komponent pro přidání úkolu k projektu - dialog
-
-  + interface pro editační data
-*/
-@Component({
-  selector: 'dialog-add-task',
-  templateUrl: './add-task-dialog.html',
-  styleUrls: ['./project.component.css']
-})
-export class DialogAddTask {
-  
-  private tmpTask: AddTaskData;
-  private taskForm: FormGroup;
-
-  constructor(
-    private prjctService: ProjectService,
-    private snackBar: MatSnackBar,
-    private router: Router,
-    private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<DialogAddTask>,
-    @Inject(MAT_DIALOG_DATA) public data: AddTaskData) {
-      this.taskForm = this.formBuilder.group({
-        name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-        description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],
-        Fk_Owner_Id: [''],
-        Fk_Project_Id: [''],
-        priority: ['', [Validators.required]],
-        labels: ['', [Validators.required]],
-      })
-    }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  onOkClick(ownerId: number, projectId: number): void {
-    if (!this.taskForm.valid) {
-      this.snackBar.open("Formulář pro přidání úkolu k projektu je neplatný.", null, {duration: 2000});
-      return;
-    }
-    this.taskForm.controls['Fk_Owner_Id'].setValue(ownerId);
-    this.taskForm.controls['Fk_Project_Id'].setValue(projectId);
-    this.prjctService.saveTask(this.taskForm.value).subscribe(data => {
-      this.dialogRef.close();
-      this.router.navigate(["project/" + projectId + "/" + data]);
-      this.snackBar.open("Úkol byl vytvořen a přiřazen k projektu.", null, {duration: 2000});
-    }, error => {
-      alert("Problém při vytváření úkolu k projektu.")
-    })
-  }
-}
-
-export interface AddTaskData {
-  name: string;
-  description: string;
-  projectId: number;
-  ownerId: number;
-  priority: string;
-  labels: string;
-}
-
-/*
-  Komponent pro editaci úkolu u projektu - dialog
-
-  + interface pro editační data
-*/
-@Component({
-  selector: 'dialog-edit-task',
-  templateUrl: './edit-task-dialog.html',
-  styleUrls: ['./project.component.css']
-})
-export class DialogEditTask {
-  
-  private tmpTask: AddTaskData;
-  private taskForm: FormGroup;
-
-  constructor(
-    private prjctService: ProjectService,
-    private snackBar: MatSnackBar,
-    private router: Router,
-    private formBuilder: FormBuilder,
-    public dialogRef: MatDialogRef<DialogAddTask>,
-    @Inject(MAT_DIALOG_DATA) public data: AddTaskData) {
-      this.taskForm = this.formBuilder.group({
-        Id: [''],
-        name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-        description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],
-        Fk_Owner_Id: [''],
-        Fk_Project_Id: [''],
-        priority: ['', [Validators.required]],
-        labels: ['', [Validators.required]],
-      })
-    }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  onOkClick(ownerId: number, projectId: number, taskId: number): void {
-    if(!this.taskForm.valid)
-    {
-      this.snackBar.open("Formulář pro editaci úkolu je neplatný.", null, {duration: 2000});
-      return;
-    }
-    this.taskForm.controls['Fk_Owner_Id'].setValue(ownerId);
-    this.taskForm.controls['Fk_Project_Id'].setValue(projectId);
-    this.taskForm.controls['Id'].setValue(taskId);
-    this.prjctService.editTask(this.taskForm.value, taskId)
-    .subscribe((data) =>
-    {
-      this.dialogRef.close();
-      this.snackBar.open("Úkol byl úspěšně editován.", null, {duration: 2000});
-    }, error =>
-    {
-      alert("There was problem with creating a task!");
-    })
-  }
-}
-
-export interface AddTaskData {
-  name: string;
-  description: string;
-  projectId: number;
-  ownerId: number;
-  priority: string;
-  labels: string;
-}
 

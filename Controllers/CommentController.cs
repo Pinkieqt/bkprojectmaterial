@@ -9,11 +9,19 @@ namespace PrjctManagementSystem.Controllers
     {
         CommentDbAccess cmntObject = new CommentDbAccess();
 
+
+        /*
+        
+            Task comment
+
+         */
+
+
         //Adding comment
         [HttpPost]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/TaskComment/Create")]
-        public int? Create([FromBody] CommentModel cmnt)
+        public int? Create([FromBody] TaskCommentModel cmnt)
         {
             return cmntObject.AddComment(cmnt);
         }
@@ -22,7 +30,7 @@ namespace PrjctManagementSystem.Controllers
         [HttpPut]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/TaskComment/Edit")]
-        public int? Edit([FromBody] CommentModel cmnt)
+        public int? Edit([FromBody] TaskCommentModel cmnt)
         {
             return cmntObject.UpdateComment(cmnt);
         }
@@ -30,7 +38,7 @@ namespace PrjctManagementSystem.Controllers
         [HttpGet]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/TaskComment/GetAllComments/{id}")]
-        public IEnumerable<CommentModel> GetAllComments(int id)
+        public IEnumerable<TaskCommentModel> GetAllComments(int id)
         {
             return cmntObject.GetAllComments(id);
         }
@@ -42,6 +50,48 @@ namespace PrjctManagementSystem.Controllers
         public int? Delete(int id)
         {
             return cmntObject.DeleteComment(id);
+        }
+
+        /*
+        
+            Task comment
+
+         */
+
+
+        //Adding comment
+        [HttpPost]
+        [Authorize(Roles="admin, editableUser")]
+        [Route("api/BugComment/Create")]
+        public int? BCreate([FromBody] BugCommentModel cmnt)
+        {
+            return cmntObject.AddCommentBug(cmnt);
+        }
+
+        //Editing comment
+        [HttpPut]
+        [Authorize(Roles="admin, editableUser")]
+        [Route("api/BugComment/Edit")]
+        public int? BEdit([FromBody] BugCommentModel cmnt)
+        {
+            return cmntObject.UpdateCommentBug(cmnt);
+        }
+        //Getting all tasks by project Id
+        [HttpGet]
+        [Authorize(Roles="admin, editableUser")]
+        [Route("api/BugComment/GetAllComments/{id}")]
+        public IEnumerable<BugCommentModel> BGetAllComments(int id)
+        {
+            return cmntObject.GetAllCommentsBug(id);
+        }
+
+        //Deleting comment
+        [HttpDelete]
+        [Authorize(Roles="admin, editableUser")]
+        [Route("api/BugComment/Delete/{id}")]
+        public int? BDelete(int id)
+        {
+            return cmntObject.DeleteCommentBug(id);
         }
     }
 }

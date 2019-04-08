@@ -18,6 +18,7 @@ export class ProjectCreateComponent implements OnInit
   public selectedUserIds: number[] = [];
   private informativeString: string = " ";
   private currentIdOfUser: number;
+  private doesUserWantEmails: boolean;
   private projectForm: FormGroup;
 
   constructor(
@@ -39,7 +40,6 @@ export class ProjectCreateComponent implements OnInit
   ngOnInit(): void
   {
     this.getUsers();
-    
   }
 
   saveProject()
@@ -55,8 +55,8 @@ export class ProjectCreateComponent implements OnInit
     this.projectService.saveProject(this.projectForm.value)
       .subscribe((data) =>
       {
-        alert("Project created!");
         this.router.navigate([""]);
+        alert("Project created!");
       }, error =>
       {
         alert("There was problem creating a project.");
@@ -73,6 +73,8 @@ export class ProjectCreateComponent implements OnInit
       {
         if (entry.id == this.currentIdOfUser)
         {
+          this.doesUserWantEmails = entry.getEmails;
+          console.log(this.doesUserWantEmails);
           this.userList.splice(this.userList.indexOf(entry), 1);
         }
       }

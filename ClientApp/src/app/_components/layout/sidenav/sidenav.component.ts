@@ -13,7 +13,8 @@ import { map } from 'rxjs/operators';
 export class SidenavComponent
 {
   public projectList: any;
-  public sharedProjectList: any;
+  public sharedProjectList: any[] = [];
+  public sharedProjectIds: any;
   public userName: string;
 
   public otherTheme: boolean = true;
@@ -30,8 +31,12 @@ export class SidenavComponent
         this.checkLoginStatus();
         if(this.isLoggedIn == true)
         {
-          //Ziskani ID přihlášeného uživatele
+          //Ziskani ID přihlášeného uživatele a jeho projektů
           if(this.currentLogin == undefined || this.currentLogin == null) this.getUserIdAndProjects();
+        }
+        if (event.url == "/")
+        {
+          this.getProjects();
         }
       }
     })
@@ -46,7 +51,22 @@ export class SidenavComponent
     })
     this.projectService.getProjectsByParticipantUserId(this.currentId).subscribe((data =>
     {
-      if (data != null) this.sharedProjectList = data;
+      if (data!= null) this.sharedProjectIds = data;
+      if (this.sharedProjectIds instanceof Array)
+      {
+        for (let entry of this.sharedProjectIds){
+          this.projectService.getProjectByItsId(entry.fk_Project_Id).subscribe(data => 
+          {
+            var isInside: boolean = false;
+            for (let project of this.sharedProjectList){
+              if(project.id == entry.fk_Project_Id)
+                isInside = true;
+            }
+            if(!isInside)
+              this.sharedProjectList.push(data);
+          })
+        }
+      }
     }))
   }
 
@@ -96,7 +116,7 @@ export class SidenavComponent
     this.currentId = null;
     this.currentLogin = null;
     this.projectList = null;
-    this.sharedProjectList = null;
+    this.sharedProjectList = [];
   }
 
   changeTheme()

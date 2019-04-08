@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PrjctManagementSystem.Models
 {
     [Table("tbTaskComment")]
-    public class CommentModel 
+    public class TaskCommentModel 
     {
         [Key]
         public int Id { get; set; }

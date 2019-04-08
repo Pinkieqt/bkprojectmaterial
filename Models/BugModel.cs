@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace PrjctManagementSystem.Models
 {
-    [Table("tbTask")]
-    public class TaskModel 
+    [Table("tbBug")]
+    public class BugModel 
     {
         [Key]
         public int Id { get; set; }
@@ -19,5 +19,7 @@ namespace PrjctManagementSystem.Models
         public string Status { get; set; }
         public string Priority { get; set; }
         public string Labels { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
     }
 }

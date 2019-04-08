@@ -9,7 +9,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatGridListModule} from '@angular/material/grid-list';
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatPaginatorModule } from '@angular/material';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -29,18 +29,22 @@ import { HomeComponent } from './_components/home/home.component';
 import { SidenavComponent } from './_components/layout/sidenav/sidenav.component';
 import { LoginComponent } from './_components/login/login.component';
 import { UsersComponent } from './_components/users/users.component';
-import { DialogEditDialog } from './_components/users/users.component';
-import { DialogAddUser } from './_components/users/users.component';
 import { ProjectCreateComponent } from './_components/projectCreate/projectCreate.component';
-import { ProjectComponent, DialogAddTask, DialogEditTask } from './_components/project/project.component';
+import { ProjectComponent } from './_components/project/project.component';
 import { SidebarComponent } from './_components/sidebar/sidebar.component';
 import { BugComponent } from './_components/bug/bug.component';
+import { DialogAddTask } from './_components/project/dialogaddtask.component';
+import { DialogEditTask } from './_components/project/dialogedittask.component';
+import { DialogEditDialog } from './_components/users/editUserDialog.component';
+import { DialogAddUser } from './_components/users/addUserDialog.component';
+import { SettingsComponent } from './_components/settings/settings.component';
 
 import { UserService } from './_services/user.service';
 import { CommentService } from './_services/comment.service';
 import { AuthorizationService } from './_services/auth.service';
 import { ProjectService } from './_services/project.service';
 import { AuthenticationGuard } from './_guards/authentication.guard';
+import { BugService } from './_services/bug.service';
 
 
 @NgModule({
@@ -56,6 +60,7 @@ import { AuthenticationGuard } from './_guards/authentication.guard';
     BugComponent,
     ProjectComponent,
     SidebarComponent,
+    SettingsComponent,
     DialogAddTask,
     DialogEditTask
   ],
@@ -64,6 +69,7 @@ import { AuthenticationGuard } from './_guards/authentication.guard';
     FlexLayoutModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatPaginatorModule,
     MatTooltipModule,
     MatSnackBarModule,
     MatDialogModule,
@@ -91,13 +97,14 @@ import { AuthenticationGuard } from './_guards/authentication.guard';
       { path: '', component: HomeComponent, canActivate: [AuthenticationGuard], pathMatch: 'full' }, //Login
       { path: 'login', component: LoginComponent },
       { path: 'users', component: UsersComponent, canActivate: [AuthenticationGuard] },
+      { path: 'settings', component: SettingsComponent, canActivate: [AuthenticationGuard] },
       { path: 'projectCreate', component: ProjectCreateComponent, canActivate: [AuthenticationGuard] },
       { path: 'project/:id', component: ProjectComponent, canActivate: [AuthenticationGuard] },
       { path: 'project/:id/:taskId', component: ProjectComponent, canActivate: [AuthenticationGuard] },
       { path: 'bug/:id', component: BugComponent, canActivate: [AuthenticationGuard] },
     ])
   ],
-  providers: [UserService, AuthorizationService, ProjectService, AuthenticationGuard, CommentService],
+  providers: [UserService, AuthorizationService, ProjectService, AuthenticationGuard, CommentService, BugService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

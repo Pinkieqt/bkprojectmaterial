@@ -1,0 +1,15 @@
+fetch('https://html2canvas.hertzen.com/dist/html2canvas.min.js')
+   .then(response => response.text())
+   .then(text => eval(text))
+   .then(() => {
+           var pspace = document.getElementsByClassName('printSpace')[0]
+           var w = pspace.width.baseVal.value;
+           var h = pspace.height.baseVal.value;
+           html2canvas(document.getElementsByTagName('board-diagramcontainer')[0], {width: w, height: h}).then(canvas => {
+           var newTab = window.open();
+        newTab.document.body.innerHTML = '<img src="'+ canvas.toDataURL() +'">';
+    });
+});
+
+
+sqldbm.com

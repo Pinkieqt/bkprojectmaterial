@@ -2,15 +2,18 @@
 <mat-grid-list cols="1" rowHeight="5vh">
   <mat-grid-tile [colspan]="1" [rowspan]="1" class="myTileStyle">
     <!-- Levá strana -->
-    <h4 *ngIf="tmpProject" class="title">Detail úkolu pro projekt "{{ tmpProject.name }}"</h4>
+    <h4 *ngIf="tmpProject" class="title">Detail úkolů pro projekt "{{ tmpProject.name }}"</h4>
     <!-- Přidání space na levý / pravy -->
     <span class="fill-space"></span>
     <!-- Pravá strana -->
     <button type="button" mat-icon-button color="primary" matTooltip="Přidat úkol" (click)="openAddTaskDialog()">
         <mat-icon><i class="material-icons">add</i></mat-icon>
     </button>
-    <button type="button" mat-icon-button color="primary" matTooltip="Upravit projekt" (click)="openAddTaskDialog()">
+    <button *ngIf=isOwner type="button" mat-icon-button color="primary" matTooltip="Upravit projekt" (click)="openAddTaskDialog()">
         <mat-icon><i class="material-icons">edit</i></mat-icon>
+    </button>
+    <button *ngIf=isOwner type="button" mat-icon-button color="primary" matTooltip="Smazat projekt" (click)="deleteProject(tmpProject.id)">
+        <mat-icon><i class="material-icons">delete</i></mat-icon>
     </button>
   </mat-grid-tile>
 </mat-grid-list>
@@ -29,19 +32,19 @@
 
         <!-- Pravá strana -->
         <div *ngIf="tmpTask">
-          <button type="button" mat-icon-button style="float:right" (click)="deleteTask()" matTooltip="Smazat úkol">
+          <button *ngIf="!isArchiveActived" type="button" mat-icon-button style="float:right" (click)="deleteTask()" matTooltip="Smazat úkol">
               <mat-icon><i class="material-icons">delete</i></mat-icon>
           </button>
-          <button type="button" mat-icon-button style="float:right" (click)="archiveTask()"  matTooltip="Archivovat úkol">
+          <button *ngIf="!isArchiveActived" type="button" mat-icon-button style="float:right" (click)="archiveTask()"  matTooltip="Archivovat úkol">
               <mat-icon><i class="material-icons">archive</i></mat-icon>
           </button>
-          <button type="button" mat-icon-button style="float:right"  matTooltip="Upravit úkol" (click)="openEditTaskDialog(tmpTask.id, tmpTask.name, tmpTask.description, tmpTask.priority, tmpTask.labels)">
+          <button *ngIf="!isArchiveActived" type="button" mat-icon-button style="float:right"  matTooltip="Upravit úkol" (click)="openEditTaskDialog(tmpTask.id, tmpTask.name, tmpTask.description, tmpTask.priority, tmpTask.labels)">
               <mat-icon><i class="material-icons">edit</i></mat-icon>
           </button>
-          <mat-select (selectionChange)="onChangeTask($event.value)" [(value)]="tmpTask.status" placeholder="Status" style="float:right; width: 10%; height: 100%; margin-top: 10px;">
+          <mat-select *ngIf="!isArchiveActived" (selectionChange)="onChangeTask($event.value)" [(value)]="tmpTask.status" placeholder="Status" style="float:right; width: 10%; height: 100%; margin-top: 10px;">
             <mat-option value="Nezapočatý">Nezapočatý</mat-option>
             <mat-option value="Započatý">Započatý</mat-option>
-            <mat-option value="Další2">Další2</mat-option>
+            <mat-option value="Dokončený">Dokončený</mat-option>
           </mat-select>
         </div>
       </div>
@@ -96,7 +99,7 @@
               <mat-card-content class="descriptionContent">
                   <table class="myTableStyle">
                       <tr *ngFor="let tmp of tmpCommentsList" >
-                        <td style="text-align: left">
+                        <td style="text-align: left;">
                           <p class="commentContent">{{ tmp.content }}</p>
                         </td>
                         <td>
@@ -110,8 +113,8 @@
                       </tr>
                     </table>
                     <form [formGroup]="_commentForm" #formDir="ngForm" style="overflow: hidden;">
-                        <textarea matInput rows="1" placeholder="Komentář" formControlName="Content" style="width: 90%; text-align: left; height: 4vh;"></textarea>
-                        <button mat-icon-button>
+                        <textarea *ngIf="!isArchiveActived" matInput rows="1" placeholder="Komentář" formControlName="Content" style="width: 90%; text-align: left; height: 4vh;"></textarea>
+                        <button *ngIf="!isArchiveActived" mat-icon-button>
                           <mat-icon aria-label="Přidat komentář" (click)="addComment()" matTooltip="Přidat komentář" style="display: inline-flex; height: 4vh;">comment</mat-icon>
                         </button>
                     </form>

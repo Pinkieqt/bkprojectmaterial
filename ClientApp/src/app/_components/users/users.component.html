@@ -38,6 +38,10 @@
                             <th mat-header-cell *matHeaderCellDef> Role </th>
                             <td mat-cell *matCellDef="let user"> {{user.role}} </td>
                         </ng-container>
+                        <ng-container matColumnDef="getEmails">
+                            <th mat-header-cell *matHeaderCellDef> Příjem emailů </th>
+                            <td mat-cell *matCellDef="let user"> {{user.getEmails}} </td>
+                        </ng-container>
                         <ng-container matColumnDef="akce">
                                 <th mat-header-cell *matHeaderCellDef> Akce </th>
                                 <td mat-cell *matCellDef="let user">

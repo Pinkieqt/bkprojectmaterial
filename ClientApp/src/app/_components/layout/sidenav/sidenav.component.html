@@ -58,18 +58,18 @@
             
             <!-- Fetching shared projektů -->
             <mat-expansion-panel *ngFor="let sharedProject of sharedProjectList">
-                <mat-expansion-panel-header>
-                  <mat-panel-title class="myPanelTitleStyle">
-                    {{ sharedProject.name }}
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                  <button type="button" mat-button [routerLink]='["/project/", project.id]' class="myBtn">
-                      <mat-icon><i class="material-icons">assignment</i></mat-icon> Úkoly
-                  </button>
-                  <button type="button" mat-button [routerLink]='["/projectCreate"]' class="myBtn">
-                      <mat-icon><i class="material-icons">bug_report</i></mat-icon> Bugy
-                  </button>
-              </mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title class="myPanelTitleStyle">
+                  {{ sharedProject.name }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+                <button type="button" mat-button [routerLink]='["/project/", sharedProject.id]' class="myBtn">
+                    <mat-icon><i class="material-icons">assignment</i></mat-icon> Úkoly
+                </button>
+                <button type="button" mat-button [routerLink]='["/projectCreate"]' class="myBtn">
+                    <mat-icon><i class="material-icons">bug_report</i></mat-icon> Bugy
+                </button>
+            </mat-expansion-panel>
           </mat-accordion>
         </div>
         <!-- <mat-checkbox class="checkBoxStyle">Zahrnout archív</mat-checkbox> -->

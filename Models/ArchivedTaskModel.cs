@@ -15,6 +15,9 @@ namespace PrjctManagementSystem.Models
         public string Description { get; set; }
         public int Fk_Owner_Id { get; set; }
         public int Fk_Project_Id { get; set; }
+        public string Assigned { get; set; }
         public string Status { get; set; }
+        public string Priority { get; set; }
+        public string Labels { get; set; }
     }
 }

@@ -1,58 +1,30 @@
-<!-- <div class="container">
-    <div *ngFor="let task of taskList" class="card" >
-        <button mat-button class="myButtonStyle" (click)="navigateToTask(task.id)">
-            <mat-card>
-                <div class="title"><b>{{ task.name }}</b></div>
-                <div class="description">{{ task.description }}</div>
-                <div class="participients">-</div>
 
-                <div class="status"></div>
-                <div class="labels" *ngIf="task.labels == 'Administrace'"></div>
-
-            </mat-card>
-        </button>
-    </div> 
-    <div *ngFor="let task of archivedTaskList" class="card" >
-        <button mat-button class="myButtonStyle" (click)="navigateToTask(task.id)">
-            <mat-card class="myCardStyle">{{ task.name }}</mat-card>
-        </button>
-    </div> 
+ <div class="container">
+    <table *ngIf="taskList" mat-table [dataSource]="dataSource">
     
-    <mat-checkbox class="checkBoxStyle" (change)="checkValue($event)" >Zahrnout archív</mat-checkbox>                                                                                                                                                                                                                                       
-</div>
- -->
+        <ng-container matColumnDef="name">
+            <td mat-cell *matCellDef="let task" class="card">
+                <button mat-button class="myButtonStyle" (click)="navigateToTask(task.id)">
+                    <div class="card">
+                        <div class="title"><b>{{ task.name }}</b></div>
+                        <div class="description">{{ task.description }}</div>
+                        <div class="participients">-</div>
 
-<div class="container">
-    <table>
-        <tr *ngFor="let task of taskList">
-            <td>
+                        <div class="status">
+                            <i *ngIf="task.status == 'Dokončený'" class="material-icons">check_circle_outline</i>
+                            <i *ngIf="task.status == 'Započatý'" class="material-icons">query_builder</i>
+                            <i *ngIf="task.status == 'Nezapočatý'" class="material-icons">block</i>
 
+                        </div>
+                        <div class="labels" *ngIf="task.labels == 'Administrace'"></div>
+                    </div>
+                </button>
             </td>
-        </tr>
+        </ng-container>
+    
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-
-
-
-        <div *ngFor="let task of taskList" class="card" >
-            <button mat-button class="myButtonStyle" (click)="navigateToTask(task.id)">
-                <mat-card>
-                    <div class="title"><b>{{ task.name }}</b></div>
-                    <div class="description">{{ task.description }}</div>
-                    <div class="participients">-</div>
     
-                    <!-- štítky -->
-                    <div class="status"></div>
-                    <div class="labels" *ngIf="task.labels == 'Administrace'"></div>
-    
-                </mat-card>
-            </button>
-        </div> 
-        <div *ngFor="let task of archivedTaskList" class="card" >
-            <button mat-button class="myButtonStyle" (click)="navigateToTask(task.id)">
-                <mat-card class="myCardStyle">{{ task.name }}</mat-card>
-            </button>
-        </div> 
-        
-        <mat-checkbox class="checkBoxStyle" (change)="checkValue($event)" >Zahrnout archív</mat-checkbox>                                                                                                                                                                                                                                       
-    </div>
-    
+    <mat-checkbox class="checkBoxStyle" (change)="checkValue($event)" >Archív</mat-checkbox>   
+    <mat-paginator [hidePageSize]="true" style="position: absolute; left: 0; bottom: 0; width: 100%; height: 4vh; padding-bottom: 10px; font-size: 11px; color: #aaaaaa;"></mat-paginator>
+    </div> 

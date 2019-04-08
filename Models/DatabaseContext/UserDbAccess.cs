@@ -28,7 +28,8 @@ namespace PrjctManagementSystem.Models
                         First_name = "Administrator",
                         Last_name = "Administrator",
                         Email = "admin@admin.cz",
-                        Role = 1                      
+                        Role = 1,
+                        getEmails = true                      
                     };
                     db.Insert(tmpUser);
                 }
@@ -43,6 +44,7 @@ namespace PrjctManagementSystem.Models
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 user.Password = GenerateHash(user.Password);
+                user.getEmails = true;
                 return db.Insert(user);
             }
         }

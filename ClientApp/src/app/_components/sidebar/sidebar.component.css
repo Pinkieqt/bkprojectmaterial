@@ -30,8 +30,9 @@
 }
 
 .description{
-    margin-top: 5px;
-    width: 80%;
+    margin-top: 2.3vh;
+    margin-left: -5px;
+    width: 14vw;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -48,24 +49,45 @@
     margin-left: 5px;
 }
 
+.status{
+    position: absolute;
+    top: 25%;
+    left: 14.5vw;
+    height: 4vh;
+    width: 4vh;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 36px;
+}
+
 
 /* Karty */
-.card{
-    height: 9vh;
-}
-
 .myButtonStyle{
     height: 8vh;
-    width: 100%;
+    width: calc(100% + 50px);
     border-radius: 5px;
-    padding-left: 0px;
-    padding-right: 0px;
+    margin-left: -25px;
 }
+
+.card{  
+    width: 100%;
+    height: 8vh;
+}
+
 
 /* Checkbox - archiv */
 .checkBoxStyle{
     position: absolute;
-    bottom: 3px;
-    font-size: 12px;
-    left: 5px;
+    z-index: 100;
+    bottom: 7px;
+    color: #aaaaaa;
+    font-size: 11px;
+    left: 7px;
   }
+
+  
+
+
+table {
+    width: 100%;
+}

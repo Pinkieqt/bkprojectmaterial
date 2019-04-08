@@ -29,7 +29,7 @@ namespace PrjctManagementSystem.Models
             string[] idArray = data.Split(',');
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                string query = @"INSERT INTO tbProjectParticipants VALUES (@projectid, @partid)";
+                string query = @"INSERT INTO tbProjectParticipants VALUES (@partid, @projectid)";
                 IEnumerable<User> tmpUser = new UserDbAccess().GetUsers();
                 foreach (string x in idArray) {
                     var result = db.Execute(query, new
@@ -90,9 +90,15 @@ namespace PrjctManagementSystem.Models
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                db.DeleteList<TaskModel>(new { Fk_Project_Id = prjctId });
-                db.DeleteList<ProjectParticipantsModel>(new { Fk_Project_Id = prjctId });
-                return db.DeleteList<ProjectModel>(new { Id = prjctId});
+                
+                string query = @"execute spDeleteProject @id";
+
+                var result = db.Execute(query, new
+                {
+                    id = prjctId
+                });
+
+                return result;
             }
         }
         
