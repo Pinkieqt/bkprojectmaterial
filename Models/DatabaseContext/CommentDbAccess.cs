@@ -107,7 +107,7 @@ namespace PrjctManagementSystem.Models
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                return db.GetList<BugCommentModel>(new { Fk_Task_Id = bugId });
+                return db.GetList<BugCommentModel>(new { Fk_Bug_Id = bugId });
             }
         }
     }

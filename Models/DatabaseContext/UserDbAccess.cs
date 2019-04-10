@@ -34,7 +34,6 @@ namespace PrjctManagementSystem.Models
                     db.Insert(tmpUser);
                 }
             }
-
         }
 
 
@@ -84,15 +83,27 @@ namespace PrjctManagementSystem.Models
                 
                 string query = @"update tbUser SET first_name = @firstName, last_name = @lastName, email = @email where login = @tmplogin";
 
-                var result = db.Execute(query, new
+                return db.Execute(query, new
                 {
                     firstName = user.First_name,
                     lastName = user.Last_name,
                     email = user.Email,
                     tmplogin = user.Login
                 });
+            }
+        }
 
-                return 1;
+        public int? ChangeUserEmailStatus(bool status, int userId)
+        {
+            using (IDbConnection db = new SqlConnection(ConnectionString))
+            {
+                string query = @"UPDATE tbUser SET getEmails = @emailStatus WHERE id = @tmpId";
+
+                return db.Execute(query, new
+                {
+                    emailStatus = status,
+                    tmpId = userId
+                });
             }
         }
 

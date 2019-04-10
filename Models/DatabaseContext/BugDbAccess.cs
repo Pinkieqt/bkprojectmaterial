@@ -15,7 +15,7 @@ namespace PrjctManagementSystem.Models
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                bug.Status = "Nezapočatý";
+                bug.Status = "Nový";
                 return db.Insert(bug);
             }
         }
@@ -25,7 +25,12 @@ namespace PrjctManagementSystem.Models
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                return db.Delete<BugModel>(bugId);
+                string query = @"execute spDeleteBug @id";
+
+                return db.Execute(query, new
+                {
+                    id = bugId
+                });
             }
         }
 
@@ -34,8 +39,8 @@ namespace PrjctManagementSystem.Models
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                
-                string query = @"update tbBug SET name = @name, description = @description, priority = @priority, labels = @labels where Id = @bugid";
+                const string quote = "\""; 
+                string query = @"update tbBug SET name = @name, description = @description, priority = @priority, labels = @labels, " + quote + "end" + quote + " = @end where Id = @bugid";
 
                 var result = db.Execute(query, new
                 {
@@ -44,6 +49,7 @@ namespace PrjctManagementSystem.Models
                     status = bug.Status,
                     priority = bug.Priority,
                     labels = bug.Labels,
+                    end = bug.End,
                     bugid = bug.Id
                 });
 

@@ -1,19 +1,23 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from '@angular/router';
-import { ProjectService } from './../../_services/project.service';
-import { Component, Inject } from '@angular/core';
+import { ProjectService } from '../../_services/project.service';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { CommentService } from 'src/app/_services/comment.service';
-import { DialogAddTask } from './dialogaddtask.component';
-import { DialogEditTask } from './dialogedittask.component';
+import { DialogAddTask } from './dialogAddTask.component';
+import { DialogEditTask } from './dialogEditTask.component';
 
 @Component({
-  selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css']
+  selector: 'app-tasks',
+  templateUrl: './tasks.component.html',
+  styleUrls: ['./tasks.component.css']
 })
-export class ProjectComponent
+export class TasksComponent implements OnDestroy
 {
+  ngOnDestroy(): void {
+    this.taskId = undefined;
+  }
+
   private projectId: number;
   private taskId: number;
   private isOwner: boolean;
@@ -57,6 +61,7 @@ export class ProjectComponent
             this.getArchivedTask(this.taskId);
 
           //Ziskani komentářů k danému úkolu
+
           this.getComments(this.taskId);
         })
       }
@@ -126,7 +131,7 @@ export class ProjectComponent
     {
       this.prjctService.deleteTask(this.tmpTask.id).subscribe((data) => 
       {
-        this.router.navigate(["/project/" + this.projectId]);
+        this.router.navigate(["/project/tasks/" + this.projectId]);
         this.snackBar.open("Úkol byl smazán z projektu.", null, {duration: 2000});
       },
       error => {
@@ -153,6 +158,7 @@ export class ProjectComponent
   //Status change
   onChangeTask(value){
     this.prjctService.editTaskStatus(value, this.tmpTask.id).subscribe(result => {
+      this.snackBar.open("Status úkolu byl úspěšně změnen.", null, {duration: 2000});
     });
   }
   
@@ -216,12 +222,15 @@ export class ProjectComponent
   }
 
   //ziskani komentařů k danému ukolu
-  getComments(taskID: number)
+  getComments(taskId: number)
   {
-    this.commentService.getComments(taskID).subscribe((data) => 
+    if(taskId != undefined)
     {
-      this.tmpCommentsList = data;
-    })
+      this.commentService.getComments(taskId).subscribe((data) => 
+      {
+        this.tmpCommentsList = data;
+      })
+    }
   }
 }
 

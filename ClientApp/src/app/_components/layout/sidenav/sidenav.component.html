@@ -7,7 +7,7 @@
           <span class="myHorizontalDivider">|</span>
         <button type="button" mat-button [routerLink]='["/users"]'><mat-icon><i class="material-icons">face</i></mat-icon> Uživatelé</button>
           <span class="myHorizontalDivider">|</span>
-        <button type="button" mat-button (click)="drawer.toggle()"><mat-icon><i class="material-icons">settings</i></mat-icon> Nastavení</button>
+        <button type="button" mat-button [routerLink]='["/settings"]'><mat-icon><i class="material-icons">settings</i></mat-icon> Nastavení</button>
           
         <!-- Přidání space na levý / pravy -->
         <span class="fill-space"></span>
@@ -48,10 +48,10 @@
                   {{ project.name }}
                 </mat-panel-title>
               </mat-expansion-panel-header>
-                <button type="button" mat-button [routerLink]='["/project/", project.id]' class="myBtn">
+                <button type="button" mat-button [routerLink]='["/project/tasks/", project.id]' class="myBtn">
                     <mat-icon><i class="material-icons">assignment</i></mat-icon> Úkoly
                 </button>
-                <button type="button" mat-button [routerLink]='["/project/", project.id]' class="myBtn">
+                <button type="button" mat-button [routerLink]='["/project/bugs/", project.id]' class="myBtn">
                     <mat-icon><i class="material-icons">bug_report</i></mat-icon> Bugy
                 </button>
             </mat-expansion-panel>
@@ -63,10 +63,10 @@
                   {{ sharedProject.name }}
                 </mat-panel-title>
               </mat-expansion-panel-header>
-                <button type="button" mat-button [routerLink]='["/project/", sharedProject.id]' class="myBtn">
+                <button type="button" mat-button [routerLink]='["/project/tasks/", sharedProject.id]' class="myBtn">
                     <mat-icon><i class="material-icons">assignment</i></mat-icon> Úkoly
                 </button>
-                <button type="button" mat-button [routerLink]='["/projectCreate"]' class="myBtn">
+                <button type="button" mat-button [routerLink]='["/project/bugs/", sharedProject.id]' class="myBtn">
                     <mat-icon><i class="material-icons">bug_report</i></mat-icon> Bugy
                 </button>
             </mat-expansion-panel>

@@ -1,0 +1,146 @@
+
+<mat-grid-list cols="1" rowHeight="5vh">
+    <mat-grid-tile [colspan]="1" [rowspan]="1" class="myTileStyle">
+      <!-- Levá strana -->
+      <h4 *ngIf="tmpProject" class="title">Detail bugů pro projekt "{{ tmpProject.name }}"</h4>
+      <!-- Přidání space na levý / pravy -->
+      <span class="fill-space"></span>
+      <!-- Pravá strana -->
+      <button type="button" mat-icon-button color="primary" matTooltip="Přidat bug" (click)="openAddBugDialog()">
+          <mat-icon><i class="material-icons">add</i></mat-icon>
+      </button>
+      <button *ngIf=isOwner type="button" mat-icon-button color="primary" matTooltip="Smazat projekt" (click)="deleteProject(tmpProject.id)">
+          <mat-icon><i class="material-icons">delete</i></mat-icon>
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+  
+  <mat-grid-list cols="5" rowHeight="90vh">
+    <mat-grid-tile [colspan]="1" [rowspan]="1" class="sidebar">
+      <app-sidebar></app-sidebar>
+    </mat-grid-tile>
+  
+    <!-- Main content -->
+    <div *ngIf="tmpBug">
+      <mat-grid-tile [colspan]="4" [rowspan]="1">
+        <div class="topBar">
+          <!-- Levá strana -->
+          <h4 *ngIf="tmpBug" style="float:left" class="title">{{ tmpBug.name }}</h4>
+  
+          <!-- Pravá strana -->
+          <div *ngIf="tmpBug">
+            <button type="button" mat-icon-button style="float:right" (click)="deleteBug()" matTooltip="Smazat bug">
+                <mat-icon><i class="material-icons">delete</i></mat-icon>
+            </button>
+            <button type="button" mat-icon-button style="float:right"  matTooltip="Upravit bug" (click)="openEditBugDialog(tmpBug.id, tmpBug.name, tmpBug.description, tmpBug.priority, tmpBug.labels)">
+                <mat-icon><i class="material-icons">edit</i></mat-icon>
+            </button>
+            <mat-select (selectionChange)="onChangeBug($event.value)" [(value)]="tmpBug.status" placeholder="Status" style="float:right; width: 10%; height: 100%; margin-top: 10px;">
+              <mat-option value="Nový">Nový</mat-option>
+              <mat-option value="Nepotvrzený">Nepotvrzený</mat-option>
+              <mat-option value="Potvrzený">Potvrzený</mat-option>
+              <mat-option value="Rozpracovaný">Rozpracovaný</mat-option>
+              <mat-option value="Opravený">Opravený</mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="container">
+          <!-- První řádek -->
+          <div class="row">
+            <div class="rowItem">
+              <mat-card class="myCardStyle">
+                <mat-card-header>
+                    <mat-card-title><h3>Popis</h3></mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="descriptionContent">
+                  <p *ngIf="tmpBug" class="white-space-prewrap contentFont">{{ tmpBug.description }}</p>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div class="rowItem">
+              <mat-card class="myCardStyle">
+                <mat-card-header>
+                    <mat-card-title><h3>Vlastnosti</h3></mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="contentFont descriptionContent">
+                  <table class="myTableStyle">
+                    <tr>
+                      <td><b>Priorita</b></td>
+                      <td *ngIf="tmpBug">{{ tmpBug.priority }}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Status</b></td>
+                      <td *ngIf="tmpBug">{{ tmpBug.status }}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Štítky</b></td>
+                      <td *ngIf="tmpBug">{{ tmpBug.labels }}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Přiřazeno</b></td>
+                      <td *ngIf="tmpBug">zatím nic</td>
+                    </tr>
+                    <tr>
+                      <td><b>Začátek</b></td>
+                      <td *ngIf="tmpBug">{{ tmpBug.start }}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Dokončení</b></td>
+                      <td *ngIf="tmpBug">{{ tmpBug.end }}</td>
+                    </tr>
+                  </table>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+          <!-- Druhý řádek -->
+          <div class="row">
+            <div class="rowItem">
+              <mat-card class="myCardStyle">
+                <mat-card-header>
+                    <mat-card-title><h3>Komentáře</h3></mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="descriptionContent">
+                    <table class="myTableStyle">
+                        <tr *ngFor="let tmp of tmpCommentsList" >
+                          <td style="text-align: left;">
+                            <p class="commentContent">{{ tmp.content }}</p>
+                          </td>
+                          <td>
+                            <p class="commentContent">({{ tmp.timeChanged | date:'MMM-dd-yyyy'}})</p>
+                          </td>
+                          <td>
+                            <button mat-icon-button>
+                              <mat-icon aria-label="Odebrat komentář" (click)="deleteComment(tmp.id)" matTooltip="Odstranit komentář">delete</mat-icon>
+                            </button>
+                          </td>
+                        </tr>
+                      </table>
+                      <form [formGroup]="_commentForm" #formDir="ngForm" style="overflow: hidden;">
+                          <textarea matInput rows="1" placeholder="Komentář" formControlName="Content" style="width: 90%; text-align: left; height: 4vh;"></textarea>
+                          <button mat-icon-button>
+                            <mat-icon aria-label="Přidat komentář" (click)="addComment()" matTooltip="Přidat komentář" style="display: inline-flex; height: 4vh;">comment</mat-icon>
+                          </button>
+                      </form>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div class="rowItem">
+                <mat-card class="myCardStyle">
+                  <mat-card-header>
+                      <mat-card-title><h3>Soubory</h3></mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content class="descriptionContent">
+  
+                  </mat-card-content>
+                </mat-card>
+              </div>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </div>
+    <div *ngIf="!tmpBug">
+      <h4 style="position: absolute; top: 40%; width: 100%; text-align: center">Vyberte bug z projektu nebo bug přidejte na levé horní straně tlačítkem +</h4>
+    </div>
+  </mat-grid-list>
+  

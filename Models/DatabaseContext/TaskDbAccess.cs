@@ -25,7 +25,12 @@ namespace PrjctManagementSystem.Models
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                return db.Delete<TaskModel>(taskId);
+                string query = @"execute spDeleteTask @id";
+
+                return db.Execute(query, new
+                {
+                    id = taskId
+                });
             }
         }
 

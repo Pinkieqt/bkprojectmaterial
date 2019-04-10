@@ -5,18 +5,18 @@ import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Router } from '@angular/router';
 
 /*
-  Komponent pro přidání úkolu k projektu - dialog
+  Komponent pro editaci úkolu u projektu - dialog
 
   + interface pro editační data
 */
 @Component({
-    selector: 'dialog-add-task',
-    templateUrl: './add-task-dialog.html',
-    styleUrls: ['./project.component.css']
+    selector: 'dialog-edit-task',
+    templateUrl: './edit-task-dialog.html',
+    styleUrls: ['./tasks.component.css']
   })
-  export class DialogAddTask {
+  export class DialogEditTask {
     
-    private tmpTask: AddTaskData;
+    private tmpTask: EditTaskData;
     private taskForm: FormGroup;
   
     constructor(
@@ -24,18 +24,16 @@ import { Router } from '@angular/router';
       private snackBar: MatSnackBar,
       private router: Router,
       private formBuilder: FormBuilder,
-      public dialogRef: MatDialogRef<DialogAddTask>,
-      @Inject(MAT_DIALOG_DATA) public data: AddTaskData) {
+      public dialogRef: MatDialogRef<DialogEditTask>,
+      @Inject(MAT_DIALOG_DATA) public data: EditTaskData) {
         this.taskForm = this.formBuilder.group({
+          Id: [''],
           name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
           description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],
           Fk_Owner_Id: [''],
           Fk_Project_Id: [''],
           priority: ['', [Validators.required]],
-          label1: [''],
-          label2: [''],
-          label3: [''],
-          labels: ['']
+          labels: ['', [Validators.required]],
         })
       }
   
@@ -43,38 +41,28 @@ import { Router } from '@angular/router';
       this.dialogRef.close();
     }
   
-    onOkClick(ownerId: number, projectId: number): void {
-      
-      if (!this.taskForm.valid) {
-        this.snackBar.open("Formulář pro přidání úkolu k projektu je neplatný.", null, {duration: 2000});
+    onOkClick(ownerId: number, projectId: number, taskId: number): void {
+      if(!this.taskForm.valid)
+      {
+        this.snackBar.open("Formulář pro editaci úkolu je neplatný.", null, {duration: 2000});
         return;
       }
       this.taskForm.controls['Fk_Owner_Id'].setValue(ownerId);
       this.taskForm.controls['Fk_Project_Id'].setValue(projectId);
-      this.prjctService.saveTask(this.taskForm.value).subscribe(data => {
+      this.taskForm.controls['Id'].setValue(taskId);
+      this.prjctService.editTask(this.taskForm.value, taskId)
+      .subscribe((data) =>
+      {
         this.dialogRef.close();
-        this.router.navigate(["project/" + projectId + "/" + data]);
-        this.snackBar.open("Úkol byl vytvořen a přiřazen k projektu.", null, {duration: 2000});
-      }, error => {
-        alert("Problém při vytváření úkolu k projektu.")
+        this.snackBar.open("Úkol byl úspěšně editován.", null, {duration: 2000});
+      }, error =>
+      {
+        alert("There was problem with creating a task!");
       })
-
-
-      var labels = this.taskForm.controls['label1'].value
-
-
-      this.taskForm.controls['labels'].setValue(
-        this.taskForm.controls['label1'].value + " s"
-      )
-
-
-      this.taskForm.controls['Fk_Owner_Id'].setValue(ownerId);
-      this.taskForm.controls['Fk_Project_Id'].setValue(projectId);
-      console.log(this.taskForm.value);
     }
   }
   
-  export interface AddTaskData {
+  export interface EditTaskData {
     name: string;
     description: string;
     projectId: number;
@@ -82,4 +70,5 @@ import { Router } from '@angular/router';
     priority: string;
     labels: string;
   }
+  
   

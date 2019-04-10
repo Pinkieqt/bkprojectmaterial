@@ -14,6 +14,6 @@ namespace PrjctManagementSystem.Models
         public string Content { get; set; }
         public DateTime TimeChanged { get; set; }
         public int Fk_Owner_Id { get; set; }
-        public int Fk_Task_Id { get; set; }
+        public int Fk_Bug_Id { get; set; }
     }
 }

@@ -50,6 +50,14 @@ namespace PrjctManagementSystem.Controllers
             return userObject.UpdateUser(user);
         }
 
+        //Editing user email status
+        [HttpPut]
+        [Authorize(Roles="admin")]
+        [Route("api/User/EditEmailStatus")]
+        public int? EditEmailStatus([FromBody]User user)
+        {
+            return userObject.ChangeUserEmailStatus(user.getEmails, user.Id);
+        }
 
         //Deleting user
         [HttpDelete]

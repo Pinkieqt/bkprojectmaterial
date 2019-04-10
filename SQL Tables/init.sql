@@ -88,8 +88,8 @@ CREATE TABLE [tbBug]
  [Status]        nvarchar(20) COLLATE CZECH_CI_AS NOT NULL ,
  [Priority]      nvarchar(20) COLLATE CZECH_CI_AS NOT NULL ,
  [Labels]        nvarchar(250) COLLATE CZECH_CI_AS NOT NULL ,
- [Start]         datetime NULL ,
- [End]           datetime NULL ,
+ [Start]         date NULL ,
+ [End]           date NULL ,
 
  CONSTRAINT [PK_tbBug] PRIMARY KEY CLUSTERED ([Id] ASC),
  CONSTRAINT [Fk_tbBug_UserId] FOREIGN KEY ([Fk_Owner_Id])  REFERENCES [tbUser]([id]),

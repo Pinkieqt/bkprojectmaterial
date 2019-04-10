@@ -1,0 +1,23 @@
+<mat-grid-list cols="1" rowHeight="2:1">
+    <!-- Karta projektů -->
+    <mat-grid-tile>
+        <mat-card class="myCardStyle">
+            <mat-card-header>
+                <mat-card-title>Nastavení</mat-card-title>
+                <mat-card-subtitle>- přizpůsobení systému</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-checkbox 
+                    *ngIf="gotEmailStatus" 
+                    [checked]="emailStatus" 
+                    (change)="editEmailStatus($event)" 
+                    labelPosition = 'before'>
+                    Dostávat upozornění v podobě emailů na registrovanou emailovou adresu: 
+                </mat-checkbox>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" [routerLink]='["/"]' style="position: absolute; right: 30px; bottom: 30px;">Uložit</button>
+            </mat-card-actions>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

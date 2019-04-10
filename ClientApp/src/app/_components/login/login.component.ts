@@ -46,15 +46,17 @@ export class LoginComponent implements OnInit{
         this.authService.loginUser(this.loginForm.value)
         .subscribe(response => {
             let token = (<any>response).token;
+            
             localStorage.setItem("jwt", token);
             localStorage.setItem("log", this.loginForm.controls['Login'].value);
             this.authorizedLogin = true;
-            this.router.navigate([""]);
+            this.router.navigate(["/"]);
         }, error => {
             this.isLoggingIn = false;
             this.snackBar.open("Kombinace přihlašovacího jména a hesla je nesprávná. Zkuste to prosím znovu.", null, {duration: 2000});
             this.authorizedLogin = false;
         })
+        console.log(this.authorizedLogin);
     }
 
 }

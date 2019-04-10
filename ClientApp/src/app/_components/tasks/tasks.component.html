@@ -9,9 +9,6 @@
     <button type="button" mat-icon-button color="primary" matTooltip="Přidat úkol" (click)="openAddTaskDialog()">
         <mat-icon><i class="material-icons">add</i></mat-icon>
     </button>
-    <button *ngIf=isOwner type="button" mat-icon-button color="primary" matTooltip="Upravit projekt" (click)="openAddTaskDialog()">
-        <mat-icon><i class="material-icons">edit</i></mat-icon>
-    </button>
     <button *ngIf=isOwner type="button" mat-icon-button color="primary" matTooltip="Smazat projekt" (click)="deleteProject(tmpProject.id)">
         <mat-icon><i class="material-icons">delete</i></mat-icon>
     </button>
@@ -103,7 +100,7 @@
                           <p class="commentContent">{{ tmp.content }}</p>
                         </td>
                         <td>
-                          <p class="commentContent">({{ tmp.timeChanged | date:'MMM-dd-yyyy'}})</p>
+                          <p class="commentContent">({{ tmp.timeChanged | date:'MM-dd-yyyy'}})</p>
                         </td>
                         <td>
                           <button mat-icon-button>

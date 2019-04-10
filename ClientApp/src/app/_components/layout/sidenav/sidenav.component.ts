@@ -3,7 +3,6 @@ import { ProjectService } from './../../../_services/project.service';
 import { AuthorizationService } from './../../../_services/auth.service';
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidenav',
@@ -17,7 +16,7 @@ export class SidenavComponent
   public sharedProjectIds: any;
   public userName: string;
 
-  public otherTheme: boolean = true;
+  public otherTheme: boolean = false;
   public isLoggedIn: boolean = false;
   private currentId: number;
   private currentLogin: any;
@@ -29,12 +28,12 @@ export class SidenavComponent
       {
         //Při každé změně url se zjistí, jestli je JWT token stále platný
         this.checkLoginStatus();
-        if(this.isLoggedIn == true)
+        if(this.isLoggedIn)
         {
           //Ziskani ID přihlášeného uživatele a jeho projektů
           if(this.currentLogin == undefined || this.currentLogin == null) this.getUserIdAndProjects();
         }
-        if (event.url == "/")
+        if (event.url == "/" && this.isLoggedIn)
         {
           this.getProjects();
         }

@@ -41,11 +41,17 @@ export class UserService {
       .pipe(map(res => res));
   }
 
-
   //Editing user
   editUserx(user) {
     const token = localStorage.getItem("jwt");
     return this.http.put(this.myUrl + '/api/User/Edit', user, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+      .pipe(map(res => res));
+  }
+
+  //Editing user
+  editUserEmailStatus(user) {
+    const token = localStorage.getItem("jwt");
+    return this.http.put(this.myUrl + '/api/User/EditEmailStatus', user, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 }

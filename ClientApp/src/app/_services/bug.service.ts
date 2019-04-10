@@ -45,7 +45,7 @@ export class BugService {
       .pipe(map(res => res));
   }
 
-  //Fetching one task by its id
+  //Fetching one bug by its id
   getBug(bugId)
   {
     const token = localStorage.getItem("jwt");
@@ -53,7 +53,7 @@ export class BugService {
       .pipe(map(res => res));
   }
 
-  //Fetching tasks based on projectid
+  //Fetching bugs based on projectid
   getAllBugsByProjectId(prjctId)
   {
     const token = localStorage.getItem("jwt");

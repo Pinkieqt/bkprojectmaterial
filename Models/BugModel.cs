@@ -19,7 +19,9 @@ namespace PrjctManagementSystem.Models
         public string Status { get; set; }
         public string Priority { get; set; }
         public string Labels { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        //Date
+        public string Start { get; set; }
+        //Date
+        public string End { get; set; }
     }
 }

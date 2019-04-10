@@ -40,7 +40,7 @@ namespace PrjctManagementSystem.Models
                     if (result != 0)
                     {
                         foreach(User temp in tmpUser){
-                            if(temp.Id == Int32.Parse(x)){
+                            if(temp.Id == Int32.Parse(x) && temp.getEmails == true){
                                 new MyEmailClient().SendEmail(tmpUser.First().First_name + " " + tmpUser.First().Last_name, tmpUser.First().Email, prjctName);
                             }
                         }
