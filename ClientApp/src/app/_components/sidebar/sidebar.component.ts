@@ -1,6 +1,6 @@
 import { BugService } from 'src/app/_services/bug.service';
 import { ProjectService } from './../../_services/project.service';
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { TasksComponent } from '../tasks/tasks.component';
@@ -13,55 +13,60 @@ import { TasksComponent } from '../tasks/tasks.component';
 export class SidebarComponent
 {
   private projectId: number;
+  private bugOrTask: string;
 
   private taskId: number;
   private bugId: number;
 
+  private labelsArray: string[];
   private isArchiveActive: boolean = false;
-  private bugOrTask: string;
 
   public taskList: any = [];
   public bugList: any = [];
 
   public archivedTaskList: any;
 
-
-  
   public displayedColumns: string[] = ["name"];
   public dataSource: any;
+  
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  
 
-  constructor( private prjctService: ProjectService,
-               private activatedRoute: ActivatedRoute, 
-               private router: Router, 
-               private bugService: BugService )
+  constructor( 
+              private taskComp: TasksComponent,
+              private prjctService: ProjectService,
+              private activatedRoute: ActivatedRoute, 
+              private router: Router, 
+              private bugService: BugService )
   {
-    this.activatedRoute.params.subscribe(params => {
-      if (this.router.url.indexOf('/bugs/') > -1) {
-        this.bugOrTask = "bugs";
-        this.bugId = params['bugId'];
-      }
-      else if (this.router.url.indexOf('/tasks/') > -1) {
-        this.bugOrTask = "tasks";
-        this.taskId = params['taskId'];
-      }
-      this.projectId = params['id'];
-    })
-    this.router.events.subscribe((event: any) => {
+    var tmpEvent = this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) 
       {
-        //Při změne task id url načte znova tasky
-        if(this.bugOrTask == "bugs")
-        {
-          this.getBugs();
-        }
-        if(this.bugOrTask == "tasks")
-        {
-          if(!this.isArchiveActive)
-            this.getTasks();
-          else
-            this.getArchivedTasks();
-        }
+        this.activatedRoute.params.subscribe(params => {
+          if (this.router.url.indexOf('/bugs/') > -1) {
+            this.bugOrTask = "bugs";
+            this.bugId = params['bugId'];
+          }
+          else if (this.router.url.indexOf('/tasks/') > -1) {
+            this.bugOrTask = "tasks";
+            this.taskId = params['taskId'];
+          }
+          this.projectId = params['id'];
+          
+          //Při změne task id url načte znova tasky
+          if(this.bugOrTask == "bugs")
+          {
+            this.getBugs();
+          }
+          if(this.bugOrTask == "tasks")
+          {
+            if(!this.isArchiveActive)
+              this.getTasks();
+            else
+              this.getArchivedTasks();
+          }
+        })
+        tmpEvent.unsubscribe();
       }
     })
   }
@@ -70,6 +75,7 @@ export class SidebarComponent
   {
     this.prjctService.getAllTasksByProjectId(this.projectId).subscribe(data => {
       this.taskList = data;
+      if(this.taskList.length > 0 && (this.taskId == null || this.taskId == undefined)) this.router.navigate(["/project/tasks/" + this.projectId + "/" + this.taskList[0].id]);
       this.addDataToSource(this.taskList);
     });
   }
@@ -79,6 +85,7 @@ export class SidebarComponent
   {
     this.bugService.getAllBugsByProjectId(this.projectId).subscribe(data => {
       this.bugList = data;
+      if(this.bugList.length > 0 && (this.bugId == null || this.bugId == undefined)) this.router.navigate(["/project/bugs/" + this.projectId + "/" + this.bugList[0].id]);
       this.addDataToSource(this.bugList);
     })
   }
@@ -95,6 +102,7 @@ export class SidebarComponent
   //Přepnout na task
   navigateToTask(taskId: number)
   {
+    //this.transfer.setData(this.projectId);
     this.router.navigate(["/project/tasks/" + this.projectId + "/" + taskId]);
   }
 
@@ -108,12 +116,11 @@ export class SidebarComponent
   //Checkbutton event
   checkValue(event)
   {
-    let tasksComp: TasksComponent;
     if(event.checked)
     {
       this.prjctService.getArchivedTasksByProjectId(this.projectId).subscribe(data => {
         this.isArchiveActive = true;
-        tasksComp.changeArchiveStatus(true);
+        this.taskComp.changeArchiveStatus(true);
         this.taskList = data;
         this.addDataToSource(this.taskList);
       });
@@ -121,7 +128,7 @@ export class SidebarComponent
     else
     {
       this.isArchiveActive = false;
-      tasksComp.changeArchiveStatus(false);
+      this.taskComp.changeArchiveStatus(false);
       this.taskList = [];
       this.getTasks();
     }

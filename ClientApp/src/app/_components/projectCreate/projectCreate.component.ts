@@ -54,7 +54,7 @@ export class ProjectCreateComponent implements OnInit
     this.projectService.saveProject(this.projectForm.value)
       .subscribe((data) =>
       {
-        this.router.navigate([""]);
+        this.router.navigate(["/"]);
         alert("Project created!");
       }, error =>
       {

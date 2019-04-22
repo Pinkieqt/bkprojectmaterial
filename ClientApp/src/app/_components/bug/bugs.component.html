@@ -66,27 +66,27 @@
                   <table class="myTableStyle">
                     <tr>
                       <td><b>Priorita</b></td>
-                      <td *ngIf="tmpBug">{{ tmpBug.priority }}</td>
+                      <td *ngIf="tmpBug" class="cellStyle">{{ tmpBug.priority }}</td>
                     </tr>
                     <tr>
                       <td><b>Status</b></td>
-                      <td *ngIf="tmpBug">{{ tmpBug.status }}</td>
+                      <td *ngIf="tmpBug" class="cellStyle">{{ tmpBug.status }}</td>
                     </tr>
                     <tr>
                       <td><b>Štítky</b></td>
-                      <td *ngIf="tmpBug">{{ tmpBug.labels }}</td>
+                      <td *ngIf="tmpBug" class="cellStyle">{{ tmpBug.labels }}</td>
                     </tr>
                     <tr>
                       <td><b>Přiřazeno</b></td>
-                      <td *ngIf="tmpBug">zatím nic</td>
+                      <td *ngIf="tmpBug" class="assignStyle cellStyle">{{ tmpBug.assigned }}</td>
                     </tr>
                     <tr>
                       <td><b>Začátek</b></td>
-                      <td *ngIf="tmpBug">{{ tmpBug.start }}</td>
+                      <td *ngIf="tmpBug" class="cellStyle">{{ tmpBug.start }}</td>
                     </tr>
                     <tr>
                       <td><b>Dokončení</b></td>
-                      <td *ngIf="tmpBug">{{ tmpBug.end }}</td>
+                      <td *ngIf="tmpBug" class="cellStyle">{{ tmpBug.end }}</td>
                     </tr>
                   </table>
                 </mat-card-content>

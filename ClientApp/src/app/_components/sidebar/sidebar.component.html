@@ -7,13 +7,15 @@
                     <div class="card">
                         <div class="title"><b>{{ task.name }}</b></div>
                         <div class="description">{{ task.description }}</div>
-                        <div class="participients">-</div>
+                        <div class="participients">{{ task.assigned }}</div>
+                        <div class="label1" *ngIf="task.labels.includes('Administrace')"></div>
+                        <div class="label2" *ngIf="task.labels.includes('Web')"></div>
+                        <div class="label3" *ngIf="task.labels.includes('Aplikace')"></div>
                         <div class="status">
                             <i *ngIf="task.status == 'Dokončený'" class="material-icons">check_circle_outline</i>
                             <i *ngIf="task.status == 'Započatý'" class="material-icons">query_builder</i>
                             <i *ngIf="task.status == 'Nezapočatý'" class="material-icons">block</i>
                         </div>
-                        <div class="labels" *ngIf="task.labels == 'Administrace'"></div>
                     </div>
                 </button>
             </td>
@@ -32,7 +34,10 @@
                     <div class="card">
                         <div class="title"><b>{{ bug.name }}</b></div>
                         <div class="description">{{ bug.description }}</div>
-                        <div class="participients">-</div>
+                        <div class="participients">{{ bug.assigned }}</div>
+                        <div class="label1" *ngIf="bug.labels.includes('Administrace')"></div>
+                        <div class="label2" *ngIf="bug.labels.includes('Web')"></div>
+                        <div class="label3" *ngIf="bug.labels.includes('Aplikace')"></div>
                         <div class="status">
                             <i *ngIf="bug.status == 'Nový'" class="material-icons">fiber_new</i>
                             <i *ngIf="bug.status == 'Opravený'" class="material-icons">check_circle_outline</i>
@@ -40,7 +45,6 @@
                             <i *ngIf="bug.status == 'Potvrzený'" class="material-icons">thumb_up_alt</i>
                             <i *ngIf="bug.status == 'Nepotvrzený'" class="material-icons">thumb_down_alt</i>
                         </div>
-                        <div class="labels" *ngIf="bug.labels == 'Administrace'"></div>
                     </div>
                 </button>
             </td>

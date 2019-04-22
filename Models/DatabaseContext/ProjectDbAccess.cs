@@ -23,29 +23,66 @@ namespace PrjctManagementSystem.Models
             }
         }
 
+        public int? AssignOwner(int? projectId, int owner_id)
+        {
+            using (IDbConnection db = new SqlConnection(ConnectionString))
+            {
+                string queryAddToAssigned = @"UPDATE tbProject SET Assigned = @assign WHERE Id = @projectid";
+                IEnumerable<User> tmpUser = new UserDbAccess().GetUsers();
+                foreach (User tmp in tmpUser)
+                {
+                    if(tmp.Id == owner_id)
+                    {
+                        return db.Execute(queryAddToAssigned, new 
+                        {
+                            assign = tmp.First_name + " " + tmp.Last_name,
+                            projectid = projectId
+                        });
+                    }
+                }
+                return -1;
+            }
+        }
+
         //Inserting participients of project into tbProjectParticipants
-        public int? AddParticipants(int? projectId, string data, string prjctName) {
+        public int? AddParticipants(int? projectId, string data, string prjctName, int owner_id) {
             if (data == null) return -1;
+            List<string> nameArray = new List<string>();
             string[] idArray = data.Split(',');
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 string query = @"INSERT INTO tbProjectParticipants VALUES (@partid, @projectid)";
+                string queryAddToAssigned = @"UPDATE tbProject SET Assigned = @assign WHERE Id = @projectid";
                 IEnumerable<User> tmpUser = new UserDbAccess().GetUsers();
-                foreach (string x in idArray) {
+                foreach (string Id in idArray) 
+                {
                     var result = db.Execute(query, new
                     {
                         projectid = projectId,
-                        partid = Int32.Parse(x)
+                        partid = Int32.Parse(Id)
                     });
                     if (result != 0)
                     {
                         foreach(User temp in tmpUser){
-                            if(temp.Id == Int32.Parse(x) && temp.getEmails == true){
-                                new MyEmailClient().SendEmail(tmpUser.First().First_name + " " + tmpUser.First().Last_name, tmpUser.First().Email, prjctName);
+                            if(temp.Id == Int32.Parse(Id) && temp.getEmails == true)
+                            {
+                                //new MyEmailClient().SendEmail(temp.First_name + " " + temp.Last_name, temp.Email, prjctName);
+                            }
+                            if(temp.Id == Int32.Parse(Id) || temp.Id == owner_id)
+                            {
+                                nameArray.Add(temp.First_name + " " + temp.Last_name);
                             }
                         }
                     }
                 }
+                
+                string tmp = string.Join(",", nameArray);
+
+                db.Execute(queryAddToAssigned, new 
+                {
+                    assign = tmp,
+                    projectid = projectId
+                });
 
                 return 1;
             }

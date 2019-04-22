@@ -14,14 +14,18 @@
                 <mat-option value="Vysoká">Vysoká</mat-option>
             </mat-select>
         </mat-form-field>
-            <!-- <mat-select [(ngModel)]="data.labels" placeholder="Štítky" formControlName="labels">
-                <mat-option value="Administrace">Administrace</mat-option>
-                <mat-option value="Další1">Další1</mat-option>
-                <mat-option value="Další2">Další2</mat-option>
-                <mat-option value="Další3">Další3</mat-option>
-                <mat-option value="Další4">Další4</mat-option>
-                <mat-option value="Další5">Další5</mat-option>
-            </mat-select> -->
+        <mat-form-field>
+            <mat-label>Štítky</mat-label>
+            <mat-select multiple formControlName="LabelsString">
+                <mat-option *ngFor="let label of labelList" [value]="label">{{ label }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Přiřazeno</mat-label>
+            <mat-select multiple formControlName="AssignedString">
+                <mat-option *ngFor="let user of participientList" [value]="user">{{ user }}</mat-option>
+            </mat-select>
+        </mat-form-field>
         <mat-form-field>
             <input matInput [matDatepicker]="start" placeholder="Datum počátku" formControlName="start">
             <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
@@ -32,12 +36,6 @@
             <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
             <mat-datepicker #end disabled="false"></mat-datepicker>
         </mat-form-field>
-
-        <div class="labels">
-            <mat-checkbox formControlName="label1" value="Administrace">Administrace</mat-checkbox>
-            <mat-checkbox formControlName="label2" value="Another1">Další</mat-checkbox>
-            <mat-checkbox formControlName="label3" value="Another2">Další 2</mat-checkbox>
-        </div>    
     </form>
 </div>
 <div mat-dialog-actions>

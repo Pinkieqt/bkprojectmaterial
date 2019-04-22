@@ -14,7 +14,6 @@ export class ProjectService {
   //Adding project
   saveProject(prjct) {
     const token = localStorage.getItem("jwt");
-    console.log(prjct);
     return this.http.post(this.myUrl + '/api/Project/Create', prjct, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }

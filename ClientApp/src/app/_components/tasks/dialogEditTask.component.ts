@@ -18,6 +18,8 @@ import { Router } from '@angular/router';
     
     private tmpTask: EditTaskData;
     private taskForm: FormGroup;
+    public labelList: string[] = ['Administrace', 'Web', 'Aplikace'];
+    public participientList: string[];
   
     constructor(
       private prjctService: ProjectService,
@@ -26,6 +28,9 @@ import { Router } from '@angular/router';
       private formBuilder: FormBuilder,
       public dialogRef: MatDialogRef<DialogEditTask>,
       @Inject(MAT_DIALOG_DATA) public data: EditTaskData) {
+
+        this.participientList = this.data.assigned.split(',');
+
         this.taskForm = this.formBuilder.group({
           Id: [''],
           name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
@@ -33,7 +38,8 @@ import { Router } from '@angular/router';
           Fk_Owner_Id: [''],
           Fk_Project_Id: [''],
           priority: ['', [Validators.required]],
-          labels: ['', [Validators.required]],
+          AssignedString: ['', [Validators.required]],
+          LabelsString: ['', [Validators.required]],
         })
       }
   
@@ -67,6 +73,7 @@ import { Router } from '@angular/router';
     description: string;
     projectId: number;
     ownerId: number;
+    assigned: string;
     priority: string;
     labels: string;
   }

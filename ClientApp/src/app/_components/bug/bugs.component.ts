@@ -47,10 +47,9 @@ export class BugsComponent implements OnDestroy
       Fk_Owner_Id: [''],
       Fk_Bug_Id: ['']
     })
-    this.router.events.subscribe((event: any) => {
+    var tmpEvent = this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) 
       {
-        console.log(event);
         this.activatedRoute.params.subscribe(params => {
           this.projectId = params['id'];
           this.bugId = params['bugId'];
@@ -63,6 +62,7 @@ export class BugsComponent implements OnDestroy
           //Ziskani komentářů k danému úkolu
           this.getComments(this.bugId);
         })
+       tmpEvent.unsubscribe(); 
       }
     })
   }
@@ -140,7 +140,7 @@ export class BugsComponent implements OnDestroy
   openAddBugDialog(): void {
     this.dialog.open(DialogAddBug, {
       width: '30%',
-      data: {projectId: this.projectId, ownerId: this.loggedUserId}
+      data: {projectId: this.projectId, ownerId: this.loggedUserId, assigned: this.tmpProject.assigned}
     });
   }
 
@@ -148,7 +148,7 @@ export class BugsComponent implements OnDestroy
   openEditBugDialog(p_id: number, p_name: string, p_description: string, p_priority: string, p_labels: string): void {
     const dialogRef = this.dialog.open(DialogEditBug, {
       width: '30%',
-      data: {id: p_id, name: p_name, description: p_description, priority: p_priority, labels: p_labels, projectId: this.projectId, ownerId: this.loggedUserId}
+      data: {id: p_id, name: p_name, description: p_description, priority: p_priority, labels: p_labels, projectId: this.projectId, ownerId: this.loggedUserId, assigned: this.tmpProject.assigned}
     });
 
     dialogRef.afterClosed().subscribe(result => {

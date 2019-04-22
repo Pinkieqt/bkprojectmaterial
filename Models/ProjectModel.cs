@@ -14,6 +14,7 @@ namespace PrjctManagementSystem.Models
         public string Name { get; set; }
         [Column("Fk_Owner_Id")]
         public int Owner_Id { get; set; }
+        public string Assigned { get; set; }
 
         //Properties not included in database
         [Editable(false)]

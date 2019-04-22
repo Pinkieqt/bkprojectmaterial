@@ -16,6 +16,8 @@ import { DatePipe } from '@angular/common';
   export class DialogAddBug {
     
     private bugForm: FormGroup;
+    public labelList: string[] = ['Administrace', 'Web', 'Aplikace'];
+    public participientList: string[];
   
     constructor(
       private date: DatePipe,
@@ -25,18 +27,19 @@ import { DatePipe } from '@angular/common';
       private formBuilder: FormBuilder,
       public dialogRef: MatDialogRef<DialogAddBug>,
       @Inject(MAT_DIALOG_DATA) public data: AddBugData) {
+
+        this.participientList = this.data.assigned.split(',');
+
         this.bugForm = this.formBuilder.group({
           name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
           description: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(500)]],
           Fk_Owner_Id: [''],
           Fk_Project_Id: [''],
           priority: ['', [Validators.required]],
-          label1: [''],
-          label2: [''],
-          label3: [''],
+          AssignedString: ['', [Validators.required]],
           start: ['', [Validators.required]],
           end: ['', [Validators.required]],
-          labels: ['']
+          LabelsString: ['', [Validators.required]]
         })
       }
   
@@ -64,19 +67,6 @@ import { DatePipe } from '@angular/common';
       }, error => {
         alert("Problém při vytváření bugu u projektu.")
       })
-
-      /* další neplati a musí se smazat;*/
-      var labels = this.bugForm.controls['label1'].value;
-
-
-      this.bugForm.controls['labels'].setValue(
-        this.bugForm.controls['label1'].value + " s"
-      )
-
-
-      this.bugForm.controls['Fk_Owner_Id'].setValue(ownerId);
-      this.bugForm.controls['Fk_Project_Id'].setValue(projectId);
-      console.log(this.bugForm.value);
     }
   }
   
@@ -85,6 +75,7 @@ import { DatePipe } from '@angular/common';
     description: string;
     projectId: number;
     ownerId: number;
+    assigned: string;
     priority: string;
     labels: string;
     start: Date;

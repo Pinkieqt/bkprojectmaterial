@@ -21,10 +21,13 @@ namespace PrjctManagementSystem.Controllers
         public int? Create([FromBody] ProjectModel prjct)
         {
             int? result = prjctObject.AddProject(prjct);
-            if (result == null || prjct.ParticipientsString == null) return -1;
+            if (prjct.ParticipientsString == null)
+            {
+                result = prjctObject.AssignOwner(result, prjct.Owner_Id);              
+            }
             else
             {
-                prjctObject.AddParticipants(result, prjct.ParticipientsString, prjct.Name);
+                result = prjctObject.AddParticipants(result, prjct.ParticipientsString, prjct.Name, prjct.Owner_Id);
             }
             return result;
         }

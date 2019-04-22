@@ -24,6 +24,7 @@ CREATE TABLE [tbProject]
  [Id]          int IDENTITY (1, 1) NOT NULL ,
  [Name]        nvarchar(90) COLLATE CZECH_CI_AS NOT NULL ,
  [Fk_Owner_Id] int NOT NULL ,
+ [Assigned]    nvarchar(1000) COLLATE CZECH_CI_AS,
 
  CONSTRAINT [PK_tbProject] PRIMARY KEY CLUSTERED ([Id] ASC),
  CONSTRAINT [FK_tbProject_UserId] FOREIGN KEY ([Fk_Owner_Id])  REFERENCES [tbUser]([id])
@@ -49,7 +50,7 @@ CREATE TABLE [tbTask]
  [Description]   text COLLATE CZECH_CI_AS NOT NULL ,
  [Fk_Owner_Id]   int NOT NULL ,
  [Fk_Project_Id] int NOT NULL ,
- [Assigned]      nvarchar(1000) NOT NULL ,
+ [Assigned]      nvarchar(1000) COLLATE CZECH_CI_AS NOT NULL ,
  [Status]        nvarchar(20) COLLATE CZECH_CI_AS NOT NULL ,
  [Priority]      nvarchar(20) COLLATE CZECH_CI_AS NOT NULL ,
  [Labels]        nvarchar(250) COLLATE CZECH_CI_AS NOT NULL ,
@@ -84,7 +85,7 @@ CREATE TABLE [tbBug]
  [Description]   text NOT NULL ,
  [Fk_Owner_Id]   int NOT NULL ,
  [Fk_Project_Id] int NOT NULL ,
- [Assigned]      nvarchar(1000) NOT NULL ,
+ [Assigned]      nvarchar(1000) COLLATE CZECH_CI_AS NOT NULL ,
  [Status]        nvarchar(20) COLLATE CZECH_CI_AS NOT NULL ,
  [Priority]      nvarchar(20) COLLATE CZECH_CI_AS NOT NULL ,
  [Labels]        nvarchar(250) COLLATE CZECH_CI_AS NOT NULL ,
@@ -118,7 +119,7 @@ CREATE TABLE [tbTaskArchive]
  [Description]   text NOT NULL ,
  [Fk_Owner_Id]   int NOT NULL ,
  [Fk_Project_Id] int NOT NULL ,
- [Assigned]      nvarchar(1000) NOT NULL ,
+ [Assigned]      nvarchar(1000) COLLATE CZECH_CI_AS NOT NULL ,
  [Status]        nvarchar(20) COLLATE CZECH_CI_AS NOT NULL ,
  [Priority]      nvarchar(20) COLLATE CZECH_CI_AS NOT NULL ,
  [Labels]        nvarchar(250) COLLATE CZECH_CI_AS NOT NULL ,
@@ -162,5 +163,21 @@ BEGIN
 
     INSERT into tbTaskArchive  select * from tbTask where Id = @id;
     DELETE from tbTask where Id = @id;
+END
+GO
+
+CREATE OR ALTER PROCEDURE spDeleteBug @id int
+AS
+BEGIN
+	DELETE from tbBugcomment WHERE Fk_Bug_Id = @id
+	DELETE from tbBug WHERE Id = @id;
+END
+GO
+
+CREATE OR ALTER PROCEDURE spDeleteTask @id int
+AS
+BEGIN
+	DELETE from tbTaskComment WHERE Fk_Task_Id = @id
+	DELETE from tbTask WHERE Id = @id;
 END
 GO

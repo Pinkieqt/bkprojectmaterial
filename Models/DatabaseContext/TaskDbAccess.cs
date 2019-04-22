@@ -16,6 +16,10 @@ namespace PrjctManagementSystem.Models
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 tsk.Status = "Nezapočatý";
+
+                tsk.Labels = string.Join(",", tsk.LabelsString);
+                tsk.Assigned = string.Join(",", tsk.AssignedString);
+
                 return db.Insert(tsk);
             }
         }
@@ -40,7 +44,9 @@ namespace PrjctManagementSystem.Models
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 
-                string query = @"update tbTask SET name = @name, description = @description, priority = @priority, labels = @labels where Id = @tskid";
+                tsk.Labels = string.Join(",", tsk.LabelsString);
+                tsk.Assigned = string.Join(",", tsk.AssignedString);
+                string query = @"update tbTask SET name = @name, description = @description, priority = @priority, labels = @labels, assigned = @assigned where Id = @tskid";
 
                 var result = db.Execute(query, new
                 {
@@ -49,6 +55,7 @@ namespace PrjctManagementSystem.Models
                     status = tsk.Status,
                     priority = tsk.Priority,
                     labels = tsk.Labels,
+                    assigned = tsk.Assigned,
                     tskid = tsk.Id
                 });
 

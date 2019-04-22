@@ -16,6 +16,8 @@ import { DatePipe } from '@angular/common';
   export class DialogEditBug {
     
     private bugForm: FormGroup;
+    public labelList: string[] = ['Administrace', 'Web', 'Aplikace'];
+    public participientList: string[];
   
     constructor(
       private date: DatePipe,
@@ -25,6 +27,9 @@ import { DatePipe } from '@angular/common';
       private formBuilder: FormBuilder,
       public dialogRef: MatDialogRef<DialogEditBug>,
       @Inject(MAT_DIALOG_DATA) public data: EditBugData) {
+
+        this.participientList = this.data.assigned.split(',');
+
         this.bugForm = this.formBuilder.group({
           Id: [''],
           name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
@@ -32,9 +37,10 @@ import { DatePipe } from '@angular/common';
           Fk_Owner_Id: [''],
           Fk_Project_Id: [''],
           priority: ['', [Validators.required]],
-          labels: [''],
+          AssignedString: ['', [Validators.required]],
           start: [''],
           end: ['', [Validators.required]],
+          LabelsString: ['', [Validators.required]]
         })
       }
   
@@ -68,6 +74,7 @@ import { DatePipe } from '@angular/common';
     description: string;
     projectId: number;
     ownerId: number;
+    assigned: string;
     priority: string;
     labels: string;
     start: Date;

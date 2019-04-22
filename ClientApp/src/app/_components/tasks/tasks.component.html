@@ -67,19 +67,19 @@
                 <table class="myTableStyle">
                   <tr>
                     <td><b>Priorita</b></td>
-                    <td *ngIf="tmpTask">{{ tmpTask.priority }}</td>
+                    <td *ngIf="tmpTask" class="cellStyle">{{ tmpTask.priority }}</td>
                   </tr>
                   <tr>
                     <td><b>Status</b></td>
-                    <td *ngIf="tmpTask">{{ tmpTask.status }}</td>
+                    <td *ngIf="tmpTask" class="cellStyle">{{ tmpTask.status }}</td>
                   </tr>
                   <tr>
                     <td><b>Štítky</b></td>
-                    <td *ngIf="tmpTask">{{ tmpTask.labels }}</td>
+                    <td *ngIf="tmpTask" class="cellStyle">{{ tmpTask.labels }}</td>
                   </tr>
                   <tr>
                     <td><b>Přiřazeno</b></td>
-                    <td *ngIf="tmpTask">zatím nic</td>
+                    <td *ngIf="tmpTask" class="assignStyle cellStyle">{{ tmpTask.assigned }}</td>
                   </tr>
                 </table>
               </mat-card-content>
@@ -124,7 +124,10 @@
                     <mat-card-title><h3>Soubory</h3></mat-card-title>
                 </mat-card-header>
                 <mat-card-content class="descriptionContent">
-
+                  <form method="post" enctype="multipart/form-data">
+                    <input type="file" (change)="onFileSelect($event)"/>
+                    <button type="submit" mat-button (click)="onUpload()">Upload</button>
+                 </form>
                 </mat-card-content>
               </mat-card>
             </div>

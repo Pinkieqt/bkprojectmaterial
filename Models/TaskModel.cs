@@ -19,5 +19,11 @@ namespace PrjctManagementSystem.Models
         public string Status { get; set; }
         public string Priority { get; set; }
         public string Labels { get; set; }
+
+        
+        //Properties not included in database
+        [Editable(false)]
+        public string[] LabelsString { get; set; }
+        public string[] AssignedString { get; set; }
     }
 }

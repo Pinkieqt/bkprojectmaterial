@@ -2,10 +2,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { ProjectService } from '../../_services/project.service';
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommentService } from 'src/app/_services/comment.service';
 import { DialogAddTask } from './dialogAddTask.component';
 import { DialogEditTask } from './dialogEditTask.component';
+import { FtpService } from 'src/app/_services/ftp.service';
 
 @Component({
   selector: 'app-tasks',
@@ -16,6 +17,7 @@ export class TasksComponent implements OnDestroy
 {
   ngOnDestroy(): void {
     this.taskId = undefined;
+    this.router = undefined;
   }
 
   private projectId: number;
@@ -27,17 +29,21 @@ export class TasksComponent implements OnDestroy
   public tmpTask: any;
   public tmpCommentsList: any;
   private _commentForm: FormGroup;
+  private myData: any;
 
-  constructor( 
+
+
+  constructor
+  ( 
     private prjctService: ProjectService,
+    private ftpService: FtpService,
     private commentService: CommentService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     public dialog: MatDialog
-    )
-  {
+  ){
     this._commentForm = this.formBuilder.group
     ({
       Content: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
@@ -45,7 +51,8 @@ export class TasksComponent implements OnDestroy
       Fk_Owner_Id: [''],
       Fk_Task_Id: ['']
     })
-    this.router.events.subscribe((event: any) => {
+
+    var tmpEvent = this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) 
       {
         this.activatedRoute.params.subscribe(params => {
@@ -64,6 +71,7 @@ export class TasksComponent implements OnDestroy
 
           this.getComments(this.taskId);
         })
+        tmpEvent.unsubscribe();
       }
     })
   }
@@ -166,7 +174,7 @@ export class TasksComponent implements OnDestroy
   openAddTaskDialog(): void {
     this.dialog.open(DialogAddTask, {
       width: '30%',
-      data: {projectId: this.projectId, ownerId: this.loggedUserId}
+      data: {projectId: this.projectId, ownerId: this.loggedUserId, assigned: this.tmpProject.assigned}
     });
   }
 
@@ -174,13 +182,27 @@ export class TasksComponent implements OnDestroy
   openEditTaskDialog(p_id: number, p_name: string, p_description: string, p_priority: string, p_labels: string): void {
     const dialogRef = this.dialog.open(DialogEditTask, {
       width: '30%',
-      data: {id: p_id, name: p_name, description: p_description, priority: p_priority, labels: p_labels, projectId: this.projectId, ownerId: this.loggedUserId}
+      data: {id: p_id, name: p_name, description: p_description, priority: p_priority, labels: p_labels, projectId: this.projectId, ownerId: this.loggedUserId, assigned: this.tmpProject.assigned}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       //Ziskani daného úkolu z projektu
       this.getTask(this.taskId);
     });
+  }
+
+  
+  file = null;
+  onFileSelect(event){
+    console.log(event.target);
+    this.file = event.target.files[0];
+  }
+  onUpload(){
+    this.ftpService.uploadFile(this.file).subscribe(res => {
+      console.log(res);
+    }, error => {
+      console.log(error);
+    })
   }
 
   //comment adding

@@ -50,6 +50,8 @@ import { ProjectService } from './_services/project.service';
 import { AuthenticationGuard } from './_guards/authentication.guard';
 import { BugService } from './_services/bug.service';
 import { registerLocaleData, DatePipe } from '@angular/common';
+import { TransferService } from './_services/transfer.service';
+import { FtpService } from './_services/ftp.service';
 
 registerLocaleData(localeCs);
 
@@ -104,7 +106,7 @@ registerLocaleData(localeCs);
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, canActivate: [AuthenticationGuard], pathMatch: 'full' }, //Login
+      { path: '', component: HomeComponent, canActivate: [AuthenticationGuard]},
       { path: 'login', component: LoginComponent },
       { path: 'users', component: UsersComponent, canActivate: [AuthenticationGuard] },
       { path: 'settings', component: SettingsComponent, canActivate: [AuthenticationGuard] },
@@ -115,7 +117,7 @@ registerLocaleData(localeCs);
       { path: 'project/bugs/:id/:bugId', component: BugsComponent, canActivate: [AuthenticationGuard] },
     ])
   ],
-  providers: [UserService, AuthorizationService, ProjectService, AuthenticationGuard, CommentService, BugService, TasksComponent, DatePipe, {provide: LOCALE_ID, useValue: 'cs-CZ'}],
+  providers: [TransferService, UserService, FtpService, AuthorizationService, ProjectService, AuthenticationGuard, CommentService, BugService, TasksComponent, DatePipe, {provide: LOCALE_ID, useValue: 'cs-CZ'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

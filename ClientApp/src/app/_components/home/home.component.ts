@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../_services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -12,11 +11,9 @@ export class HomeComponent
   private currentLogin: string;
   private currentId: number;
 
-  constructor(
-    private userService: UserService,
-    )
+  constructor()
   {
-    //this.currentLogin = localStorage.getItem("log");
+    console.log("teď jsem se vytvořil");
   }
 
 }

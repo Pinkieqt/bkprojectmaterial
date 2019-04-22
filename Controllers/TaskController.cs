@@ -15,9 +15,6 @@ namespace PrjctManagementSystem.Controllers
         [Route("api/Task/Create")]
         public int? Create([FromBody] TaskModel tsk)
         {
-            TaskModel x = tsk;
-            
-
             return tskObject.AddTask(tsk);
         }
 

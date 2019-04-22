@@ -21,9 +21,9 @@ export class SidenavComponent
   private currentId: number;
   private currentLogin: any;
 
-  constructor( private authService: AuthorizationService, private router: Router, private projectService: ProjectService, private userService: UserService )
+  constructor(private authService: AuthorizationService, private router: Router, private projectService: ProjectService, private userService: UserService )
   {
-    this.router.events.subscribe((event: any) => {
+    var tmpEvent = this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) 
       {
         //Při každé změně url se zjistí, jestli je JWT token stále platný

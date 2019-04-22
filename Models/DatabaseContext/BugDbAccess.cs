@@ -16,6 +16,8 @@ namespace PrjctManagementSystem.Models
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 bug.Status = "Nový";
+                bug.Labels = string.Join(",", bug.LabelsString);
+                bug.Assigned = string.Join(",", bug.AssignedString);
                 return db.Insert(bug);
             }
         }
@@ -40,7 +42,9 @@ namespace PrjctManagementSystem.Models
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
                 const string quote = "\""; 
-                string query = @"update tbBug SET name = @name, description = @description, priority = @priority, labels = @labels, " + quote + "end" + quote + " = @end where Id = @bugid";
+                bug.Labels = string.Join(",", bug.LabelsString);
+                bug.Assigned = string.Join(",", bug.AssignedString);
+                string query = @"update tbBug SET name = @name, description = @description, priority = @priority, labels = @labels, assigned = @assigned, " + quote + "end" + quote + " = @end where Id = @bugid";
 
                 var result = db.Execute(query, new
                 {
@@ -49,6 +53,7 @@ namespace PrjctManagementSystem.Models
                     status = bug.Status,
                     priority = bug.Priority,
                     labels = bug.Labels,
+                    assigned = bug.Assigned,
                     end = bug.End,
                     bugid = bug.Id
                 });

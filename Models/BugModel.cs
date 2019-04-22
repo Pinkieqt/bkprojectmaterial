@@ -23,5 +23,10 @@ namespace PrjctManagementSystem.Models
         public string Start { get; set; }
         //Date
         public string End { get; set; }
+        
+        //Properties not included in database
+        [Editable(false)]
+        public string[] LabelsString { get; set; }
+        public string[] AssignedString { get; set; }
     }
 }

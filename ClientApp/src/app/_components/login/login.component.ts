@@ -30,8 +30,6 @@ export class LoginComponent implements OnInit{
             Login: ['', [Validators.required, Validators.maxLength(30)]],
             Password: ['', [Validators.required, Validators.maxLength(32)]]
         })
-        //Smazani zbytku z předešlé komunikace
-        //this.authService.logout();
     }
 
     login() 

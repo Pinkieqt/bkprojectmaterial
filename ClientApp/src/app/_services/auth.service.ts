@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-//import { JwtHelperService } from '@auth0/angular-jwt';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
 
@@ -11,7 +10,6 @@ export class AuthorizationService {
   public helper = new JwtHelperService();
 
   constructor(
-    //private Jwthelper: JwtHelperService,
     private http: HttpClient
   ){
     this.myUrl = location.origin;

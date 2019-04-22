@@ -52,7 +52,7 @@ namespace PrjctManagementSystem.Controllers
 
         //Editing user email status
         [HttpPut]
-        [Authorize(Roles="admin")]
+        [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/User/EditEmailStatus")]
         public int? EditEmailStatus([FromBody]User user)
         {
