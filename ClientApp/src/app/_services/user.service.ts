@@ -27,9 +27,9 @@ export class UserService {
   }
 
   //Deleting user
-  deleteUser(login) {
+  deleteUser(id) {
     const token = localStorage.getItem("jwt");
-    return this.http.delete(this.myUrl + '/api/User/Delete/' + login, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+    return this.http.delete(this.myUrl + '/api/User/Delete/' + id, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 

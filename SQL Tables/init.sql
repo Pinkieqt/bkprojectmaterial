@@ -181,3 +181,20 @@ BEGIN
 	DELETE from tbTask WHERE Id = @id;
 END
 GO
+
+CREATE OR ALTER PROCEDURE spDeleteUser @id int
+AS
+BEGIN
+    DELETE from tbBugComment WHERE Fk_Owner_Id = @id;
+    DELETE from tbBug WHERE Fk_Owner_Id = @id;
+
+	DELETE from tbTaskComment WHERE Fk_Owner_Id = @id;
+	DELETE from tbTask WHERE Fk_Owner_Id = @id;
+
+	DELETE from tbProjectParticipants WHERE Fk_Project_Id = (SELECT Id from tbProject WHERE Fk_Owner_Id = @id);
+	DELETE from tbProjectParticipants WHERE Fk_User_Id = @id;
+	DELETE from tbProject WHERE Fk_Owner_Id = @id;
+
+	DELETE from tbUser WHERE id = @id
+END
+GO

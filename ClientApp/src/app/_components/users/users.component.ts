@@ -1,9 +1,9 @@
 import { UserService } from './../../_services/user.service';
-import { Component, Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
-import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogAddUser } from './addUserDialog.component';
 import { DialogEditDialog } from './editUserDialog.component';
+import { AlertComponent } from '../layout/alert/alert.component';
 
 @Component({
   selector: 'app-users',
@@ -14,8 +14,10 @@ export class UsersComponent{
   private userList: any;
   private displayedColumns: string[] = ['id', 'login', 'fname', 'lname', 'email', 'role','getEmails', 'akce'];
 
+
   constructor(
     private userService: UserService,
+    public snackBar: MatSnackBar,
     public dialog: MatDialog
     ) {
     this.getUsers();
@@ -25,28 +27,30 @@ export class UsersComponent{
   getUsers(): void {
     this.userService.getUsers().subscribe(data => {
       this.userList = data;
+    }, error => {
+      this.errorHandle(error);
     })
   }
 
   //Metoda pro smazání uživatele z databáze
-  deleteUser(login: string, id: number): void {
-    if(id == 1)
+  deleteUser(login: string, role: number, id: number): void {
+    if(role == 1)
     {
-      alert("Nelze smazat uživatele s administrátorskými právy!");
+      this.dialog.open(AlertComponent, {
+        width: '30%'
+      });
     }
     else
     {
-      var confirmAnswer = confirm("Jste si jistý, že chcete smazat uživatele s přihlašovacím jménem " + login);
+      var confirmAnswer = confirm("Jste si jistý, že chcete smazat uživatele s přihlašovacím jménem " + login + " a všemi jeho daty (projekty, úkoly)?");
       if (confirmAnswer) 
       {
-        this.userService.deleteUser(login).subscribe((data) => 
+        this.userService.deleteUser(id).subscribe(res => 
         {
           this.getUsers();
-        }),
-        error => 
-        {
-          alert("Nemáte práva toto udělat!");
-          console.error(error);
+          this.snackBar.open("Uživatel byl úspěšně odebrán i s jeho projekty.", null, {duration: 2000});
+        }), error => {
+          this.errorHandle(error);
         }
       } 
     }
@@ -59,7 +63,7 @@ export class UsersComponent{
       data: {}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       this.getUsers();
     });
   }
@@ -71,8 +75,22 @@ export class UsersComponent{
       data: {fname: p_fname, lname: p_lname, email: p_email, login: p_login}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       this.getUsers();
     });
+  }
+  
+  errorHandle(error: any)
+  {
+    console.log("hey");
+    //Unauthorized - uživatel nemá povolení to udělat
+    if(error.status == 401 || error.status == 403)
+    {
+      this.dialog.open(AlertComponent, {
+        width: '30%'
+      });
+    }
+    else
+    this.snackBar.open("Vyskytla se chyba. Zkuste opakovat svůj požadavek později.", null, {duration: 2000});
   }
 }

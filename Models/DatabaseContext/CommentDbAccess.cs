@@ -61,6 +61,15 @@ namespace PrjctManagementSystem.Models
             }
         }
 
+        //Fetching all records of comments by its id of task
+        public IEnumerable<TaskCommentArchiveModel> GetAllArchivedComments(int taskId)
+        {
+            using (IDbConnection db = new SqlConnection(ConnectionString))
+            {
+                return db.GetList<TaskCommentArchiveModel>(new { Fk_Task_Id = taskId });
+            }
+        }
+
         /*
         
         Komentáře k bugu

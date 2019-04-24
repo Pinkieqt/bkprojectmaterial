@@ -30,6 +30,13 @@ export class CommentService {
       .pipe(map(res => res));
   }
 
+  //Fetching comments by taskid id
+  getArchivedComments(id: number) {
+    const token = localStorage.getItem("jwt");
+    return this.http.get(this.myUrl + '/api/TaskComment/GetAllArchivedComments/' + id, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
+      .pipe(map(res => res));
+  }
+
   //Deleting comment
   deleteComment(id: number) {
     const token = localStorage.getItem("jwt");

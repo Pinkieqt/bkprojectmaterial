@@ -1,7 +1,7 @@
 <div *ngIf="isLoggedIn">
   <div [class.alternative]="otherTheme">
     <!-- Horní toolbar a jeho tlačítka -->
-    <mat-toolbar color="primary" style="position: sticky; top: 0; z-index: 10; height: 5vh;">
+    <mat-toolbar style="position: sticky; top: 0; z-index: 10; height: 5vh;" >
       <!-- Levá strana -->
         <button type="button" mat-button (click)="drawer.toggle()"><mat-icon><i class="material-icons">menu</i></mat-icon> Menu</button>
           <span class="myHorizontalDivider">|</span>

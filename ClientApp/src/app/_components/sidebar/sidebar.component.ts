@@ -1,3 +1,4 @@
+import { TaskService } from './../../_services/task.service';
 import { BugService } from 'src/app/_services/bug.service';
 import { ProjectService } from './../../_services/project.service';
 import { Component, ViewChild, OnInit, Output, EventEmitter } from '@angular/core';
@@ -35,6 +36,7 @@ export class SidebarComponent
   constructor( 
               private taskComp: TasksComponent,
               private prjctService: ProjectService,
+              private taskService: TaskService,
               private activatedRoute: ActivatedRoute, 
               private router: Router, 
               private bugService: BugService )
@@ -73,7 +75,7 @@ export class SidebarComponent
   //Not archived tasks
   getTasks()
   {
-    this.prjctService.getAllTasksByProjectId(this.projectId).subscribe(data => {
+    this.taskService.getAllTasksByProjectId(this.projectId).subscribe(data => {
       this.taskList = data;
       if(this.taskList.length > 0 && (this.taskId == null || this.taskId == undefined)) this.router.navigate(["/project/tasks/" + this.projectId + "/" + this.taskList[0].id]);
       this.addDataToSource(this.taskList);
@@ -93,7 +95,7 @@ export class SidebarComponent
   //Not archived tasks
   getArchivedTasks()
   {
-    this.prjctService.getArchivedTasksByProjectId(this.projectId).subscribe(data => {
+    this.taskService.getArchivedTasksByProjectId(this.projectId).subscribe(data => {
       this.taskList = data;
       this.addDataToSource(this.taskList);
     });
@@ -118,7 +120,7 @@ export class SidebarComponent
   {
     if(event.checked)
     {
-      this.prjctService.getArchivedTasksByProjectId(this.projectId).subscribe(data => {
+      this.taskService.getArchivedTasksByProjectId(this.projectId).subscribe(data => {
         this.isArchiveActive = true;
         this.taskComp.changeArchiveStatus(true);
         this.taskList = data;

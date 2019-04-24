@@ -6,7 +6,8 @@ import { Component, Inject, OnDestroy, OnInit, Output, EventEmitter } from '@ang
 import { CommentService } from 'src/app/_services/comment.service';
 import { DialogAddTask } from './dialogAddTask.component';
 import { DialogEditTask } from './dialogEditTask.component';
-import { FtpService } from 'src/app/_services/ftp.service';
+import { AlertComponent } from '../layout/alert/alert.component';
+import { TaskService } from 'src/app/_services/task.service';
 
 @Component({
   selector: 'app-tasks',
@@ -36,7 +37,7 @@ export class TasksComponent implements OnDestroy
   constructor
   ( 
     private prjctService: ProjectService,
-    private ftpService: FtpService,
+    private taskService: TaskService,
     private commentService: CommentService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -63,13 +64,18 @@ export class TasksComponent implements OnDestroy
   
           //Ziskani daného úkolu z projektu
           if(!this.isArchiveActived)
+          {
             this.getTask(this.taskId);
+            this.getComments(this.taskId);
+          }
           else
+          {
             this.getArchivedTask(this.taskId);
+            this.getArchiveComments(this.taskId);
+          }
 
           //Ziskani komentářů k danému úkolu
 
-          this.getComments(this.taskId);
         })
         tmpEvent.unsubscribe();
       }
@@ -99,7 +105,7 @@ export class TasksComponent implements OnDestroy
         this.snackBar.open("Projekt byl úspěšně smazán z databáze.", null, {duration: 2000});
       },
       error => {
-
+        this.errorHandle(error);
       })
     } 
   }
@@ -110,7 +116,7 @@ export class TasksComponent implements OnDestroy
 
   getTask(taskId: number)
   {
-    this.prjctService.getTask(taskId).subscribe(data => {
+    this.taskService.getTask(taskId).subscribe(data => {
       if(data)
       {
         this.tmpTask = data[0];
@@ -122,7 +128,7 @@ export class TasksComponent implements OnDestroy
 
   getArchivedTask(taskId: number)
   {
-    this.prjctService.getArchivedTask(taskId).subscribe(data => {
+    this.taskService.getArchivedTask(taskId).subscribe(data => {
       if(data)
       {
         this.tmpTask = data[0];
@@ -137,13 +143,13 @@ export class TasksComponent implements OnDestroy
     var confirmAnswer = confirm("Jste si jistí, že chcete smazat úkol s názvem \"" + this.tmpTask.name + "\" a ID \"" + this.tmpTask.id + "\"?");
     if (confirmAnswer) 
     {
-      this.prjctService.deleteTask(this.tmpTask.id).subscribe((data) => 
+      this.taskService.deleteTask(this.tmpTask.id).subscribe(data => 
       {
         this.router.navigate(["/project/tasks/" + this.projectId]);
         this.snackBar.open("Úkol byl smazán z projektu.", null, {duration: 2000});
       },
       error => {
-
+        this.errorHandle(error);
       })
     } 
   }
@@ -154,19 +160,22 @@ export class TasksComponent implements OnDestroy
     var confirmAnswer = confirm("Jste si jistí, že chcete archivovat úkol s názvem \"" + this.tmpTask.name + "\" a ID \"" + this.tmpTask.id + "\"?");
     if (confirmAnswer) 
     {
-      this.prjctService.archiveTask(this.tmpTask.id).subscribe((data) => 
+      this.taskService.archiveTask(this.tmpTask.id).subscribe(data => 
       {
-        alert("Úkol byl archivován.");
-        //this.getUsers();
-      },
-      error => console.error(error))
-    } 
+        this.router.navigate(["/project/tasks/" + this.projectId]);
+        this.snackBar.open("Úkol byl archivován.", null, {duration: 2000});
+      }, error => {
+        this.errorHandle(error);
+      });
+    }
   }
 
   //Status change
   onChangeTask(value){
-    this.prjctService.editTaskStatus(value, this.tmpTask.id).subscribe(result => {
+    this.taskService.editTaskStatus(value, this.tmpTask.id).subscribe(result => {
       this.snackBar.open("Status úkolu byl úspěšně změnen.", null, {duration: 2000});
+    }, error => {
+      this.errorHandle(error);
     });
   }
   
@@ -191,20 +200,6 @@ export class TasksComponent implements OnDestroy
     });
   }
 
-  
-  file = null;
-  onFileSelect(event){
-    console.log(event.target);
-    this.file = event.target.files[0];
-  }
-  onUpload(){
-    this.ftpService.uploadFile(this.file).subscribe(res => {
-      console.log(res);
-    }, error => {
-      console.log(error);
-    })
-  }
-
   //comment adding
   addComment()
   {
@@ -219,9 +214,8 @@ export class TasksComponent implements OnDestroy
     this.commentService.saveComment(this._commentForm.value).subscribe((data) => 
     {
       this.getComments(this.taskId);
-    }, error => 
-    { 
-      console.log(error);
+    }, error => { 
+      this.errorHandle(error);
     })
   }
 
@@ -237,7 +231,7 @@ export class TasksComponent implements OnDestroy
           this.getComments(this.taskId);
         }
       }, error => {
-        alert("Problém se smazáním komentáře");
+        this.errorHandle(error);
       })
     }
     
@@ -253,6 +247,31 @@ export class TasksComponent implements OnDestroy
         this.tmpCommentsList = data;
       })
     }
+  }
+
+  //ziskani archiv komentařů k danému ukolu
+  getArchiveComments(taskId: number)
+  {
+    if(taskId != undefined)
+    {
+      this.commentService.getArchivedComments(taskId).subscribe((data) => 
+      {
+        this.tmpCommentsList = data;
+      })
+    }
+  }
+
+  errorHandle(error: any)
+  {
+    //Unauthorized - uživatel nemá povolení to udělat
+    if(error.status == 401 || error.status == 403)
+    {
+      this.dialog.open(AlertComponent, {
+        width: '30%'
+      });
+    }
+    else
+    this.snackBar.open("Vyskytla se chyba. Zkuste opakovat svůj požadavek později.", null, {duration: 2000});
   }
 }
 

@@ -44,6 +44,8 @@ export class SettingsComponent
         
       if(status == true)
         this.snackBar.open("Budete dostávat upozornění v podobě emailu.", null, {duration: 2000});
+    }, error => {
+      this.snackBar.open("Vyskytla se chyba. Zkuste opakovat svůj požadavek později.", null, {duration: 2000});
     })
   }
 }

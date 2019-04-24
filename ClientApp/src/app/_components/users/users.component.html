@@ -1,6 +1,6 @@
 <mat-grid-list cols="1" rowHeight="95%">
     <mat-grid-tile>
-        <mat-card class="myCardStyle">
+        <mat-card class="myCardStyle mat-elevation-z6">
             <mat-card-header>
                 <!-- Levá strana -->
                 <mat-card-title class="myHeaderStyle">Seznam uživatelů</mat-card-title>
@@ -45,7 +45,7 @@
                         <ng-container matColumnDef="akce">
                                 <th mat-header-cell *matHeaderCellDef> Akce </th>
                                 <td mat-cell *matCellDef="let user">
-                                    <button type="button" mat-icon-button matTooltip="Smazat uživatele" (click)="deleteUser(user.login, user.role)">
+                                    <button type="button" mat-icon-button matTooltip="Smazat uživatele" (click)="deleteUser(user.login, user.role, user.id)">
                                         <mat-icon><i class="material-icons">delete</i></mat-icon>
                                     </button>
                                     <button type="button" mat-icon-button matTooltip="Editovat uživatele" (click)="openEditDialog(user.first_name, user.last_name, user.email, user.login)">

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProjectService } from '../../_services/project.service';
 import { UserService } from '../../_services/user.service';
+import { AlertComponent } from '../layout/alert/alert.component';
+import { MatSnackBar, MatDialog } from '@angular/material';
 
 @Component(
   {
@@ -22,6 +24,8 @@ export class ProjectCreateComponent implements OnInit
 
   constructor(
     private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog,
     private userService: UserService,
     private projectService: ProjectService,
     private router: Router
@@ -45,7 +49,7 @@ export class ProjectCreateComponent implements OnInit
   {
     if (!this.projectForm.valid)
     {
-      alert("Invalid name of the project!");
+      this.snackBar.open("Byl zadán neplatný název pro projekt!", null, {duration: 2000});
       return;
     }
     this.projectForm.controls['Owner_Id'].setValue(this.currentIdOfUser);
@@ -55,10 +59,9 @@ export class ProjectCreateComponent implements OnInit
       .subscribe((data) =>
       {
         this.router.navigate(["/"]);
-        alert("Project created!");
-      }, error =>
-      {
-        alert("There was problem creating a project.");
+        this.snackBar.open("Projekt byl úspěšně vytvořen.", null, {duration: 2000});
+      }, error => {
+        this.errorHandle(error);
       })
   }
   
@@ -105,6 +108,19 @@ export class ProjectCreateComponent implements OnInit
       }
       if (this.selectedUserIds.includes(id)) this.selectedUserIds.splice(this.selectedUserIds.indexOf(id), 1);
     }
+  }
+
+  errorHandle(error: any)
+  {
+    //Unauthorized - uživatel nemá povolení to udělat
+    if(error.status == 401 || error.status == 403)
+    {
+      this.dialog.open(AlertComponent, {
+        width: '30%'
+      });
+    }
+    else
+    this.snackBar.open("Vyskytla se chyba. Zkuste opakovat svůj požadavek později.", null, {duration: 2000});
   }
   
   

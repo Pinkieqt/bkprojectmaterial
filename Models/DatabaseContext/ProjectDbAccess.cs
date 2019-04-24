@@ -68,11 +68,18 @@ namespace PrjctManagementSystem.Models
                             {
                                 //new MyEmailClient().SendEmail(temp.First_name + " " + temp.Last_name, temp.Email, prjctName);
                             }
-                            if(temp.Id == Int32.Parse(Id) || temp.Id == owner_id)
+                            if(temp.Id == Int32.Parse(Id))
                             {
                                 nameArray.Add(temp.First_name + " " + temp.Last_name);
                             }
                         }
+                    }
+                }
+                
+                foreach(User temp in tmpUser){
+                    if(temp.Id == owner_id)
+                    {
+                        nameArray.Add(temp.First_name + " " + temp.Last_name);
                     }
                 }
                 

@@ -1,8 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProjectService } from 'src/app/_services/project.service';
-import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { AlertComponent } from '../layout/alert/alert.component';
+import { TaskService } from 'src/app/_services/task.service';
 
 /*
   Komponent pro přidání úkolu k projektu - dialog
@@ -22,11 +24,12 @@ import { Router } from '@angular/router';
     public participientList: string[];
   
     constructor(
-      private prjctService: ProjectService,
+      private taskService: TaskService,
       private snackBar: MatSnackBar,
       private router: Router,
       private formBuilder: FormBuilder,
       public dialogRef: MatDialogRef<DialogAddTask>,
+      public dialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: AddTaskData) {
 
         this.participientList = this.data.assigned.split(',');
@@ -53,19 +56,28 @@ import { Router } from '@angular/router';
       }
       this.taskForm.controls['Fk_Owner_Id'].setValue(ownerId);
       this.taskForm.controls['Fk_Project_Id'].setValue(projectId);
-
-      console.log(this.taskForm.value);
-      this.prjctService.saveTask(this.taskForm.value).subscribe(data => {
+      this.taskService.saveTask(this.taskForm.value).subscribe(data => {
         this.dialogRef.close();
         this.router.navigate(["project/tasks/" + projectId + "/" + data]);
         this.snackBar.open("Úkol byl vytvořen a přiřazen k projektu.", null, {duration: 2000});
       }, error => {
-        alert("Problém při vytváření úkolu k projektu.")
+        this.errorHandle(error);
       })
-
     }
+
+  errorHandle(error: any)
+  {
+    //Unauthorized - uživatel nemá povolení to udělat
+    if(error.status == 401 || error.status == 403)
+    {
+      this.dialog.open(AlertComponent, {
+        width: '30%'
+      });
+    }
+    else
+    this.snackBar.open("Vyskytla se chyba. Zkuste opakovat svůj požadavek později.", null, {duration: 2000});
   }
-  
+}
   export interface AddTaskData {
     name: string;
     description: string;

@@ -38,7 +38,7 @@ namespace PrjctManagementSystem.Controllers
         }
 
         //Archiving task
-        [HttpPost]
+        [HttpDelete]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/Task/Archive/{id}")]
         public int? ArchiveTask(int id)

@@ -36,11 +36,20 @@ namespace PrjctManagementSystem.Controllers
         }
         //Getting all tasks by project Id
         [HttpGet]
-        [Authorize(Roles="admin, editableUser")]
+        [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/TaskComment/GetAllComments/{id}")]
         public IEnumerable<TaskCommentModel> GetAllComments(int id)
         {
             return cmntObject.GetAllComments(id);
+        }
+
+        //Getting all tasks by project Id
+        [HttpGet]
+        [Authorize(Roles="admin, editableUser, readOnlyUser")]
+        [Route("api/TaskComment/GetAllArchivedComments/{id}")]
+        public IEnumerable<TaskCommentArchiveModel> GetAllArchivedComments(int id)
+        {
+            return cmntObject.GetAllArchivedComments(id);
         }
 
         //Deleting comment
@@ -78,7 +87,7 @@ namespace PrjctManagementSystem.Controllers
         }
         //Getting all tasks by project Id
         [HttpGet]
-        [Authorize(Roles="admin, editableUser")]
+        [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/BugComment/GetAllComments/{id}")]
         public IEnumerable<BugCommentModel> BGetAllComments(int id)
         {

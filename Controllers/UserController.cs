@@ -62,10 +62,10 @@ namespace PrjctManagementSystem.Controllers
         //Deleting user
         [HttpDelete]
         [Authorize(Roles="admin")]
-        [Route("api/User/Delete/{login}")]
-        public int Delete(string login)
+        [Route("api/User/Delete/{id}")]
+        public int? Delete(int id)
         {
-            return userObject.DeleteUser(login);
+            return userObject.DeleteUser(id);
         }
 
     }

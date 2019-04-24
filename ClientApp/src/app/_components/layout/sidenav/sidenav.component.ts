@@ -16,7 +16,7 @@ export class SidenavComponent
   public sharedProjectIds: any;
   public userName: string;
 
-  public otherTheme: boolean = false;
+  public otherTheme: boolean = true;
   public isLoggedIn: boolean = false;
   private currentId: number;
   private currentLogin: any;

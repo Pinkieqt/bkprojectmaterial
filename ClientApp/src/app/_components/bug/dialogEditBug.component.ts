@@ -1,9 +1,10 @@
 import { BugService } from './../../_services/bug.service';
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { AlertComponent } from '../layout/alert/alert.component';
 
 /*
   Komponent pro editaci bugu u projektu - dialog
@@ -26,6 +27,7 @@ import { DatePipe } from '@angular/common';
       private router: Router,
       private formBuilder: FormBuilder,
       public dialogRef: MatDialogRef<DialogEditBug>,
+      public dialog: MatDialog,
       @Inject(MAT_DIALOG_DATA) public data: EditBugData) {
 
         this.participientList = this.data.assigned.split(',');
@@ -64,8 +66,21 @@ import { DatePipe } from '@angular/common';
         this.dialogRef.close();
         this.snackBar.open("Bug byl úspěšně editován.", null, {duration: 2000});
       }, error => {
-        alert("Vyskytl se problém s vytvářením bugu u projektu.");
+        this.errorHandle(error);
       })
+    }
+
+    errorHandle(error: any)
+    {
+      //Unauthorized - uživatel nemá povolení to udělat
+      if(error.status == 401 || error.status == 403)
+      {
+        this.dialog.open(AlertComponent, {
+          width: '30%'
+        });
+      }
+      else
+      this.snackBar.open("Vyskytla se chyba. Zkuste opakovat svůj požadavek později.", null, {duration: 2000});
     }
   }
   

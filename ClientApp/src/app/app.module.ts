@@ -44,6 +44,7 @@ import { DialogAddUser } from './_components/users/addUserDialog.component';
 import { SettingsComponent } from './_components/settings/settings.component';
 
 import { UserService } from './_services/user.service';
+import { TaskService } from './_services/task.service';
 import { CommentService } from './_services/comment.service';
 import { AuthorizationService } from './_services/auth.service';
 import { ProjectService } from './_services/project.service';
@@ -51,7 +52,7 @@ import { AuthenticationGuard } from './_guards/authentication.guard';
 import { BugService } from './_services/bug.service';
 import { registerLocaleData, DatePipe } from '@angular/common';
 import { TransferService } from './_services/transfer.service';
-import { FtpService } from './_services/ftp.service';
+import { AlertComponent } from './_components/layout/alert/alert.component';
 
 registerLocaleData(localeCs);
 
@@ -68,13 +69,14 @@ registerLocaleData(localeCs);
     DialogAddBug,
     DialogEditBug,
     BugsComponent,
+    AlertComponent,
     TasksComponent,
     SidebarComponent,
     SettingsComponent,
     DialogAddTask,
     DialogEditTask
   ],
-  entryComponents: [DialogEditDialog, DialogAddUser, DialogAddTask, DialogEditTask, DialogAddBug, DialogEditBug],
+  entryComponents: [DialogEditDialog, DialogAddUser, DialogAddTask, DialogEditTask, DialogAddBug, DialogEditBug, AlertComponent],
   imports: [
     FlexLayoutModule,
     MatDatepickerModule,
@@ -117,7 +119,7 @@ registerLocaleData(localeCs);
       { path: 'project/bugs/:id/:bugId', component: BugsComponent, canActivate: [AuthenticationGuard] },
     ])
   ],
-  providers: [TransferService, UserService, FtpService, AuthorizationService, ProjectService, AuthenticationGuard, CommentService, BugService, TasksComponent, DatePipe, {provide: LOCALE_ID, useValue: 'cs-CZ'}],
+  providers: [TransferService, UserService, TaskService, AuthorizationService, ProjectService, AuthenticationGuard, CommentService, BugService, TasksComponent, DatePipe, {provide: LOCALE_ID, useValue: 'cs-CZ'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

@@ -11,7 +11,7 @@ namespace PrjctManagementSystem.Controllers
         MimeMessage message = new MimeMessage();
 
         public void SendEmail(string name, string emailaddress, string prjctName){
-            message.From.Add(new MailboxAddress("ProjectManagementSystem", "prjct123456@gmail.net"));
+            message.From.Add(new MailboxAddress("ProjectManagementSystem", "prjct123456@gmail.com"));
             message.To.Add(new MailboxAddress(name, emailaddress));
 
             message.Subject = "Email test";

@@ -54,7 +54,6 @@ export class LoginComponent implements OnInit{
             this.snackBar.open("Kombinace přihlašovacího jména a hesla je nesprávná. Zkuste to prosím znovu.", null, {duration: 2000});
             this.authorizedLogin = false;
         })
-        console.log(this.authorizedLogin);
     }
 
 }

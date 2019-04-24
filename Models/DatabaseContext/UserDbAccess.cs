@@ -58,11 +58,16 @@ namespace PrjctManagementSystem.Models
         }
 
         //Deleting user record
-        public int DeleteUser(string plogin)
+        public int? DeleteUser(int pid)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
             {
-                return db.DeleteList<User>(new { login = plogin });
+                string query = @"execute spDeleteUser @id";
+
+                return db.Execute(query, new
+                {
+                    id = pid
+                });
             }
         }
 

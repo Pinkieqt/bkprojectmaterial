@@ -3,10 +3,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProjectService } from 'src/app/_services/project.service';
 import { CommentService } from 'src/app/_services/comment.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
 import { BugService } from 'src/app/_services/bug.service';
 import { DialogAddBug } from './dialogAddBug.component';
 import { DialogEditBug } from './dialogEditBug.component';
+import { AlertComponent } from '../layout/alert/alert.component';
 
 @Component({
   selector: 'app-bugs',
@@ -90,7 +91,7 @@ export class BugsComponent implements OnDestroy
         this.snackBar.open("Projekt byl úspěšně smazán z databáze.", null, {duration: 2000});
       },
       error => {
-
+        this.errorHandle(error);
       })
     } 
   }
@@ -124,7 +125,7 @@ export class BugsComponent implements OnDestroy
         this.snackBar.open("Bug byl smazán z projektu.", null, {duration: 2000});
       },
       error => {
-        alert("Vyskytl se problém se smazáním bugu.")
+        this.errorHandle(error);
       })
     } 
   }
@@ -133,7 +134,9 @@ export class BugsComponent implements OnDestroy
   onChangeBug(value){
     this.bugService.editBugStatus(value, this.tmpBug.id).subscribe(result => {
       this.snackBar.open("Status bugu byl úspěšně změnen.", null, {duration: 2000});
-    })
+    }, error => {
+      this.errorHandle(error);
+    });
   }
   
   //Metoda pro zobrazení dialogu pro přidání úkolu
@@ -171,9 +174,8 @@ export class BugsComponent implements OnDestroy
     this.commentService.saveBugComment(this._commentForm.value).subscribe((data) => 
     {
       this.getComments(this.bugId);
-    }, error => 
-    { 
-      console.log(error);
+    }, error => { 
+      this.errorHandle(error);
     })
   }
 
@@ -189,7 +191,7 @@ export class BugsComponent implements OnDestroy
           this.getComments(this.bugId);
         }
       }, error => {
-        alert("Problém se smazáním komentáře");
+        this.errorHandle(error);
       })
     }
     
@@ -203,6 +205,20 @@ export class BugsComponent implements OnDestroy
       {
         this.tmpCommentsList = data;
       })
+  }
+
+
+  errorHandle(error: any)
+  {
+    //Unauthorized - uživatel nemá povolení to udělat
+    if(error.status == 401 || error.status == 403)
+    {
+      this.dialog.open(AlertComponent, {
+        width: '30%'
+      });
+    }
+    else
+    this.snackBar.open("Vyskytla se chyba. Zkuste opakovat svůj požadavek později.", null, {duration: 2000});
   }
 }
 
