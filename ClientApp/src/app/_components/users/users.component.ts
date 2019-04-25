@@ -10,7 +10,8 @@ import { AlertComponent } from '../layout/alert/alert.component';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent{
+export class UsersComponent
+{
   private userList: any;
   private displayedColumns: string[] = ['id', 'login', 'fname', 'lname', 'email', 'role','getEmails', 'akce'];
 
@@ -24,7 +25,8 @@ export class UsersComponent{
   }
 
   //Metoda pro získání uživatelů z databáze
-  getUsers(): void {
+  getUsers(): void 
+  {
     this.userService.getUsers().subscribe(data => {
       this.userList = data;
     }, error => {
@@ -33,7 +35,8 @@ export class UsersComponent{
   }
 
   //Metoda pro smazání uživatele z databáze
-  deleteUser(login: string, role: number, id: number): void {
+  deleteUser(login: string, role: number, id: number): void 
+  {
     if(role == 1)
     {
       this.dialog.open(AlertComponent, {
@@ -57,7 +60,8 @@ export class UsersComponent{
   }
 
   //Metoda pro zobrazení dialogu pro přidání uživatele
-  openAddUserDialog(): void {
+  openAddUserDialog(): void 
+  {
     const dialogRef = this.dialog.open(DialogAddUser, {
       width: '30%',
       data: {}
@@ -69,7 +73,8 @@ export class UsersComponent{
   }
 
   //Metoda pro zobrazení editačního dialogu
-  openEditDialog(p_fname: string, p_lname: string, p_email: string, p_login: string): void {
+  openEditDialog(p_fname: string, p_lname: string, p_email: string, p_login: string): void 
+  {
     const dialogRef = this.dialog.open(DialogEditDialog, {
       width: '30%',
       data: {fname: p_fname, lname: p_lname, email: p_email, login: p_login}
@@ -80,7 +85,7 @@ export class UsersComponent{
     });
   }
   
-  errorHandle(error: any)
+  errorHandle(error: any): void
   {
     console.log("hey");
     //Unauthorized - uživatel nemá povolení to udělat

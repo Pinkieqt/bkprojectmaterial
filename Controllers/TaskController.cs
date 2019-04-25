@@ -9,7 +9,7 @@ namespace PrjctManagementSystem.Controllers
     {
         TaskDbAccess tskObject = new TaskDbAccess();
 
-        //Adding task
+        //Přidání úkolů
         [HttpPost]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/Task/Create")]
@@ -18,7 +18,7 @@ namespace PrjctManagementSystem.Controllers
             return tskObject.AddTask(tsk);
         }
 
-        //Editing task
+        //aktualizace ukolu
         [HttpPut]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/Task/Edit")]
@@ -27,7 +27,7 @@ namespace PrjctManagementSystem.Controllers
             return tskObject.UpdateTask(tsk);
         }
 
-        //Editing task status
+        //Aktualizace statusu u ukolu
         [HttpPut]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/Task/EditStatus")]
@@ -37,7 +37,7 @@ namespace PrjctManagementSystem.Controllers
             return tskObject.UpdateTaskStatus(tsk.Status, tsk.Id);
         }
 
-        //Archiving task
+        //Archivace ukolu
         [HttpDelete]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/Task/Archive/{id}")]
@@ -46,7 +46,7 @@ namespace PrjctManagementSystem.Controllers
             return tskObject.ArchiveTask(id);
         }
 
-        //Getting one task by its id
+        //Ziskani ukolu podle id
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/Task/Fetch/{id}")]
@@ -55,7 +55,7 @@ namespace PrjctManagementSystem.Controllers
             return tskObject.GetTask(id);
         }
 
-        //Getting all tasks by project Id
+        //ziskani všech ukolu podle id projekut
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/Task/FetchAll/{id}")]
@@ -64,7 +64,7 @@ namespace PrjctManagementSystem.Controllers
             return tskObject.GetAllTasks(id);
         }
 
-        //Getting archived tasks by project Id
+        //ziskani všech archivnich ukolu podle id projekut
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/Task/FetchArchivedTask/{id}")]
@@ -72,16 +72,7 @@ namespace PrjctManagementSystem.Controllers
         {
             return tskObject.GetArchivedTask(id);
         }
-
-        //Getting archived tasks by project Id
-        [HttpGet]
-        [Authorize(Roles="admin, editableUser, readOnlyUser")]
-        [Route("api/Task/FetchArchived/{id}")]
-        public IEnumerable<ArchivedTaskModel> FetchArchived(int id)
-        {
-            return tskObject.GetArchivedTasks(id);
-        }
-
+        
         //Deleting task
         [HttpDelete]
         [Authorize(Roles="admin, editableUser")]

@@ -14,7 +14,7 @@ namespace PrjctManagementSystem.Models
     {
         private readonly string ConnectionString = Startup.ConnectionString;
 
-        //Creating admin if not in database every run
+        //Metoda pro přidání admina pokud neexistuje v tabulce tbUsers
         public void AddAdmin()
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -37,7 +37,7 @@ namespace PrjctManagementSystem.Models
         }
 
 
-        //Inserting a new record of User
+        //Přidání uživatele
         public int? AddUser(User user)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -48,7 +48,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Fetching all users from database
+        //Získání všech uživatelů
         public IEnumerable<User> GetUsers()
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -57,7 +57,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Deleting user record
+        //Smazání uživatele z databáze + všech jeho projektů, úkolů, bugu a komentářů
         public int? DeleteUser(int pid)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -71,7 +71,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Fetching user by login
+        //Získání uživatele pomocí Loginu
         public IEnumerable<User> GetUserByLogin(string plogin)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -80,7 +80,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Editing user record
+        //Aktualizace uživatele
         public int? UpdateUser(User user)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -98,6 +98,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
+        //Aktualizace stavu jestli chce uživatel dostávat emaily ze systému
         public int? ChangeUserEmailStatus(bool status, int userId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -112,7 +113,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Generate hash function
+        //Generování hash z dodaného hesla
         public static string GenerateHash(string input)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -129,7 +130,7 @@ namespace PrjctManagementSystem.Models
         }
 
 
-        //Checks if hash is the same
+        //Kontrola hashe
         public bool CheckHash(string pass, string hash)
         {
             string tmpHash = GenerateHash(pass);

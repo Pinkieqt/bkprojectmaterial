@@ -1,55 +1,64 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class UserService {
+export class UserService 
+{
 
   myUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) 
+  {
     this.myUrl = location.origin;
   }
 
-  //Fetching user
-  getUsers() {
+  //Získání uživatelů
+  getUsers() : Observable<Object>
+  {
     const token = localStorage.getItem("jwt");
     return this.http.get(this.myUrl + '/api/User/Fetch', { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
 
-  //Getting user by login
-  getUserByLogin(login) {
+  //Získání uživatele podle jeho loginu
+  getUserByLogin(login) : Observable<Object>
+  {
     const token = localStorage.getItem("jwt");
     return this.http.get(this.myUrl + '/api/User/FetchByLogin/' + login, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Deleting user
-  deleteUser(id) {
+  //Smazání uživatele
+  deleteUser(id) : Observable<Object>
+  {
     const token = localStorage.getItem("jwt");
     return this.http.delete(this.myUrl + '/api/User/Delete/' + id, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
 
-  //Adding user
-  saveUser(user) {
+  //Přidání uživatele
+  saveUser(user)  : Observable<Object>
+  {
       const token = localStorage.getItem("jwt");
       return this.http.post(this.myUrl + '/api/User/Create', user, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Editing user
-  editUserx(user) {
+  //aktualizace uživatele
+  editUserx(user)  : Observable<Object>
+  {
     const token = localStorage.getItem("jwt");
     return this.http.put(this.myUrl + '/api/User/Edit', user, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Editing user
-  editUserEmailStatus(user) {
+  //Aktulizace emailového statusu u uživatele
+  editUserEmailStatus(user)  : Observable<Object>
+  {
     const token = localStorage.getItem("jwt");
     return this.http.put(this.myUrl + '/api/User/EditEmailStatus', user, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));

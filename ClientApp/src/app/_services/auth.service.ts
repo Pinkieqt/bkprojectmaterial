@@ -2,20 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class AuthorizationService {
+export class AuthorizationService 
+{
 
   myUrl: string;
   public helper = new JwtHelperService();
 
-  constructor(
-    private http: HttpClient
-  ){
+  constructor(private http: HttpClient)
+  {
     this.myUrl = location.origin;
   }
   
-  loginUser(loginmodel)
+  //Ověření a přihlášení uživatele
+  loginUser(loginmodel) : Observable<Object>
   {
     return this.http.post(this.myUrl + '/api/User/Login', loginmodel)
       .pipe(map(data => 
@@ -25,7 +27,9 @@ export class AuthorizationService {
       }))
   }
 
-  public isLoggedIn(): boolean {
+  //Metoda pro kontrolu JWT tokenu
+  public isLoggedIn(): boolean 
+  {
     const token = localStorage.getItem('jwt');
     if (token == null)
     {
@@ -34,7 +38,9 @@ export class AuthorizationService {
     return !this.helper.isTokenExpired(token);
   }
 
-  logout() {
+  //Metoda pro odhlášení uživatele a smazání všeho co zanechal v úložišti uživatele
+  logout() 
+  {
     localStorage.clear();
   }
 

@@ -1,49 +1,53 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class ProjectService {
+export class ProjectService 
+{
 
   myUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) 
+  {
     this.myUrl = location.origin;
   }
 
-  //Adding project
-  saveProject(prjct) {
+  //Přidání projektu
+  saveProject(prjct) : Observable<Object>
+  {
     const token = localStorage.getItem("jwt");
     return this.http.post(this.myUrl + '/api/Project/Create', prjct, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Fetching projects based on login
-  getProjectsByUserId(userId)
+  //Získání projektu podle uživatele
+  getProjectsByUserId(userId) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     return this.http.get(this.myUrl + '/api/Project/Fetch/' + userId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Fetching projects based on participant login
-  getProjectsByParticipantUserId(userId)
+  //Získání projektu podle uživatelského id
+  getProjectsByParticipantUserId(userId) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     return this.http.get(this.myUrl + '/api/Project/FetchByParticipant/' + userId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Fetching one project info based on its id
-  getProjectByItsId(projectId)
+  //Získání projektu podle jeho Id
+  getProjectByItsId(projectId) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     return this.http.get(this.myUrl + '/api/Project/FetchByProjectId/' + projectId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Deleting project
-  deleteProject(projectId)
+  //Smazání projektu
+  deleteProject(projectId) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     return this.http.delete(this.myUrl + '/api/Project/Delete/' + projectId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })

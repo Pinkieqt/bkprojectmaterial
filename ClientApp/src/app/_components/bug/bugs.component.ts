@@ -77,7 +77,7 @@ export class BugsComponent implements OnDestroy
       });
   }
 
-  deleteProject(prjctId: number)
+  deleteProject(prjctId: number): void
   {
     this.prjctService.deleteProject(prjctId).subscribe(data => {
       confirm
@@ -96,7 +96,7 @@ export class BugsComponent implements OnDestroy
     } 
   }
 
-  getBug(bugId: number)
+  getBug(bugId: number): void
   {
     this.bugService.getBug(bugId).subscribe(data => {
       if(data)
@@ -116,7 +116,8 @@ export class BugsComponent implements OnDestroy
   }
 
   //Metoda pro odstranění tasku
-  deleteBug(){
+  deleteBug(): void
+  {
     var confirmAnswer = confirm("Jste si jistí, že chcete smazat bug s názvem \"" + this.tmpBug.name + "\" a ID \"" + this.tmpBug.id + "\"?");
     if (confirmAnswer) 
     {
@@ -131,7 +132,8 @@ export class BugsComponent implements OnDestroy
   }
 
   //Status change
-  onChangeBug(value){
+  onChangeBug(value): void
+  {
     this.bugService.editBugStatus(value, this.tmpBug.id).subscribe(result => {
       this.snackBar.open("Status bugu byl úspěšně změnen.", null, {duration: 2000});
     }, error => {
@@ -140,7 +142,8 @@ export class BugsComponent implements OnDestroy
   }
   
   //Metoda pro zobrazení dialogu pro přidání úkolu
-  openAddBugDialog(): void {
+  openAddBugDialog(): void 
+  {
     this.dialog.open(DialogAddBug, {
       width: '30%',
       data: {projectId: this.projectId, ownerId: this.loggedUserId, assigned: this.tmpProject.assigned}
@@ -148,7 +151,8 @@ export class BugsComponent implements OnDestroy
   }
 
   //Metoda pro zobrazení dialogu pro přidání úkolu
-  openEditBugDialog(p_id: number, p_name: string, p_description: string, p_priority: string, p_labels: string): void {
+  openEditBugDialog(p_id: number, p_name: string, p_description: string, p_priority: string, p_labels: string): void 
+  {
     const dialogRef = this.dialog.open(DialogEditBug, {
       width: '30%',
       data: {id: p_id, name: p_name, description: p_description, priority: p_priority, labels: p_labels, projectId: this.projectId, ownerId: this.loggedUserId, assigned: this.tmpProject.assigned}
@@ -161,7 +165,7 @@ export class BugsComponent implements OnDestroy
   }
 
   //comment adding
-  addComment()
+  addComment(): void
   {
     if (!this._commentForm.valid)
     {
@@ -180,7 +184,7 @@ export class BugsComponent implements OnDestroy
   }
 
   //comment adding
-  deleteComment(commentId: number)
+  deleteComment(commentId: number): void
   {
     if(confirm("Jste si jistí, že chcete smazat tento komentář?"))
     {
@@ -198,7 +202,7 @@ export class BugsComponent implements OnDestroy
   }
 
   //ziskani komentařů k danému ukolu
-  getComments(bugId: number)
+  getComments(bugId: number): void
   {
     if(bugId != undefined)
       this.commentService.getBugComments(bugId).subscribe((data) => 
@@ -208,7 +212,7 @@ export class BugsComponent implements OnDestroy
   }
 
 
-  errorHandle(error: any)
+  errorHandle(error: any): void
   {
     //Unauthorized - uživatel nemá povolení to udělat
     if(error.status == 401 || error.status == 403)

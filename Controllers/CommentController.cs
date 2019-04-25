@@ -9,15 +9,14 @@ namespace PrjctManagementSystem.Controllers
     {
         CommentDbAccess cmntObject = new CommentDbAccess();
 
-
         /*
         
-            Task comment
+            Komentáře k úkolům
 
          */
 
 
-        //Adding comment
+        //Přidáni komentáře
         [HttpPost]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/TaskComment/Create")]
@@ -26,7 +25,8 @@ namespace PrjctManagementSystem.Controllers
             return cmntObject.AddComment(cmnt);
         }
 
-        //Editing comment
+        //UNUSEd
+        //Editace komentáře
         [HttpPut]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/TaskComment/Edit")]
@@ -34,7 +34,8 @@ namespace PrjctManagementSystem.Controllers
         {
             return cmntObject.UpdateComment(cmnt);
         }
-        //Getting all tasks by project Id
+
+        //Ziskání komentářů podle id tasku
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/TaskComment/GetAllComments/{id}")]
@@ -43,7 +44,7 @@ namespace PrjctManagementSystem.Controllers
             return cmntObject.GetAllComments(id);
         }
 
-        //Getting all tasks by project Id
+        //Získání archivních komentářů podle id tasku
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/TaskComment/GetAllArchivedComments/{id}")]
@@ -52,7 +53,7 @@ namespace PrjctManagementSystem.Controllers
             return cmntObject.GetAllArchivedComments(id);
         }
 
-        //Deleting comment
+        //Smazání komentáře podle jeho ID
         [HttpDelete]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/TaskComment/Delete/{id}")]
@@ -63,12 +64,12 @@ namespace PrjctManagementSystem.Controllers
 
         /*
         
-            Task comment
+            Komentáře k bugu
 
          */
 
 
-        //Adding comment
+        //Přidání komentáře
         [HttpPost]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/BugComment/Create")]
@@ -77,7 +78,8 @@ namespace PrjctManagementSystem.Controllers
             return cmntObject.AddCommentBug(cmnt);
         }
 
-        //Editing comment
+        //UNUSED
+        //Aktualizace komentáře
         [HttpPut]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/BugComment/Edit")]
@@ -85,7 +87,8 @@ namespace PrjctManagementSystem.Controllers
         {
             return cmntObject.UpdateCommentBug(cmnt);
         }
-        //Getting all tasks by project Id
+
+        //Ziskání všech komentářů
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/BugComment/GetAllComments/{id}")]
@@ -94,7 +97,7 @@ namespace PrjctManagementSystem.Controllers
             return cmntObject.GetAllCommentsBug(id);
         }
 
-        //Deleting comment
+        //Smazání komentáře podle jeho id
         [HttpDelete]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/BugComment/Delete/{id}")]

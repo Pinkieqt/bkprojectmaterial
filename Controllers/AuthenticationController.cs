@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using PrjctManagementSystem.Models;
+using ProjectManagementSystem;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,22 +15,25 @@ namespace PrjctManagementSystem.Controllers
 {
     public class AuthenticationController : Controller
     {
-        //private readonly string SecretKey = Startup.SecretKeyString;
+        //Ziskani klíče pro podepsání jwt tokenu
+        private readonly string SecretKey = Startup.SecretKeyString;
         UserDbAccess userObject = new UserDbAccess();
 
+        //Metoda použitá pro ověření a přihlášení uživatele
         [HttpPost]
         [Route("api/User/Login")]
         public IActionResult Login([FromBody]LoginModel user)
         {
+            
             if (user == null)
             {
-                return BadRequest("Invalid client request");
+                return BadRequest("Neplatný parametr.");
             }
 
-            //Getting user by login from db
+            //Ziskání uživatele z databáze
             IEnumerable<User> tmp = userObject.GetUserByLogin(user.Login);
 
-            //If user doesn't exists, return unauthorized
+            //Pokud uživatel s daným loginem neexistuje, tak neověřit
             if (tmp.Count() < 1)
             {
                 return Unauthorized();
@@ -37,9 +41,10 @@ namespace PrjctManagementSystem.Controllers
 
             User tmpUser = tmp.First();
 
+            //Ověření jestli sedí hash z databáze s hashem zadaného hesla
             if (userObject.CheckHash(user.Password, tmpUser.Password))
             {
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("tadytomusimreplacnoutjeste"));
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.SecretKey));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
                 //Default hodnota - nejmenší
@@ -57,6 +62,8 @@ namespace PrjctManagementSystem.Controllers
                         break;
                 }
 
+
+                //Připsání role do JWT tokenu
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Role, temporaryRole)

@@ -14,7 +14,8 @@ import { AlertComponent } from '../layout/alert/alert.component';
     templateUrl: './edit-bug-dialog.html',
     styleUrls: ['./bugs.component.css']
   })
-  export class DialogEditBug {
+  export class DialogEditBug 
+  {
     
     private bugForm: FormGroup;
     public labelList: string[] = ['Administrace', 'Web', 'Aplikace'];
@@ -28,7 +29,8 @@ import { AlertComponent } from '../layout/alert/alert.component';
       private formBuilder: FormBuilder,
       public dialogRef: MatDialogRef<DialogEditBug>,
       public dialog: MatDialog,
-      @Inject(MAT_DIALOG_DATA) public data: EditBugData) {
+      @Inject(MAT_DIALOG_DATA) public data: EditBugData) 
+      {
 
         this.participientList = this.data.assigned.split(',');
 
@@ -46,11 +48,13 @@ import { AlertComponent } from '../layout/alert/alert.component';
         })
       }
   
-    onNoClick(): void {
+    onNoClick(): void 
+    {
       this.dialogRef.close();
     }
   
-    onOkClick(ownerId: number, projectId: number, bugId: number): void {
+    onOkClick(ownerId: number, projectId: number, bugId: number): void 
+    {
       if(!this.bugForm.valid)
       {
         this.snackBar.open("Formulář pro editaci bugu je neplatný.", null, {duration: 2000});
@@ -70,7 +74,7 @@ import { AlertComponent } from '../layout/alert/alert.component';
       })
     }
 
-    errorHandle(error: any)
+    errorHandle(error: any): void
     {
       //Unauthorized - uživatel nemá povolení to udělat
       if(error.status == 401 || error.status == 403)

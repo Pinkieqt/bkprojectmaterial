@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit{
       private snackBar: MatSnackBar
     ) {}
   
-    ngOnInit() {
+    ngOnInit() 
+    {
         this.loginForm = this.formBuilder.group(
         {
             Login: ['', [Validators.required, Validators.maxLength(30)]],
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit{
         })
     }
 
-    login() 
+    login() : void
     {
         if (!this.loginForm.valid) 
         {

@@ -71,7 +71,7 @@ export class SidenavComponent
 
 
   //Getting user id based on login
-  getUserIdAndProjects()
+  getUserIdAndProjects(): void
   {
     this.userService.getUsers().subscribe(data =>
       {
@@ -94,7 +94,7 @@ export class SidenavComponent
   }
 
   //Login metody
-  checkLoginStatus()
+  checkLoginStatus(): void
   {
     this.isLoggedIn = this.authService.isLoggedIn();
     if(this.isLoggedIn == false)
@@ -103,14 +103,14 @@ export class SidenavComponent
     }
   }
 
-  logout()
+  logout(): void
   {
     this.deleteAllStats();
     this.router.navigate(["/login"]);
     this.authService.logout();
   }
 
-  deleteAllStats()
+  deleteAllStats(): void
   {
     this.currentId = null;
     this.currentLogin = null;
@@ -118,7 +118,7 @@ export class SidenavComponent
     this.sharedProjectList = [];
   }
 
-  changeTheme()
+  changeTheme(): void
   {
     this.otherTheme = !this.otherTheme;
   }

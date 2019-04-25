@@ -14,7 +14,7 @@ namespace PrjctManagementSystem.Models
     {
         private readonly string ConnectionString = Startup.ConnectionString;
 
-        //Inserting a new record of Project
+        //Vložení nového záznamu projektu
         public int? AddProject(ProjectModel prjct)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -23,6 +23,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
+        //Metoda pro přiřazení majitele projektu
         public int? AssignOwner(int? projectId, int owner_id)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -44,8 +45,9 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Inserting participients of project into tbProjectParticipants
-        public int? AddParticipants(int? projectId, string data, string prjctName, int owner_id) {
+        //Metoda pro přiřazení uživatelů k projektu
+        public int? AddParticipants(int? projectId, string data, string prjctName, int owner_id) 
+        {
             if (data == null) return -1;
             List<string> nameArray = new List<string>();
             string[] idArray = data.Split(',');
@@ -63,10 +65,11 @@ namespace PrjctManagementSystem.Models
                     });
                     if (result != 0)
                     {
-                        foreach(User temp in tmpUser){
+                        foreach(User temp in tmpUser)
+                        {
                             if(temp.Id == Int32.Parse(Id) && temp.getEmails == true)
                             {
-                                //new MyEmailClient().SendEmail(temp.First_name + " " + temp.Last_name, temp.Email, prjctName);
+                                new MyEmailClient().SendEmail(temp.First_name + " " + temp.Last_name, temp.Email, prjctName);
                             }
                             if(temp.Id == Int32.Parse(Id))
                             {
@@ -76,7 +79,8 @@ namespace PrjctManagementSystem.Models
                     }
                 }
                 
-                foreach(User temp in tmpUser){
+                foreach(User temp in tmpUser)
+                {
                     if(temp.Id == owner_id)
                     {
                         nameArray.Add(temp.First_name + " " + temp.Last_name);
@@ -96,7 +100,7 @@ namespace PrjctManagementSystem.Models
         }
 
 
-        //Getting project info by its Id
+        //Získání projektu pomocí jeho ID
         public ProjectModel GetProjectByProjectId(int id)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -105,7 +109,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Fetching projects with userId parameter
+        //Získání projektu podle ID majitele
         public IEnumerable<ProjectModel> GetProjects(int id)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -114,7 +118,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Fetching projects with participant userId parameter
+        //Získání projektu ke kterým je uživatel přiřazen
         public IEnumerable<ProjectParticipantsModel> GetProjectsByParticipant(int id)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -129,7 +133,7 @@ namespace PrjctManagementSystem.Models
             }
         }
         
-        //Deleting project
+        //Smazání projektu
         public int DeleteProject(int prjctId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))

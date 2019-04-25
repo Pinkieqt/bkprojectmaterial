@@ -14,7 +14,7 @@ namespace PrjctManagementSystem.Controllers
     {
         ProjectDbAccess prjctObject = new ProjectDbAccess();
 
-        //Adding project
+        //Přidání projektu
         [HttpPost]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/Project/Create")]
@@ -32,7 +32,7 @@ namespace PrjctManagementSystem.Controllers
             return result;
         }
 
-        //Getting projects by owner ID
+        //získání projektu podle id majitele
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/Project/Fetch/{id}")]
@@ -41,7 +41,7 @@ namespace PrjctManagementSystem.Controllers
             return prjctObject.GetProjects(id);
         }
 
-        //Getting one project info by project ID
+        //získání jednoho projektu podle jeho id
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/Project/FetchByProjectId/{id}")]
@@ -51,7 +51,7 @@ namespace PrjctManagementSystem.Controllers
         }
 
 
-        //Getting project participants
+        //Ziskani projektu pomoci id jiného uživatele
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/Project/FetchByParticipant/{id}")]
@@ -60,7 +60,7 @@ namespace PrjctManagementSystem.Controllers
             return prjctObject.GetProjectsByParticipant(id);
         }
 
-        //Deleting project
+        //Smazání projektu
         [HttpDelete]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/Project/Delete/{id}")]

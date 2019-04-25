@@ -9,7 +9,7 @@ namespace PrjctManagementSystem.Controllers
     {
         BugDbAccess bgObject = new BugDbAccess();
 
-        //Adding task
+        //Přidání bugu
         [HttpPost]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/Bug/Create")]
@@ -18,7 +18,7 @@ namespace PrjctManagementSystem.Controllers
             return bgObject.AddBug(bug);
         }
 
-        //Editing task
+        //aktualizace bugu
         [HttpPut]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/Bug/Edit")]
@@ -27,7 +27,7 @@ namespace PrjctManagementSystem.Controllers
             return bgObject.UpdateBug(bug);
         }
 
-        //Editing task status
+        //Aktualizace statusu u bugu
         [HttpPut]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/Bug/EditStatus")]
@@ -36,7 +36,7 @@ namespace PrjctManagementSystem.Controllers
             return bgObject.UpdateBugStatus(bug.Status, bug.Id);
         }
 
-        //Getting one task by its id
+        //Ziskání jednoho bugu podle jeho id
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/Bug/Fetch/{id}")]
@@ -45,7 +45,7 @@ namespace PrjctManagementSystem.Controllers
             return bgObject.GetBug(id);
         }
 
-        //Getting all tasks by project Id
+        //Získání všech komentářů podle id projektu
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/Bug/FetchAll/{id}")]
@@ -54,7 +54,7 @@ namespace PrjctManagementSystem.Controllers
             return bgObject.GetAllBugs(id);
         }
 
-        //Deleting task
+        //Smazání bugu
         [HttpDelete]
         [Authorize(Roles="admin, editableUser")]
         [Route("api/Bug/Delete/{id}")]

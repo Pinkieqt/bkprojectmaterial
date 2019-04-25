@@ -14,7 +14,8 @@ import { AlertComponent } from '../layout/alert/alert.component';
     templateUrl: './edit-dialog.html',
     styleUrls: ['./users.component.css']
   })
-  export class DialogEditDialog {
+  export class DialogEditDialog 
+  {
     
     private tmpUser: EditDialogData;
   
@@ -41,7 +42,7 @@ import { AlertComponent } from '../layout/alert/alert.component';
       })
     }
 
-    errorHandle(error: any)
+    errorHandle(error: any): void
     {
       //Unauthorized - uživatel nemá povolení to udělat
       if(error.status == 401 || error.status == 403)

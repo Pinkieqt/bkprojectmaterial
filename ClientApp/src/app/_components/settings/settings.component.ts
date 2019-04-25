@@ -19,7 +19,7 @@ export class SettingsComponent
     this.getEmailStatus();
   }
 
-  getEmailStatus()
+  getEmailStatus(): void
   {
     this.userService.getUsers().subscribe(data => {
       this.userList = data;
@@ -35,7 +35,7 @@ export class SettingsComponent
     })
   }
 
-  editEmailStatus(event: any)
+  editEmailStatus(event: any): void
   {
     let status = event.checked;
     this.userService.editUserEmailStatus({getEmails: status, id: this.userId}).subscribe(result => {

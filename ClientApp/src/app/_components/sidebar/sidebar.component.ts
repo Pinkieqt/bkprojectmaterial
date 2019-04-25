@@ -42,6 +42,7 @@ export class SidebarComponent
               private bugService: BugService )
   {
     var tmpEvent = this.router.events.subscribe((event: any) => {
+      //Reaguje na změnu tasku
       if (event instanceof NavigationEnd) 
       {
         this.activatedRoute.params.subscribe(params => {
@@ -73,7 +74,7 @@ export class SidebarComponent
     })
   }
   //Not archived tasks
-  getTasks()
+  getTasks(): void
   {
     this.taskService.getAllTasksByProjectId(this.projectId).subscribe(data => {
       this.taskList = data;
@@ -83,7 +84,7 @@ export class SidebarComponent
   }
 
   //getting bugs
-  getBugs()
+  getBugs(): void
   {
     this.bugService.getAllBugsByProjectId(this.projectId).subscribe(data => {
       this.bugList = data;
@@ -93,7 +94,7 @@ export class SidebarComponent
   }
 
   //Not archived tasks
-  getArchivedTasks()
+  getArchivedTasks(): void
   {
     this.taskService.getArchivedTasksByProjectId(this.projectId).subscribe(data => {
       this.taskList = data;
@@ -102,21 +103,21 @@ export class SidebarComponent
   }
 
   //Přepnout na task
-  navigateToTask(taskId: number)
+  navigateToTask(taskId: number): void
   {
     //this.transfer.setData(this.projectId);
     this.router.navigate(["/project/tasks/" + this.projectId + "/" + taskId]);
   }
 
   //Přepnout na bug
-  navigateToBug(bugId: number)
+  navigateToBug(bugId: number): void
   {
     this.router.navigate(["/project/bugs/" + this.projectId + "/" + bugId]);
   }
 
   //Get archived tasks
   //Checkbutton event
-  checkValue(event)
+  checkValue(event): void
   {
     if(event.checked)
     {
@@ -136,7 +137,8 @@ export class SidebarComponent
     }
  }
 
- addDataToSource(dataList: any){
+ addDataToSource(dataList: any): void
+ {
   this.dataSource = new MatTableDataSource<Data>(dataList);
   this.dataSource.paginator = this.paginator;
   this.paginator._changePageSize(10);

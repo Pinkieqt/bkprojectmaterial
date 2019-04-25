@@ -45,7 +45,7 @@ export class ProjectCreateComponent implements OnInit
     this.getUsers();
   }
 
-  saveProject()
+  saveProject(): void
   {
     if (!this.projectForm.valid)
     {
@@ -66,7 +66,7 @@ export class ProjectCreateComponent implements OnInit
   }
   
 
-  getUsers()
+  getUsers(): void
   {
     this.userService.getUsers().subscribe(data =>
     {
@@ -81,7 +81,7 @@ export class ProjectCreateComponent implements OnInit
     })
   }
 
-  moveUser(id: number, where: string)
+  moveUser(id: number, where: string): void
   {
     if (where == 'from')
     {
@@ -110,7 +110,7 @@ export class ProjectCreateComponent implements OnInit
     }
   }
 
-  errorHandle(error: any)
+  errorHandle(error: any): void
   {
     //Unauthorized - uživatel nemá povolení to udělat
     if(error.status == 401 || error.status == 403)

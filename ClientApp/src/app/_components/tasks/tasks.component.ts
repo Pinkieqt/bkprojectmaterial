@@ -59,6 +59,7 @@ export class TasksComponent implements OnDestroy
         this.activatedRoute.params.subscribe(params => {
           this.projectId = params['id'];
           this.taskId = params['taskId'];
+
           //Ziskani informaci o projektu
           this.getProjectInfo();
   
@@ -66,15 +67,18 @@ export class TasksComponent implements OnDestroy
           if(!this.isArchiveActived)
           {
             this.getTask(this.taskId);
+
+            //Ziskani komentářů k danému úkolu
             this.getComments(this.taskId);
           }
           else
           {
             this.getArchivedTask(this.taskId);
+
+            //Ziskani komentářů k danému úkolu
             this.getArchiveComments(this.taskId);
           }
 
-          //Ziskani komentářů k danému úkolu
 
         })
         tmpEvent.unsubscribe();
@@ -82,7 +86,8 @@ export class TasksComponent implements OnDestroy
     })
   }
 
-  getProjectInfo()
+  //Získání infa projektu
+  getProjectInfo(): void
   {
     this.prjctService.getProjectByItsId(this.projectId).subscribe(data => {
         this.tmpProject = data;
@@ -91,7 +96,8 @@ export class TasksComponent implements OnDestroy
       });
   }
 
-  deleteProject(prjctId: number)
+  //Smazání projektu
+  deleteProject(prjctId: number): void
   {
     this.prjctService.deleteProject(prjctId).subscribe(data => {
       confirm
@@ -110,11 +116,14 @@ export class TasksComponent implements OnDestroy
     } 
   }
 
-  changeArchiveStatus(bit: boolean){
+  //Změna archivního statusu
+  changeArchiveStatus(bit: boolean): void
+  {
     this.isArchiveActived = bit;
   }
 
-  getTask(taskId: number)
+
+  getTask(taskId: number): void
   {
     this.taskService.getTask(taskId).subscribe(data => {
       if(data)
@@ -126,7 +135,8 @@ export class TasksComponent implements OnDestroy
     })
   }
 
-  getArchivedTask(taskId: number)
+  //Metoda pro získání archivního tasku
+  getArchivedTask(taskId: number): void
   {
     this.taskService.getArchivedTask(taskId).subscribe(data => {
       if(data)
@@ -139,7 +149,8 @@ export class TasksComponent implements OnDestroy
   }
 
   //Metoda pro odstranění tasku
-  deleteTask(){
+  deleteTask(): void
+  {
     var confirmAnswer = confirm("Jste si jistí, že chcete smazat úkol s názvem \"" + this.tmpTask.name + "\" a ID \"" + this.tmpTask.id + "\"?");
     if (confirmAnswer) 
     {
@@ -155,7 +166,7 @@ export class TasksComponent implements OnDestroy
   }
 
   //Method for archiving a task
-  archiveTask()
+  archiveTask(): void
   {
     var confirmAnswer = confirm("Jste si jistí, že chcete archivovat úkol s názvem \"" + this.tmpTask.name + "\" a ID \"" + this.tmpTask.id + "\"?");
     if (confirmAnswer) 
@@ -171,7 +182,8 @@ export class TasksComponent implements OnDestroy
   }
 
   //Status change
-  onChangeTask(value){
+  onChangeTask(value): void
+  {
     this.taskService.editTaskStatus(value, this.tmpTask.id).subscribe(result => {
       this.snackBar.open("Status úkolu byl úspěšně změnen.", null, {duration: 2000});
     }, error => {
@@ -180,7 +192,8 @@ export class TasksComponent implements OnDestroy
   }
   
   //Metoda pro zobrazení dialogu pro přidání úkolu
-  openAddTaskDialog(): void {
+  openAddTaskDialog(): void 
+  {
     this.dialog.open(DialogAddTask, {
       width: '30%',
       data: {projectId: this.projectId, ownerId: this.loggedUserId, assigned: this.tmpProject.assigned}
@@ -188,7 +201,8 @@ export class TasksComponent implements OnDestroy
   }
 
   //Metoda pro zobrazení dialogu pro přidání úkolu
-  openEditTaskDialog(p_id: number, p_name: string, p_description: string, p_priority: string, p_labels: string): void {
+  openEditTaskDialog(p_id: number, p_name: string, p_description: string, p_priority: string, p_labels: string): void 
+  {
     const dialogRef = this.dialog.open(DialogEditTask, {
       width: '30%',
       data: {id: p_id, name: p_name, description: p_description, priority: p_priority, labels: p_labels, projectId: this.projectId, ownerId: this.loggedUserId, assigned: this.tmpProject.assigned}
@@ -201,7 +215,7 @@ export class TasksComponent implements OnDestroy
   }
 
   //comment adding
-  addComment()
+  addComment(): void
   {
     if (!this._commentForm.valid)
     {
@@ -220,7 +234,7 @@ export class TasksComponent implements OnDestroy
   }
 
   //comment adding
-  deleteComment(commentId: number)
+  deleteComment(commentId: number): void
   {
     if(confirm("Jste si jistí, že chcete smazat tento komentář?"))
     {
@@ -238,7 +252,7 @@ export class TasksComponent implements OnDestroy
   }
 
   //ziskani komentařů k danému ukolu
-  getComments(taskId: number)
+  getComments(taskId: number): void
   {
     if(taskId != undefined)
     {
@@ -250,7 +264,7 @@ export class TasksComponent implements OnDestroy
   }
 
   //ziskani archiv komentařů k danému ukolu
-  getArchiveComments(taskId: number)
+  getArchiveComments(taskId: number): void
   {
     if(taskId != undefined)
     {
@@ -261,7 +275,7 @@ export class TasksComponent implements OnDestroy
     }
   }
 
-  errorHandle(error: any)
+  errorHandle(error: any): void
   {
     //Unauthorized - uživatel nemá povolení to udělat
     if(error.status == 401 || error.status == 403)

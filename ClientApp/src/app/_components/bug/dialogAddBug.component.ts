@@ -28,7 +28,8 @@ import { AlertComponent } from '../layout/alert/alert.component';
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<DialogAddBug>,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: AddBugData) {
+    @Inject(MAT_DIALOG_DATA) public data: AddBugData) 
+    {
 
       this.participientList = this.data.assigned.split(',');
 
@@ -45,11 +46,13 @@ import { AlertComponent } from '../layout/alert/alert.component';
       })
     }
 
-  onNoClick(): void {
+  onNoClick(): void 
+  {
     this.dialogRef.close();
   }
 
-  onOkClick(ownerId: number, projectId: number): void {
+  onOkClick(ownerId: number, projectId: number): void 
+  {
     
     if (!this.bugForm.valid) {
       this.snackBar.open("Formulář pro přidání bugu k projektu je neplatný.", null, {duration: 2000});
@@ -71,7 +74,7 @@ import { AlertComponent } from '../layout/alert/alert.component';
     })
   }
 
-  errorHandle(error: any)
+  errorHandle(error: any): void
   {
     //Unauthorized - uživatel nemá povolení to udělat
     if(error.status == 401 || error.status == 403)

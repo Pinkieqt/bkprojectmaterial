@@ -1,16 +1,16 @@
+import localeCs from '@angular/common/locales/cs';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
-import localeCs from '@angular/common/locales/cs';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatSelectModule} from '@angular/material/select';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatTableModule, MatTable} from '@angular/material/table';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule, MatCheckboxModule, MatPaginatorModule, MatNativeDateModule } from '@angular/material';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -27,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
+//Komponenty
 import { HomeComponent } from './_components/home/home.component';
 import { SidenavComponent } from './_components/layout/sidenav/sidenav.component';
 import { LoginComponent } from './_components/login/login.component';
@@ -43,6 +44,7 @@ import { DialogEditDialog } from './_components/users/editUserDialog.component';
 import { DialogAddUser } from './_components/users/addUserDialog.component';
 import { SettingsComponent } from './_components/settings/settings.component';
 
+//Služby
 import { UserService } from './_services/user.service';
 import { TaskService } from './_services/task.service';
 import { CommentService } from './_services/comment.service';
@@ -51,7 +53,6 @@ import { ProjectService } from './_services/project.service';
 import { AuthenticationGuard } from './_guards/authentication.guard';
 import { BugService } from './_services/bug.service';
 import { registerLocaleData, DatePipe } from '@angular/common';
-import { TransferService } from './_services/transfer.service';
 import { AlertComponent } from './_components/layout/alert/alert.component';
 
 registerLocaleData(localeCs);
@@ -119,7 +120,7 @@ registerLocaleData(localeCs);
       { path: 'project/bugs/:id/:bugId', component: BugsComponent, canActivate: [AuthenticationGuard] },
     ])
   ],
-  providers: [TransferService, UserService, TaskService, AuthorizationService, ProjectService, AuthenticationGuard, CommentService, BugService, TasksComponent, DatePipe, {provide: LOCALE_ID, useValue: 'cs-CZ'}],
+  providers: [UserService, TaskService, AuthorizationService, ProjectService, AuthenticationGuard, CommentService, BugService, TasksComponent, DatePipe, {provide: LOCALE_ID, useValue: 'cs-CZ'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

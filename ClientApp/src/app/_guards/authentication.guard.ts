@@ -3,7 +3,8 @@ import { CanActivate, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
-export class AuthenticationGuard implements CanActivate {
+export class AuthenticationGuard implements CanActivate 
+{
   public helper = new JwtHelperService();
   constructor(
     private router: Router, 
@@ -12,7 +13,8 @@ export class AuthenticationGuard implements CanActivate {
   canActivate() {
     const token = localStorage.getItem("jwt");
 
-    if (token && !this.helper.isTokenExpired(token)) {
+    if (token && !this.helper.isTokenExpired(token)) 
+    {
       return true;
     }
     this.router.navigate(["/login"]);

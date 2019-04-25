@@ -13,7 +13,6 @@ export class HomeComponent
 
   constructor()
   {
-    console.log("teď jsem se vytvořil");
   }
 
 }

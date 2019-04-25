@@ -13,7 +13,7 @@ export class AlertComponent
   {
   }
 
-  onCloseClick()
+  onCloseClick(): void
   {
     this.dialogRef.close();
   }

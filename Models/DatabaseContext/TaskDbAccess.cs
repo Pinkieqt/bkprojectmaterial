@@ -10,7 +10,7 @@ namespace PrjctManagementSystem.Models
     {
         private readonly string ConnectionString = Startup.ConnectionString;
 
-        //Inserting a new record of task
+        //Vložení nového záznamu úkolu
         public int? AddTask(TaskModel tsk)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -24,7 +24,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Deleting record of task
+        //Smazání záznamu úkolu
         public int? DeleteTask(int taskId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -38,7 +38,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Editing task record
+        //Aktualizace úkolu
         public int? UpdateTask(TaskModel tsk)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -63,7 +63,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Editing task status
+        //Aktualizace statusu u úkolu
         public int? UpdateTaskStatus(string status, int id)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -80,7 +80,8 @@ namespace PrjctManagementSystem.Models
                 return result;
             }
         }
-        //Archiving task
+
+        //Archivovat úkol
         public int? ArchiveTask(int id)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -97,7 +98,7 @@ namespace PrjctManagementSystem.Models
             }
         }
         
-        //Fetching record of task by its id of project
+        //Získání záznamu úkolu pomocí jeho id
         public IEnumerable<TaskModel> GetTask(int taskId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -106,7 +107,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Fetching record of archived task by its id of project
+        //Získání archivovaného záznamu úkolu pomocí jeho id
         public IEnumerable<ArchivedTaskModel> GetArchivedTask(int taskId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -115,7 +116,7 @@ namespace PrjctManagementSystem.Models
             }
         }
         
-        //Fetching all records of tasks by its id of project
+        //Získání záznamu úkolu pomocí id projektu
         public IEnumerable<TaskModel> GetAllTasks(int projectId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -124,7 +125,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Fetching archived task by its id of project
+        //Získání archivovaného záznamu úkolu pomocí id projektu
         public IEnumerable<ArchivedTaskModel> GetArchivedTasks(int projectId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))

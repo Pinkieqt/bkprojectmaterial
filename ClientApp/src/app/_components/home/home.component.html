@@ -1,47 +1,11 @@
-<mat-grid-list cols="2" rowHeight="2:1">
+<div class="bottomBackground"></div>
+<mat-grid-list cols="1" rowHeight="95%">
     <!-- Karta projektů -->
     <mat-grid-tile>
-        <mat-card class="myCardStyle mat-elevation-z6">
-            <mat-card-header>
-                <mat-card-title>Projekty</mat-card-title>
-                <mat-card-subtitle>vytvoření</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <p>Systém umožňuje vytváření projektů a následné přiřazení dalších uživatelů k nim. </p>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam non nulla quis accusantium in accusamus provident, expedita consequuntur praesentium eum, quibusdam cum eligendi unde reprehenderit.</p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-stroked-button [routerLink]='["/projectCreate"]'>Vytvořit nový projekt</button>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
-
-    <!-- Karta uživatelů -->
-    <mat-grid-tile>
-        <mat-card class="myCardStyle mat-elevation-z6">
-            <mat-card-header>
-                <mat-card-title>Uživatelé</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo possimus dolore aspernatur rem vero id aut placeat eos, libero blanditiis illum facilis sint distinctio minus.</p>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam non nulla quis accusantium in accusamus provident, expedita consequuntur praesentium eum, quibusdam cum eligendi unde reprehenderit.</p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-stroked-button [routerLink]='["/users"]'>Zobrazit uživatele</button>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <mat-card class="myCardStyle gradientCard mat-elevation-z6">
-            <mat-card-header>
-                <mat-card-title>Úkoly</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit excepturi tempore sunt laboriosam? Sit odit temporibus numquam fugiat sapiente quos inventore incidunt ullam, obcaecati provident veniam quae nihil saepe, earum officia explicabo perspiciatis.</p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-stroked-button>Nothing here</button>
-            </mat-card-actions>
-        </mat-card>
+        <div class="container">
+            <button mat-button [routerLink]='["/projectCreate"]' class="firstbtn">Nový projekt</button>
+            <button mat-button [routerLink]='["/users"]' class="secondbtn">Uživatelé</button>
+            <button mat-button [routerLink]='["/settings"]' class="thirdbtn">Nastavení</button>
+        </div>
     </mat-grid-tile>
 </mat-grid-list>

@@ -14,7 +14,8 @@ import { AlertComponent } from '../layout/alert/alert.component';
     templateUrl: './add-user-dialog.html',
     styleUrls: ['./users.component.css']
   })
-  export class DialogAddUser {
+  export class DialogAddUser 
+  {
     
     private tmpUser: AddUserDialogData;
     private userForm: FormGroup;
@@ -37,7 +38,9 @@ import { AlertComponent } from '../layout/alert/alert.component';
         })
       }
   
-    getErrorMessage(field: string) {
+    //Error zpráva podle špatně vyplněného pole
+    getErrorMessage(field: string): string 
+    {
       if(this.userForm.hasError('required', field)) return "Toto pole musí být vyplněno.";
       else if(this.userForm.hasError('minlength', field)) return "Zadaný vstup je příliš krátký.";
       else if(this.userForm.hasError('maxlength', field)) return "Zadaný vstup je příliš dlouhý.";
@@ -62,7 +65,7 @@ import { AlertComponent } from '../layout/alert/alert.component';
         })
     }
 
-    errorHandle(error: any)
+    errorHandle(error: any): void
     {
       //Unauthorized - uživatel nemá povolení to udělat
       if(error.status == 401 || error.status == 403)

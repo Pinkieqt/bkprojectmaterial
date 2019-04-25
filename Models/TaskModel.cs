@@ -21,7 +21,7 @@ namespace PrjctManagementSystem.Models
         public string Labels { get; set; }
 
         
-        //Properties not included in database
+        //Vlastnosti které nejsou obsaženy v databázové tabulce
         [Editable(false)]
         public string[] LabelsString { get; set; }
         public string[] AssignedString { get; set; }

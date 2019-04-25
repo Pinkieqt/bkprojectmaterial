@@ -14,7 +14,7 @@ namespace PrjctManagementSystem.Controllers
     {
         UserDbAccess userObject = new UserDbAccess();
 
-        //Getting users
+        //Získání všech uživatelů
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/User/Fetch")]
@@ -23,7 +23,7 @@ namespace PrjctManagementSystem.Controllers
             return userObject.GetUsers();
         }
 
-        //Getting user by login
+        //Získání uživatele podle jeho id
         [HttpGet]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/User/FetchByLogin/{login}")]
@@ -32,7 +32,7 @@ namespace PrjctManagementSystem.Controllers
             return userObject.GetUserByLogin(login);
         }
 
-        //Adding user
+        //Přidání uživatele
         [HttpPost]
         [Authorize(Roles="admin")]
         [Route("api/User/Create")]
@@ -41,7 +41,7 @@ namespace PrjctManagementSystem.Controllers
             return userObject.AddUser(user);
         }
 
-        //Editing user
+        //Aktualizace uživatele
         [HttpPut]
         [Authorize(Roles="admin")]
         [Route("api/User/Edit")]
@@ -50,7 +50,7 @@ namespace PrjctManagementSystem.Controllers
             return userObject.UpdateUser(user);
         }
 
-        //Editing user email status
+        //Aktualizace statusu pokud chce dostávat emaily
         [HttpPut]
         [Authorize(Roles="admin, editableUser, readOnlyUser")]
         [Route("api/User/EditEmailStatus")]
@@ -59,7 +59,7 @@ namespace PrjctManagementSystem.Controllers
             return userObject.ChangeUserEmailStatus(user.getEmails, user.Id);
         }
 
-        //Deleting user
+        //Smazání uživatele
         [HttpDelete]
         [Authorize(Roles="admin")]
         [Route("api/User/Delete/{id}")]

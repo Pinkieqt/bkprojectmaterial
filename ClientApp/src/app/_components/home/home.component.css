@@ -1,13 +1,52 @@
-.myCardStyle{
-    width: 80%;
-    height: 70%;
+.container{
+    margin: 0 auto;
+    width: 30%;
+    height: 14%;
     padding: 30px;
 }
 
-.gradientCard{
-    color: #212121;
-    background: #ffe259;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #ffa751, #ffe259);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #ffa751, #ffe259); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.firstbtn{
+    width: 28%;
+    height: 100%;
+    background: #ff9966;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #ff5e62, #ff9966);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #ff5e62, #ff9966); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;    
+    border-radius: 30px;
+}
+
+.secondbtn{
+    width: 28%;
+    height: 100%;
+    margin-left: 15px;
+    margin-right: 15px;
+    background: #FF5F6D;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #FFC371, #FF5F6D);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     
+    color: white;  
+    border-radius: 30px;  
+}
+
+.thirdbtn{
+    width: 28%;
+    height: 100%;
+    background: #f857a6;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #ff5858, #f857a6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #ff5858, #f857a6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    color: white;
+    border-radius: 30px;
+}
+
+.bottomBackground{
+    width: 40vw;
+    height: 45vh;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    background-image: url(/login_page_bottom.svg);
+    background-size: 100%;
+    background-repeat: no-repeat;
 }

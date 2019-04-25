@@ -17,7 +17,7 @@ namespace PrjctManagementSystem.Models
         
         */
 
-        //Inserting a new record of comment
+        //Přidání komentáře k úkolu
         public int? AddComment(TaskCommentModel comment)
         { 
             comment.TimeChanged = DateTime.Now;
@@ -27,7 +27,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Deleting record of comment
+        //Smazání komentáře z úkolu
         public int? DeleteComment(int commentId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -36,7 +36,8 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Editing comment record
+        //UNUSED
+        //Aktualizace úkolu
         public int? UpdateComment(TaskCommentModel comment)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -52,7 +53,7 @@ namespace PrjctManagementSystem.Models
             }
         }
         
-        //Fetching all records of comments by its id of task
+        //Získání komentářů podle ID úkolu
         public IEnumerable<TaskCommentModel> GetAllComments(int taskId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -61,7 +62,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Fetching all records of comments by its id of task
+        //Získání archivních komentářu podle ID archivního úkolu
         public IEnumerable<TaskCommentArchiveModel> GetAllArchivedComments(int taskId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -76,7 +77,7 @@ namespace PrjctManagementSystem.Models
         
         */
 
-        //Inserting a new record of comment
+        //Přidání komentáře k bugu
         public int? AddCommentBug(BugCommentModel comment)
         { 
             comment.TimeChanged = DateTime.Now;
@@ -86,7 +87,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Deleting record of comment
+        //Smažání komentáře z Bugu
         public int? DeleteCommentBug(int commentId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -95,7 +96,8 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Editing comment record
+        //UNUSED
+        //Aktualizace komentáře u bugu
         public int? UpdateCommentBug(BugCommentModel comment)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -111,7 +113,7 @@ namespace PrjctManagementSystem.Models
             }
         }
         
-        //Fetching all records of comments by its id of task
+        //Získání všech komentářů k bugu
         public IEnumerable<BugCommentModel> GetAllCommentsBug(int bugId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))

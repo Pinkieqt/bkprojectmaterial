@@ -1,24 +1,29 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
-export class TaskService {
+export class TaskService 
+{
 
   myUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) 
+  {
     this.myUrl = location.origin;
   }
-  saveTask(tsk)
+
+  //Přidání úkolu
+  saveTask(tsk) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     return this.http.post(this.myUrl + '/api/Task/Create', tsk, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Editing task
-  editTask(tsk, id: number) 
+  //Aktualizace úkolu
+  editTask(tsk, id: number) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     tsk.Id = id;
@@ -26,8 +31,8 @@ export class TaskService {
       .pipe(map(res => res));
   }
 
-  //Editing task
-  editTaskStatus(status: string, id: number) 
+  //Aktualizace statusu u úkolu
+  editTaskStatus(status: string, id: number) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     var data = {status: status, id: id};
@@ -35,48 +40,48 @@ export class TaskService {
       .pipe(map(res => res));
   }
   
-  //Deleting task
-  deleteTask(id) 
+  //Smazání úkolu
+  deleteTask(id) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     return this.http.delete(this.myUrl + '/api/Task/Delete/' + id, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Archiving task
-  archiveTask(id)
+  //Archivování úkolu
+  archiveTask(id) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     return this.http.delete(this.myUrl + '/api/Task/Archive/' + id, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Fetching one task by its id
-  getTask(taskId)
+  //Získání úkolu podle jeho id
+  getTask(taskId) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     return this.http.get(this.myUrl + '/api/Task/Fetch/' + taskId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Fetching archived tasks based on project id
-  getArchivedTask(taskId)
+  //Získání archivovaných úkolu pomocí jeho id
+  getArchivedTask(taskId) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     return this.http.get(this.myUrl + '/api/Task/FetchArchivedTask/' + taskId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Fetching tasks based on projectid
-  getAllTasksByProjectId(prjctId)
+  //Získání úkolu pomocí id projektu
+  getAllTasksByProjectId(prjctId) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     return this.http.get(this.myUrl + '/api/Task/FetchAll/' + prjctId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })
       .pipe(map(res => res));
   }
 
-  //Fetching archived tasks based on project id
-  getArchivedTasksByProjectId(prjctId)
+  //Získání archivovaných úkolu pomocí id projektu
+  getArchivedTasksByProjectId(prjctId) : Observable<Object>
   {
     const token = localStorage.getItem("jwt");
     return this.http.get(this.myUrl + '/api/Task/FetchArchived/' + prjctId, { headers: new HttpHeaders({ "Authorization": "Bearer " + token }) })

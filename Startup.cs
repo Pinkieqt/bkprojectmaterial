@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using PrjctManagementSystem.Models;
 using System.Text;
 
 namespace ProjectManagementSystem
@@ -21,17 +22,17 @@ namespace ProjectManagementSystem
         {
             Configuration = configuration;
             ConnectionString = Configuration.GetConnectionString("MyConnectionString");
-            SecretKeyString = Configuration.GetConnectionString("MySecretKey");
-            //UserDbAccess x = new UserDbAccess();
-            //x.AddAdmin();
-            //x = null;
+            SecretKeyString = Configuration.GetValue<string>("SecretKey:MySecretKey");
+            UserDbAccess tmp = new UserDbAccess();
+            tmp.AddAdmin();
+            tmp = null;
         }
         
 
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //JWT Token authentication
+            //JWT
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -43,7 +44,7 @@ namespace ProjectManagementSystem
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = "http://localhost:5000",
                     ValidAudience = "http://localhost:5000",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("tadytomusimreplacnoutjeste"))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKeyString))
                 };
             });
 

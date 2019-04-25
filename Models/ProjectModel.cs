@@ -16,7 +16,7 @@ namespace PrjctManagementSystem.Models
         public int Owner_Id { get; set; }
         public string Assigned { get; set; }
 
-        //Properties not included in database
+        //Vlastnosti které nejsou obsaženy v databázové tabulce
         [Editable(false)]
         public string ParticipientsString { get; set; }
     }

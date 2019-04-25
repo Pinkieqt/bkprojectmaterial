@@ -10,7 +10,7 @@ namespace PrjctManagementSystem.Models
     {
         private readonly string ConnectionString = Startup.ConnectionString;
 
-        //Inserting a new record of task
+        //Vložení nového záznamu bugu
         public int? AddBug(BugModel bug)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -22,7 +22,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Deleting record of task
+        //Smazání záznamu bugu
         public int? DeleteBug(int bugId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -36,7 +36,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Editing task record
+        //Aktualizace bugu
         public int? UpdateBug(BugModel bug)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -62,7 +62,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Editing task status
+        //Aktualizace statusu u bugu
         public int? UpdateBugStatus(string status, int id)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -80,7 +80,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Fetching record of task by its id of project
+        //Získání bugu podle jeho id
         public IEnumerable<BugModel> GetBug(int bugId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
@@ -89,7 +89,7 @@ namespace PrjctManagementSystem.Models
             }
         }
 
-        //Fetching all records of tasks by its id of project
+        //Získání všech bugů podle projektu
         public IEnumerable<BugModel> GetAllBugs(int projectId)
         {
             using (IDbConnection db = new SqlConnection(ConnectionString))
