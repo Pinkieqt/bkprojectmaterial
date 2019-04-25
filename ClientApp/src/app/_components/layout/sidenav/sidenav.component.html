@@ -3,7 +3,7 @@
     <!-- Horní toolbar a jeho tlačítka -->
     <mat-toolbar style="position: sticky; top: 0; z-index: 10; height: 5vh;" >
       <!-- Levá strana -->
-        <button type="button" mat-button (click)="drawer.toggle()"><mat-icon><i class="material-icons">menu</i></mat-icon> Menu</button>
+        <button type="button" mat-button (click)="drawer.toggle()"><mat-icon><i class="material-icons">arrow_back_ios</i></mat-icon> Menu</button>
           <span class="myHorizontalDivider">|</span>
         <button type="button" mat-button [routerLink]='["/users"]'><mat-icon><i class="material-icons">face</i></mat-icon> Uživatelé</button>
           <span class="myHorizontalDivider">|</span>
@@ -17,7 +17,7 @@
           <button type="button" mat-icon-button matTooltip="Změnit barvy" (click)="changeTheme()"><mat-icon><i class="material-icons">opacity</i></mat-icon></button>
           <span>|</span>
           <span style="font-size: 13px" *ngIf="userName"> {{ userName }} </span>
-          <button type="button" mat-button (click)="logout()"><mat-icon><i class="material-icons">power_settings_new</i></mat-icon> Odhlásit se</button>
+          <button type="button" mat-stroked-button (click)="logout()" style="margin-left:7px;">Odhlásit se</button>
         </span>
     </mat-toolbar>
     <mat-sidenav-container fullscreen>
@@ -34,16 +34,15 @@
     
           <!-- Button na nový projekt -->
           <button type="button" mat-button [routerLink]='["/projectCreate"]' class="myBtn">
-              <mat-icon><i class="material-icons">add</i></mat-icon> Nový projekt
+              <mat-icon color="primary"><i class="material-icons">add</i></mat-icon> Nový projekt
           </button>
 
-          <mat-divider></mat-divider>
 
           <!-- Rendering a fetching projektů -->
           <mat-accordion>
             <!-- Fetching primary projektů -->
-            <mat-expansion-panel *ngFor="let project of projectList">
-              <mat-expansion-panel-header>
+            <mat-expansion-panel *ngFor="let project of projectList" class="mat-elevation-z0">
+              <mat-expansion-panel-header style="border-right: solid 2px #ff707c;">
                 <mat-panel-title class="myPanelTitleStyle">
                   {{ project.name }}
                 </mat-panel-title>
@@ -57,7 +56,7 @@
             </mat-expansion-panel>
             
             <!-- Fetching shared projektů -->
-            <mat-expansion-panel *ngFor="let sharedProject of sharedProjectList">
+            <mat-expansion-panel *ngFor="let sharedProject of sharedProjectList" class="mat-elevation-z0">
               <mat-expansion-panel-header>
                 <mat-panel-title class="myPanelTitleStyle">
                   {{ sharedProject.name }}

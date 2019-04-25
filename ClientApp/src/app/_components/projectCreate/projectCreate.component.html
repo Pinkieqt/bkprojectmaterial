@@ -10,15 +10,15 @@
                         <input type="text" matInput placeholder="Název projektu" formControlName="Name" required>
                     </mat-form-field>
                     <div class="userList">
-                        <button mat-flat-button color="accent" type="button" *ngFor="let item of userList" (click)="moveUser(item.id, 'from')"  matTooltip="Přidat uživatele k projektu" class="userBtn">{{item.first_name}} {{item.last_name}}</button>
+                        <button mat-stroked-button type="button" *ngFor="let item of userList" (click)="moveUser(item.id, 'from')"  matTooltip="Přidat uživatele k projektu" class="userBtn">{{item.first_name}} {{item.last_name}}</button>
                     </div>
                     <br>
                     <div class="userList">
-                        <button mat-flat-button color="accent" type="button" *ngFor="let item of tmpUserList" (click)="moveUser(item.id, 'to')"  matTooltip="Odebrat uživatele z projektu" class="userBtn">{{item.first_name}} {{item.last_name}}</button>
+                        <button mat-stroked-button type="button" *ngFor="let item of tmpUserList" (click)="moveUser(item.id, 'to')"  matTooltip="Odebrat uživatele z projektu" class="userBtn">{{item.first_name}} {{item.last_name}}</button>
                     </div>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-button color="primary" (click)="saveProject()" class="myBtnStyle">Vytvořit projekt</button>
+                    <button mat-stroked-button (click)="saveProject()" class="myBtnStyle">Vytvořit projekt</button>
                 </mat-card-actions>
             </mat-card>
         </mat-grid-tile>

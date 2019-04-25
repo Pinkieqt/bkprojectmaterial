@@ -1,6 +1,6 @@
 
 <mat-grid-list cols="1" rowHeight="5vh">
-  <mat-grid-tile [colspan]="1" [rowspan]="1" class="myTileStyle">
+  <mat-grid-tile [colspan]="1" [rowspan]="1" class="myTileStyle ">
     <!-- Levá strana -->
     <h4 *ngIf="tmpProject" class="title">Detail úkolů pro projekt "{{ tmpProject.name }}"</h4>
     <!-- Přidání space na levý / pravy -->
@@ -15,7 +15,7 @@
   </mat-grid-tile>
 </mat-grid-list>
 
-<mat-grid-list cols="5" rowHeight="90vh">
+<mat-grid-list cols="5" rowHeight="90vh" class="myGridList">
   <mat-grid-tile [colspan]="1" [rowspan]="1" class="sidebar">
     <app-sidebar></app-sidebar>
   </mat-grid-tile>
@@ -49,7 +49,7 @@
         <!-- První řádek -->
         <div class="row">
           <div class="rowItem">
-            <mat-card class="myCardStyle mat-elevation-z6">
+            <mat-card class="myCardStyle mat-elevation-z2">
               <mat-card-header>
                   <mat-card-title><h3>Popis</h3></mat-card-title>
               </mat-card-header>
@@ -59,7 +59,7 @@
             </mat-card>
           </div>
           <div class="rowItem">
-            <mat-card class="myCardStyle mat-elevation-z6">
+            <mat-card class="myCardStyle mat-elevation-z2">
               <mat-card-header>
                   <mat-card-title><h3>Vlastnosti</h3></mat-card-title>
               </mat-card-header>
@@ -89,7 +89,7 @@
         <!-- Druhý řádek -->
         <div class="row">
           <div class="rowItem">
-            <mat-card class="myCardStyle mat-elevation-z6">
+            <mat-card class="myCardStyle mat-elevation-z2">
               <mat-card-header>
                   <mat-card-title><h3>Komentáře</h3></mat-card-title>
               </mat-card-header>

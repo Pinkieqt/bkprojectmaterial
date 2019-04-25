@@ -1,13 +1,13 @@
 <mat-grid-list cols="1" rowHeight="95%">
     <mat-grid-tile>
         <mat-card class="myCardStyle mat-elevation-z6">
-            <mat-card-header>
+            <mat-card-header style="margin-bottom: 25px;">
                 <!-- Levá strana -->
                 <mat-card-title class="myHeaderStyle">Seznam uživatelů</mat-card-title>
                 <!-- Vyplnění středu -->
                 <span class="fill-space"></span>
                 <!-- Pravá strana -->
-                <button type="button" mat-button color="primary" (click)="openAddUserDialog()">
+                <button type="button" mat-stroked-button (click)="openAddUserDialog()">
                     <mat-icon><i class="material-icons">person_add</i></mat-icon> Registrace nového uživatele 
                 </button>
             </mat-card-header>

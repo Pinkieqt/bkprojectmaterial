@@ -25,7 +25,7 @@
     width: 6px;
     height: 6px;
     border-radius: 1000px;
-    background-color: rgb(255, 101, 101);
+    background-color: rgb(97, 94, 255);
 }
 .label2{
     float: right;
@@ -33,7 +33,7 @@
     width: 6px;
     height: 6px;
     border-radius: 1000px;
-    background-color: rgb(0, 255, 179);
+    background-color: rgb(255, 58, 91);
 }
 .label3{
     float: right;
@@ -41,7 +41,7 @@
     width: 6px;
     height: 6px;
     border-radius: 1000px;
-    background-color: rgb(236, 255, 60);
+    background-color: rgb(0, 255, 136);
 }
 
 .description{
@@ -85,12 +85,16 @@
 .myButtonStyle{
     height: 8vh;
     width: calc(100% + 50px);
-    border-radius: 5px;
+    border-radius: 10px;
     margin-left: -25px;
+    -webkit-box-shadow: 0px 5px 27px -16px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 5px 27px -16px rgba(0,0,0,0.15);
+    box-shadow: 0px 5px 27px -16px rgba(0,0,0,0.15);
 }
 
 .card{  
     width: 100%;
+    border-radius: 10px;     
     height: 8vh;
 }
 
@@ -100,7 +104,6 @@
     position: absolute;
     z-index: 100;
     bottom: 7px;
-    color: #ebebeb;
     font-size: 11px;
     left: 7px;
   }
