@@ -1,0 +1,29 @@
+[
+    {
+        "type": "Directory",
+        "name": "c:\\1Data D\\Bakalářská práce\\New Version with Material\\ProjectManagementSystem\\ProjectManagementSystem\\ClientApp\\src\\app",
+        "parent_id": null,
+        "fsPath": "c:\\1Data D\\Bakalářská práce\\New Version with Material\\ProjectManagementSystem\\ProjectManagementSystem\\ClientApp\\src\\app",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "B4JRMlHPdoQVSwjC"
+    },
+    {
+        "type": "Directory",
+        "name": "c:\\1Data D\\Bakalářská práce\\New Version with Material\\ProjectManagementSystem\\ProjectManagementSystem\\Controllers",
+        "parent_id": null,
+        "fsPath": "c:\\1Data D\\Bakalářská práce\\New Version with Material\\ProjectManagementSystem\\ProjectManagementSystem\\Controllers",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "muca3IUnlogNsL5r"
+    },
+    {
+        "type": "Directory",
+        "name": "c:\\1Data D\\Bakalářská práce\\New Version with Material\\ProjectManagementSystem\\ProjectManagementSystem\\Models",
+        "parent_id": null,
+        "fsPath": "c:\\1Data D\\Bakalářská práce\\New Version with Material\\ProjectManagementSystem\\ProjectManagementSystem\\Models",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "yncNrhTpF8lDtVoI"
+    }
+]
